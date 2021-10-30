@@ -1,5 +1,11 @@
-SIRDspells = S{"Cure IV","Raise","Banishga","Crusade","Cocoon","Chaotic Eye","Sheep Song","Blank Gaze","Geist Wall","Jettatura","Phalanx","Sound Blast","Sandspin","Soporific",}
+SIRDspells = S{"Cure IV","Raise","Banishga","Crusade","Cocoon","Chaotic Eye","Sheep Song","Blank Gaze","Geist Wall","Jettatura","Sound Blast","Sandspin","Soporific","Awful Eye","Reprisal","Stinking Gas","Bomb Toss",}
 res = require 'resources'
+--Healing Breeze + Sheep Song = Auto-regen
+--Cocoon
+--Bomb Toss (wave3 fetter pull)
+--Chaotic Eye, Blank Gaze (single target hate)
+--Awful Eye, Jettatura (conal hate)
+--Stinking Gas, Soporific, Geist Wall (aoe hate)
 
 function get_sets()
 	sets.fc = {}
@@ -12,16 +18,14 @@ function get_sets()
 	
 	sets.movement = {legs="Carmine Cuisses +1"}
 	
-	sets.fc.base = { --2+14+4+10+4+10+4+8=56
+	sets.fc.base = { --2+14+10+5+4+10+4+8=57
 	ammo="Sapience Orb", --2%
 	head={name="Carmine Mask +1",priority=12}, --14%
-	--neck="Orunmila's Torque", --5%
-	neck="Baetyl Pendant", --4%
 	body={name="Reverence Surcoat +3",priority=15}, --10%
-	--hands="Leyline Gloves", --5%
+	hands="Leyline Gloves", --5%
 	left_ring="Kishar ring", --4%
 	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',},priority=13},
-	--legs="Enif Cosciales", --8%
+	--legs={name="Enif Cosciales",priority=11}, --8%
 	legs={name="Arjuna Breeches",priority=11}, --4%
 	feet={name="Carmine Greaves +1",priority=14} --8%
 	}
@@ -36,36 +40,35 @@ function get_sets()
 	waist="Siegel Sash",
 	})
 	
-	sets.buff["Reprisal"] = {
+	sets.hp = {
 	sub={name="Srivatsa",priority=8}, --150
-	--ammo="Egoist's Tathlum",
+	ammo="Egoist's Tathlum",
 	head={name="Souveran Schaller +1",priority=15}, --280
 	neck={name="Unmoving Collar +1",priority=11}, --200
 	left_ear={name="Tuisto Earring",priority=9}, --150
 	right_ear={name="Odnowa Earring +1",priority=6}, --110
 	body={name="Reverence Surcoat +3",priority=14}, --254
-	--hands="Regal Gauntlets",
+	hands="Regal Gauntlets",
 	hands={name="Souveran Handschuhs +1",priority=13}, --239
 	left_ring={name="Gelatinous Ring +1",priority=7}, --110
 	right_ring={name="Moonlight Ring",priority=5}, --110
-	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=4}, --80
-	--waist="Gold Moogle Belt",
-	waist="Creed Baudrier", --40
+	back={name="Reiki Cloak",priority=8}, --130
+	waist="Gold Moogle Belt",
+	waist={name="Creed Baudrier",priority=4}, --40
 	legs={name="Souveran diechlings +1",priority=10}, --162
 	feet={name="Souveran schuhs +1",priority=12}, --227
 	}
 	
-	sets.buff["Phalanx"] = { --24
+	sets.buff["Phalanx"] = { --29
 	head={ name="Valorous Mask", augments={'"Conserve MP"+3','"Mag.Atk.Bns."+23','Phalanx +5',},priority=10}, --5
-	neck="Incanter's Torque",
-	body="Valorous Mail", --1
+	body="Valorous Mail", --4
 	hands={name="Souveran Handschuhs +1",priority=15}, --5
-	back="Weard Mantle", --4
+	back="Weard Mantle", --5
 	legs={name="Sakpata's Cuisses",priority=13}, --5
 	feet={name="Souveran schuhs +1",priority=14}, --5
 	}
 	
-	sets.phalanx2 = set_combine(sets.buff["Phalanx"], { --31
+	sets.phalanx2 = set_combine(sets.buff["Phalanx"], { --36
 	main={name="Sakpata's Sword",priority=12}, --5
 	sub={name="Priwen",priority=11}, --2
 	})
@@ -79,10 +82,11 @@ function get_sets()
 	hands={name="Souveran Handschuhs +1",priority=15}, --9
 	left_ring="Petrov Ring", --4
 	right_ring="Apeile Ring +1", --5
-	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=11},
-	waist={name="Creed Baudrier",priority=10}, --5
+	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=10},
+	waist={name="Creed Baudrier",priority=9}, --5
 	legs={name="Souveran Diechlings +1",priority=13}, --9
-	feet={name="Chevalier's Sabatons +1",priority=9} --11
+	feet={ name="Eschite Greaves", augments={'HP+80','Enmity+7','Phys. dmg. taken -4',},priority=11},
+	--feet={name="Chevalier's Sabatons +1",priority=9} --11
 	}
 	
 	sets.sird = set_combine(sets.enmity, {
@@ -94,16 +98,26 @@ function get_sets()
 	feet="Odyssean Greaves" --20
 	})
 	
+	--sets.th_sird = set_combine(sets.enmity, {  --For when I get Founder's Hose.
+	--ammo="Perfect Lucky Egg",
+	--head={name="Souveran Schaller +1",priority=15}, --20
+	--neck="Moonlight Necklace", --15
+	--right_ear="Knightly Earring", --9
+	--waist="Chaac Belt",
+	--legs={name="Founder's Hose",priority=14}, --30
+	--feet={name="Odyssean Greaves",priority=13} --20
+	--})
+	
 	sets.ja["Provoke"] = sets.enmity
 	sets.ja["Invincible"] = {legs="Caballarius Breeches",}
 	sets.ja["Holy Circle"] = {feet="Reverence Leggings"}
-	sets.ja["Shield Bash"] = {right_ear="Knightly Earring",hands="Caballarius Gauntlets",--[[left_ring="Fenian Ring",]]}
+	sets.ja["Shield Bash"] = {right_ear="Knightly Earring",hands="Caballarius Gauntlets +3",--[[left_ring="Fenian Ring",]]}
 	sets.ja["Weapon Bash"] = {right_ear="Knightly Earring",}
 	sets.ja["Sentinel"] = set_combine(sets.enmity, {feet="Caballarius Leggings +3"})
 	sets.ja["Cover"] = {--[[head="Reverence Coronet",]]}
 	sets.ja["Rampart"] = set_combine(sets.enmity, {head="Caballarius Coronet",})
 	sets.ja["Fealty"] = {body="Caballarius Surcoat",}
-	sets.ja["Chivalry"] = {hands="Caballarius Gauntlets"}
+	sets.ja["Chivalry"] = {hands="Caballarius Gauntlets +3"}
 	sets.ja["Divine Emblem"] = {feet="Chevalier's Sabatons +1"}
 	
 	sets.dt = {
@@ -142,31 +156,38 @@ function get_sets()
 	sets.sword['Malignance Sword'] = {main="Malignance Sword"}
 	sets.sword['Naegling'] = {main="Naegling"}
 	
-	sets.shield.index = {'Srivatsa'--[[,'Aegis','Ochain']]}
+	sets.shield.index = {'Srivatsa','Aegis','Ochain'}
 	shield_ind = 1 --Srivatsa is the Default
 	
-	sets.shield['Srivatsa'] = {sub="Srivatsa"}
-	--sets.shield['Aegis'] = {sub="Aegis"}
-	--sets.shield['Ochain'] = {sub="Ochain"}
-	
-	sets.reequip = set_combine(sets.dt, sets.sword['Malignance Sword'], sets.shield['Srivatsa'], {})
+	sets.shield['Srivatsa'] = {sub="Srivatsa",waist="Asklepian Belt",}
+	sets.shield['Aegis'] = {sub="Aegis",neck="Warder's Charm +1",waist="Carrier's Sash",}
+	sets.shield['Ochain'] = {sub="Ochain",waist="Flume Belt +1",}
 	
 	sets.ws.common = {
 	ammo="Coiste Bodhar",
-	head={ name="Valorous Mask", augments={'Attack+8','Sklchn.dmg.+1%','Weapon skill damage +7%',}},
+	head={ name="Valorous Mask", augments={'Attack+8','Sklchn.dmg.+1%','Weapon skill damage +7%',},priority=12}, --38
 	neck="Fotia Gorget",
 	right_ear="Thrud Earring",
-	body="Sakpata Breastplate",
-	hands="Sakpata Gauntlets",
+	body={name="Sakpata's Breastplate",priority=15}, --136
+	hands={name="Sakpata's Gauntlets",priority=13}, --91
 	left_ring="Regal Ring",
 	right_ring="Epaminondas's Ring",
 	waist="Fotia Belt",
-	legs="Sakpata Cuisses",
-	feet="Sulevia's Leggings +2"
+	legs={name="Sakpata's Cuisses",priority=14}, --114
+	feet={name="Sulevia's Leggings +2",priority=11} --20
+	
+	--head="Nyame Helm", --ME123 MDB5 DT7
+	--neck="Loricate Torque +1", --6
+	--body="Nyame Mail", --ME139 MDB8 DT9
+	--hands="Nyame Gauntlets", --ME112 MDB4 DT7
+	--back="Solemnity Cape", --4
+	--legs="Nyame Flanchard", --ME150 MDB7 DT8
+	--feet="Nyame Sollerets", --ME150 MDB5 DT7
 	}
 	
-	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
-	})
+	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {})
+	sets.ws["Atonement"] = sets.enmity
+	
 end
 
 function check_height() 
@@ -200,12 +221,12 @@ function precast(spell)
 			[12] = 1.666666666666667,
 		}
 		ability_distance = res.weapon_skills[spell.id].range
-		if player.tp < 1000 or player.status == "Idle" then
+		if player.tp < 1000 then
 			cancel_spell()
 		elseif spell.target.distance > (ability_distance * range_mult[ability_distance] + spell.target.model_size + player.model_size) then
 			cancel_spell()
 			add_to_chat(123, spell.name..' Canceled: [Out of Range]')
-		elseif player.tp > 1000 then
+		elseif player.tp >= 1000 then
 			if sets.ws[spell.name] then
 				equip(sets.ws[spell.name])
 			else
@@ -223,6 +244,8 @@ function precast(spell)
 		if spell.skill == 'Healing Magic' then
 			if string.find(spell.english,'Cure') then
 				equip(sets.fc.cure)
+			else
+				equip(sets.fc.base)
 			end
 		elseif spell.skill == 'Enhancing Magic' then
 			equip(sets.fc["Enhancing Magic"])
@@ -236,8 +259,11 @@ end
 function midcast(spell)
 	if sets.buff[spell.english] then
 		equip(sets.buff[spell.english])
-		if spell.name == "Phalanx" and player.tp < 750 then
-			equip(sets.phalanx2)
+		if spell.name == "Phalanx" then
+			equip({right_ear="Mimir Earring",})
+			if player.tp < 750 then
+				equip(sets.phalanx2)
+			end
 		end
 	elseif spell.action_type == 'Magic' and not spell.type:contains('Trust') then
 		if SIRDspells:contains(spell.name) then
@@ -266,7 +292,9 @@ end
 function aftercast(spell)
 	equip(sets.dt,sets.shield[sets.shield.index[shield_ind]],sets.sword[sets.sword.index[sword_ind]])
 	if player.mpp <= 35 then
-		equip({ammo="Homiliary",waist="Fucho-no-obi",})
+		equip({ammo="Homiliary",--[[waist="Fucho-no-obi",]]})
+	elseif player.mpp <= 42 then
+		equip({waist="Flume Belt +1",})
 	end
 end
 
@@ -280,10 +308,9 @@ function buff_change(n, gain, buff_table)
 	end
 end
 
-send_command('bind !q gs equip dt') -- Hit alt+q, toggles the sets
-send_command('bind !w gs equip movement') -- Hit alt+w, toggles the sets
-send_command('wait 5;input /lockstyle on')
-send_command('bind !a gs equip sets.reequip;wait 1; input /lockstyle on')
+send_command('bind !q gs equip dt') -- Hit alt+q, equips dt set
+send_command('bind !w gs equip movement') -- Hit alt+w, equips movement equipment
+send_command('bind !a gs c reequip;wait 1; input /lockstyle on') -- Hit alt+a, reequips your gear with toggled sword/shield
 send_command('bind !` gs c toggle shield set') -- Hit alt+`, toggles the sets
 send_command('bind ^` gs c toggle sword set') -- Hit ctrl+`, toggles the sets
 
@@ -300,13 +327,16 @@ function self_command(command)
 		sword_ind = sword_ind +1
 		if sword_ind > #sets.sword.index then sword_ind = 1 end
 		windower.add_to_chat(1,'<----- Sword Set changed to '..sets.sword.index[sword_ind]..' ----->')
-		equip(sets.sword[sets.sword.index[sword_ind]])
+		equip(sets.dt,sets.sword[sets.sword.index[sword_ind]])
 	end
 	if command == 'toggle shield set' then
 		shield_ind = shield_ind +1
 		if shield_ind > #sets.shield.index then shield_ind = 1 end
 		windower.add_to_chat(1,'<----- Shield Set changed to '..sets.shield.index[shield_ind]..' ----->')
-		equip(sets.shield[sets.shield.index[shield_ind]])
+		equip(sets.dt,sets.shield[sets.shield.index[shield_ind]])
+	end
+	if command == 'reequip' then
+		equip(sets.dt,sets.shield[sets.shield.index[shield_ind]],sets.sword[sets.sword.index[sword_ind]])
 	end
 end
 
