@@ -1,4 +1,4 @@
-SIRDspells = S{"Cure IV","Raise","Banishga","Crusade","Cocoon","Chaotic Eye","Sheep Song","Blank Gaze","Geist Wall","Jettatura","Sound Blast","Sandspin","Soporific","Awful Eye","Reprisal","Stinking Gas","Bomb Toss",}
+SIRDspells = S{"Cure IV","Raise","Banishga",--[["Crusade","Reprisal",]]"Cocoon","Chaotic Eye","Sheep Song","Blank Gaze","Geist Wall","Jettatura","Sound Blast","Sandspin","Soporific","Awful Eye","Stinking Gas","Bomb Toss",}
 res = require 'resources'
 --Healing Breeze + Sheep Song = Auto-regen
 --Cocoon
@@ -15,6 +15,7 @@ function get_sets()
 	sets.misc = {}
 	sets.sword = {}
 	sets.shield = {}
+	sets.TP = {}
 	
 	sets.movement = {legs="Carmine Cuisses +1"}
 	
@@ -109,6 +110,7 @@ function get_sets()
 	--})
 	
 	sets.ja["Provoke"] = sets.enmity
+	sets.ja["Warcry"] = sets.enmity
 	sets.ja["Invincible"] = {legs="Caballarius Breeches",}
 	sets.ja["Holy Circle"] = {feet="Reverence Leggings"}
 	sets.ja["Shield Bash"] = {right_ear="Knightly Earring",hands="Caballarius Gauntlets +3",--[[left_ring="Fenian Ring",]]}
@@ -150,18 +152,46 @@ function get_sets()
 	waist="Asklepian Belt",
 	}
 	
+	sets.refresh = {
+	ammo="Homiliary",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
+	waist="Fucho-no-obi",
+	}
+	
 	sets.sword.index = {'Malignance Sword','Naegling'}
 	sword_ind = 1 --Malignance Sword is the Default
 	
 	sets.sword['Malignance Sword'] = {main="Malignance Sword"}
 	sets.sword['Naegling'] = {main="Naegling"}
 	
-	sets.shield.index = {'Srivatsa','Aegis','Ochain'}
+	sets.shield.index = {'Srivatsa','Ochain','Aegis'}
 	shield_ind = 1 --Srivatsa is the Default
 	
 	sets.shield['Srivatsa'] = {sub="Srivatsa",waist="Asklepian Belt",}
 	sets.shield['Aegis'] = {sub="Aegis",neck="Warder's Charm +1",waist="Carrier's Sash",}
 	sets.shield['Ochain'] = {sub="Ochain",waist="Flume Belt +1",}
+	
+	sets.TP.index = {'None','Standard','HighAcc'}
+	TP_ind = 1 --None is the Default
+	
+	sets.TP['Standard'] = {
+	ammo="Coiste Bodhar",
+	head="Flamma Zucchetto +2",
+	neck="Vim Torque +1",
+	left_ear="Telos Earring",
+	right_ear="Dedition Earring",
+	body="Sakpata's Plate",
+	hands="Sakpata's Gauntlets",
+	left_ring="Regal Ring",
+	right_ring="Moonlight Ring",
+	back="Weard Mantle",
+	waist="Sailfi Belt +1",
+	legs="Sakpata's Cuisses",
+	feet="Flam. Gambieras +2"
+	}
+	
+	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {})
 	
 	sets.ws.common = {
 	ammo="Coiste Bodhar",
@@ -174,7 +204,7 @@ function get_sets()
 	right_ring="Epaminondas's Ring",
 	waist="Fotia Belt",
 	legs={name="Sakpata's Cuisses",priority=14}, --114
-	feet={name="Sulevia's Leggings +2",priority=11} --20
+	feet={name="Nyame Sollerets",priority=11} --20
 	
 	--head="Nyame Helm", --ME123 MDB5 DT7
 	--neck="Loricate Torque +1", --6
@@ -187,6 +217,9 @@ function get_sets()
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {})
 	sets.ws["Atonement"] = sets.enmity
+	
+	sets.ws['Torcleaver'] = set_combine(sets.ws.common, {
+	})
 	
 end
 
@@ -253,11 +286,13 @@ function precast(spell)
 			equip(sets.fc.base)
 		end
 	end
-	return
+	if spell.english:contains('Circle') then
+		equip({body="Founder's Breastplate"})
+	end
 end
 
 function midcast(spell)
-	if sets.buff[spell.english] then
+	if sets.buff[spell.english] and sets.TP[sets.TP.index[TP_ind]] == sets.TP['None'] then
 		equip(sets.buff[spell.english])
 		if spell.name == "Phalanx" then
 			equip({right_ear="Mimir Earring",})
@@ -269,7 +304,15 @@ function midcast(spell)
 		if SIRDspells:contains(spell.name) then
 			equip(sets.sird)
 		elseif spell.skill == 'Enhancing Magic' then
-			equip(sets.EnhancingDuration)
+			if string.find(spell.english,'Protect') then
+				equip(sets.protect)
+			elseif spell.name == 'Crusade' or spell.name == 'Reprisal' then
+				if player.tp < 750 then
+					equip(sets.sird,sets.EnhancingDuration)
+				end
+			else
+				equip(sets.EnhancingDuration)
+			end
 		elseif string.find(spell.english,'Enlight') then
 			equip(sets.divine)
 		else
@@ -290,12 +333,22 @@ function midcast(spell)
 end
 
 function aftercast(spell)
-	equip(sets.dt,sets.shield[sets.shield.index[shield_ind]],sets.sword[sets.sword.index[sword_ind]])
+	--reequip()
+	send_command('@input //gs c reequip')
 	if player.mpp <= 35 then
 		equip({ammo="Homiliary",--[[waist="Fucho-no-obi",]]})
 	elseif player.mpp <= 42 then
 		equip({waist="Flume Belt +1",})
 	end
+end
+
+function status_change(new,old)
+    if new == 'Engaged' then
+		--reequip()
+		send_command('@input //gs c reequip')
+	elseif new == 'Idle' then
+		equip(sets.dt,sets.movement)
+    end
 end
 
 function buff_change(n, gain, buff_table)
@@ -313,6 +366,7 @@ send_command('bind !w gs equip movement') -- Hit alt+w, equips movement equipmen
 send_command('bind !a gs c reequip;wait 1; input /lockstyle on') -- Hit alt+a, reequips your gear with toggled sword/shield
 send_command('bind !` gs c toggle shield set') -- Hit alt+`, toggles the sets
 send_command('bind ^` gs c toggle sword set') -- Hit ctrl+`, toggles the sets
+send_command('bind !s gs c toggle TP set') -- Hit alt+s, equips tp set
 
 function file_unload()
     send_command('unbind !q')
@@ -320,6 +374,7 @@ function file_unload()
 	send_command('unbind !a')
 	send_command('unbind !`')
 	send_command('unbind ^`')
+	send_command('unbind !s')
 end
 
 function self_command(command)
@@ -335,9 +390,21 @@ function self_command(command)
 		windower.add_to_chat(1,'<----- Shield Set changed to '..sets.shield.index[shield_ind]..' ----->')
 		equip(sets.dt,sets.shield[sets.shield.index[shield_ind]])
 	end
-	if command == 'reequip' then
-		equip(sets.dt,sets.shield[sets.shield.index[shield_ind]],sets.sword[sets.sword.index[sword_ind]])
+	if command == 'toggle TP set' then
+		TP_ind = TP_ind +1
+		if TP_ind > #sets.TP.index then TP_ind = 1 end
+		windower.add_to_chat(1,'<----- TP Set changed to '..sets.TP.index[TP_ind]..' ----->')
+		if player.status == 'Engaged' then
+			equip(sets.TP[sets.TP.index[TP_ind]])
+		end
 	end
+	if command == 'reequip' then
+		if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['None'] then
+			equip(sets.TP[sets.TP.index[TP_ind]])
+		else
+			equip(sets.dt,sets.shield[sets.shield.index[shield_ind]],sets.sword[sets.sword.index[sword_ind]])
+		end
+    end
 end
 
 function set_macros(sheet,book)
