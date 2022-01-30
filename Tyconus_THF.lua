@@ -21,9 +21,17 @@ function get_sets()
 	sets.TH = {}
 	sets.ws = {}
 	sets.ja = {}
-	sets.magic = {}
+	sets.precast = {}
 	sets.midcast = {}
-	sets.DEF = {}
+	ammo = {}
+	
+	ammo.melee = {ammo="Coiste Bodhar"}
+	ammo.ws = {ammo="Seething Bomblet +1"}
+	ammo.dt = {ammo="Staunch Tathlum +1"}
+	ammo.th = {ammo="Perfect Lucky Egg"}
+	ammo.fc = {ammo="Sapience Orb"}
+	ammo.acc = {ammo="Yamarang"}
+	ammo.shooty = {ammo="Chapuli Arrow"}
 	
 	sets.fc.base = {
 	head="Herculean Helm",
@@ -43,6 +51,13 @@ function get_sets()
 	hands="Meghanada Gloves +2",
 	right_ring="Paguroidea Ring",
 	legs="Meghanada Chausses +2",
+	}
+	
+	sets.Dagger = {
+	main={ name="Aeneas", priority=2,},
+	sub={ name="Gleti's Knife",priority=1},
+	--sub={ name="Tauret", priority=1,},
+	--sub={ name="Ternion Dagger +1", priority=1,},
 	}
 	
 	-- Melee Sets --
@@ -92,7 +107,7 @@ function get_sets()
 	--feet="Nyame Sollerets", --ME150 MDB5 DT7
 	})
 	
-	sets.TH.index = {'None','TH','Full'}	
+	sets.TH.index = {'None','TH',--[['Full']]}	
 	TH_ind = 1 -- Standard set is the Default
 	
 	sets.TH['TH'] = {
@@ -127,26 +142,6 @@ function get_sets()
 	left_ring="Stikini Ring +1",
 	}
 	
-	sets.ranged = {
-	head="Mummu Bonnet +2",
-	neck="Iskur Gorget",
-	left_ear="Telos Earring",
-	right_ear="Enervating Earring",
-	body="Malignance Tabard",
-	hands="Malignance Gloves",
-	left_ring="Regal Ring",
-	right_ring="Cacoethic Ring +1",
-	waist="Eschan Stone",
-	legs="Malignance Tights",
-	feet="Mummu Gamashes +2",
-	}
-	
-	sets.Dagger = set_combine(sets.TP['Standard'], {
-	main={ name="Aeneas", priority=2,},
-	--sub={ name="Tauret", priority=1,},
-	sub={ name="Ternion Dagger +1", priority=1,},
-	})
-	
 	-- Weaponskills --
 	sets.ws.common = {
 	head="Adhemar Bonnet +1",
@@ -179,7 +174,7 @@ function get_sets()
 	right_ear="Friomisi Earring",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
-	waist="Eschan Stone",
+	waist="Orpheus's Sash",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	})
@@ -212,8 +207,19 @@ function get_sets()
 	feet="Nyame Sollerets"
 	})
 	
+	sets.ws['Empyreal Arrow'] = set_combine(sets.ws.common, {
+	head="Nyame Helm",
+	neck="Iskur Gorget",
+	body="Nyame Mail",
+	hands="Nyame Gauntlets",
+	left_ring="Regal Ring",
+	right_ring="Cacoethic Ring +1",
+	legs="Nyame Flanchard",
+	feet="Nyame Sollerets"
+	})
+	
 	-- Magic --
-	sets.magic['Utsusemi'] = set_combine(sets.fc.base, {
+	sets.precast['Utsusemi'] = set_combine(sets.fc.base, {
 	neck="Magoraga Bead Necklace",
 	})
 	
@@ -224,8 +230,8 @@ function get_sets()
 	right_ear="Dignitary's Earring",
 	body="Malignance Tabard",
 	hands="Malignance Gloves",
-	left_ring="Stikini Ring +1",
-	right_ring="Metamorph Ring +1",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	waist="Eschan Stone",
 	legs="Malignance Tights",
 	feet="Nyame Sollerets"
@@ -275,6 +281,30 @@ function get_sets()
 	waist="Carrier's Sash",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
+	}
+	
+	--Snapshot > Rapid Shot
+	sets.precast.RA = {
+	left_ring="Crepuscular Ring",
+	--waist="Yemaya Belt", --Duke Vepar
+	--legs="Adhemar Kecks +1",
+	feet="Meghanada Jambeaux +2"
+	}
+	
+	--r.acc/stp/crit/agi/recycle
+	sets.midcast.RA = {
+	head="Nyame Helm",
+	neck="Iskur Gorget",
+	left_ear="Telos Earring",
+	right_ear="Enervating Earring",
+	body="Malignance Tabard",
+	hands="Malignance Gloves",
+	left_ring="Crepuscular Ring",
+	right_ring="Cacoethic Ring +1",
+	waist="Eschan Stone",
+	--waist="Yemaya Belt",
+	legs="Malignance Tights",
+	feet="Nyame Sollerets",
 	}
 end
 
@@ -334,12 +364,14 @@ function precast(spell)
 			end
 			if player.equipment.range == 'empty' then
 				if spell.name == "Aeolian Edge" or spell.name == "Rudra's Storm" or spell.name == "Savage Blade" then
-					equip({ammo="Seething Bomblet +1"})
+					equip(ammo.ws)
 				elseif spell.name == "Mandalic Stab" or spell.name == "Shark Bite" then
-					equip({ammo="Coiste Bodhar"})
+					equip(ammo.melee)
 				else
-					equip({ammo="Yamarang"})
+					equip(ammo.acc)
 				end
+			elseif player.equipment.range == 'Ullr' and player.equipment.ammo == 'empty' then
+				equip(ammo.shooty)
 			end
 			if sets.ws[spell.name] then
 				equip(sets.ws[spell.name])
@@ -355,28 +387,32 @@ function precast(spell)
 			if buffactive['Copy Image (3)'] then
 				cancel_spell()
 			else
-				equip(sets.magic['Utsusemi'])
+				equip(sets.precast['Utsusemi'])
 			end
 		else
 			equip(sets.fc.base)
 		end
 		if player.equipment.range == 'empty' then
-			equip({ammo="Sapience Orb"})
+			equip(ammo.fc)
 		end
-	elseif spell.action_type == 'Ranged Attack' and player.equipment.range ~= 'empty' then
-		equip(sets.ranged)
+	elseif spell.action_type == 'Ranged Attack' and player.equipment.range ~= 'empty' and player.equipment.range == 'Ullr' then
+		if player.equipment.ammo == 'empty' then
+			equip(ammo.shooty)
+		end
+		equip(ammo.shooty)
+		equip(sets.precast.RA)
 	end
 end
 
 function midcast(spell)
 	if spell.skill == 'Enfeebling Magic' then
 		if player.equipment.range == 'empty' then
-			equip({ammo="Yamarang"})
+			equip(ammo.acc)
 		end
 		if S{player.sub_job}:contains('BLM') then
 			equip(sets.THwhore)
 			if player.equipment.range == 'empty' then
-				equip({ammo="Per. Lucky Egg",})
+				equip(ammo.th)
 			else
 				equip({waist="Chaac Belt",})
 			end
@@ -390,6 +426,8 @@ function midcast(spell)
 		elseif spell.name == 'Stoneskin' then
 			equip({right_ear="Earthcry Earring",})
 		end
+	elseif spell.action_type == 'Ranged Attack' and player.equipment.range ~= 'empty' then
+		equip(sets.midcast.RA)
 	end
 	if (spell.name == 'Sneak' or spell.english == 'Spectral Jig' or spell.english:contains('Monomi')) and spell.target.name == player.name and buffactive["Sneak"] then
 		send_command('cancel Sneak')
@@ -409,22 +447,21 @@ function aftercast(spell)
 		equip(sets.TP[sets.TP.index[TP_ind]],sets.TH[sets.TH.index[TH_ind]])
 		if sets.TH[sets.TH.index[TH_ind]] ~= sets.TH['None'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Per. Lucky Egg"})
+				equip(ammo.th)
 			else
 				equip({left_ear="Suppanomimi",waist="Chaac Belt",})
 			end
 		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Yamarang"})
+				equip(ammo.acc)
 			end
 		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Hybrid'] or sets.TP[sets.TP.index[TP_ind]] == sets.TP['DT'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Staunch Tathlum +1"})
+				equip(ammo.dt)
 			end
 		else
 			if player.equipment.range == 'empty' then
-				--equip({ammo="Coiste Bodhar"})
-				equip({ammo="Yamarang"})
+				equip(ammo.acc)
 			end
 		end
 	else
@@ -434,7 +471,7 @@ function aftercast(spell)
 			equip(sets.TP[sets.TP.index[TP_ind]],sets.idle)
 			if player.equipment.range == 'empty' then
 				--equip({ammo="Coiste Bodhar",})
-				equip({ammo="Yamarang"})
+				equip(ammo.acc)
 			end
 		end
 	end
@@ -445,22 +482,21 @@ function status_change(new,old)
 		equip(sets.TP[sets.TP.index[TP_ind]],sets.TH[sets.TH.index[TH_ind]])
 		if sets.TH[sets.TH.index[TH_ind]] ~= sets.TH['None'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Per. Lucky Egg"})
+				equip(ammo.th)
 			else
 				equip({left_ear="Suppanomimi",waist="Chaac Belt",})
 			end
 		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Yamarang"})
+				equip(ammo.acc)
 			end
 		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Hybrid'] or sets.TP[sets.TP.index[TP_ind]] == sets.TP['DT'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Staunch Tathlum +1"})
+				equip(ammo.dt)
 			end
 		else
 			if player.equipment.range == 'empty' then
-				--equip({ammo="Coiste Bodhar"})
-				equip({ammo="Yamarang"})
+				equip(ammo.acc)
 			end
 		end
 	elseif new == 'Idle' then
@@ -469,8 +505,7 @@ function status_change(new,old)
 		else
 			equip(sets.TP[sets.TP.index[TP_ind]],sets.idle)
 			if player.equipment.range == 'empty' then
-				--equip({ammo="Coiste Bodhar"})
-				equip({ammo="Yamarang"})
+				equip(ammo.acc)
 			end
 		end
 	end
@@ -491,10 +526,8 @@ function weathercheck(spell_element,set)
 end
 
 send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
-send_command('bind !e gs equip sets.DEF.DT') -- Hit alt+e, toggles the sets
-send_command('bind !m gs equip sets.DEF.MEVA')
+
 send_command('bind !a gs c reequip') -- Hit alt+a, reequips your gear
-send_command('bind !s gs equip sets.Dagger') -- Hit alt+s
 send_command('bind !r gs equip sets.regen')
 send_command('bind !w gs c toggle TH set') -- Hit alt+n, toggles the sets
 send_command('bind !u gs equip low_hp;wait 1; gs equip high_hp')
@@ -502,10 +535,8 @@ send_command('bind !u gs equip low_hp;wait 1; gs equip high_hp')
 function file_unload()
     send_command('unbind !q')
 	send_command('unbind !w')
-	send_command('unbind !e')
 	send_command('unbind !a')
 	send_command('unbind !s')
-	send_command('unbind !m')
 	send_command('unbind !r')
 	send_command('unbind !u')
 end
@@ -524,12 +555,11 @@ function self_command(command)
 		elseif player.status == 'Engaged' then
 			if player.equipment.range == 'empty' then
 				if sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] then
-					equip({ammo="Yamarang"})
+					equip(ammo.acc)
 				elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Hybrid'] or sets.TP[sets.TP.index[TP_ind]] == sets.TP['DT'] then
-					equip({ammo="Staunch Tathlum +1",})
+					equip(ammo.dt)
 				else
-					--equip({ammo="Coiste Bodhar"})
-					equip({ammo="Yamarang"})
+					equip(ammo.acc)
 				end
 			end
 			equip(sets.TP[sets.TP.index[TP_ind]],sets.TH[sets.TH.index[TH_ind]])
@@ -549,28 +579,28 @@ function self_command(command)
 		end
 		if sets.TH[sets.TH.index[TH_ind]] ~= sets.TH['None'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Per. Lucky Egg"})
+				equip(ammo.th)
 			else
 				equip({left_ear="Suppanomimi",waist="Chaac Belt",})
 			end
 		else
 			if player.equipment.range == 'empty' and (sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] or sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['Hybrid']) then
-				equip(sets.TP[sets.TP.index[TP_ind]],equip({ammo="Yamarang"})--[[{ammo="Coiste Bodhar"}]])
+				equip(sets.TP[sets.TP.index[TP_ind]],ammo.acc)
 			end
 		end
 	end
 	if command == 'reequip' then
-		equip(sets.TP[sets.TP.index[TP_ind]],{main={ name="Aeneas",priority=2},sub={ name="Tauret",priority=1},})
+		equip(sets.TP[sets.TP.index[TP_ind]],sets.Dagger)
 		--equip(sets.TP[sets.TP.index[TP_ind]],sets.TH[sets.TH.index[TH_ind]])
 		if sets.TH[sets.TH.index[TH_ind]] ~= sets.TH['None'] then
 			if player.equipment.range == 'empty' then
-				equip({ammo="Per. Lucky Egg"})
+				equip(ammo.th)
 			else
 				equip({left_ear="Suppanomimi",waist="Chaac Belt",})
 			end
 		else
 			if player.equipment.range == 'empty' then
-				equip(sets.TP[sets.TP.index[TP_ind]],equip({ammo="Yamarang"})--[[{ammo="Coiste Bodhar"}]])
+				equip(sets.TP[sets.TP.index[TP_ind]],ammo.acc)
 			end
 		end
 		if player.status == 'Idle' then
