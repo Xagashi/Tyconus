@@ -26,7 +26,7 @@ function get_sets()
 -------------------------------------------------- Fast Cast ---------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 	
-	sets.fc.base = { --2+14+4+2+1+9+5+4+10+3+7+8=69
+	sets.fc.base = { --2+14+4+2+1+9+5+4+10+3+8+8=70
     ammo="Sapience Orb", --2
     head={ name="Carmine Mask +1", augments={'Accuracy+20','Mag. Acc.+12','"Fast Cast"+4',}}, --14
 	neck="Baetyl Pendant", --4
@@ -38,7 +38,7 @@ function get_sets()
     right_ring="Lebeche Ring",
 	back={ name="Fi Follet Cape +1", augments={'Path: A',}}, --10
 	waist="Witful Belt", --3
-    legs={ name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, --7
+    legs="Enif Cosciales",
     feet={ name="Carmine Greaves +1", augments={'HP+80','MP+80','Phys. dmg. taken -4',}}, --8
 	}
 	
@@ -58,23 +58,24 @@ function get_sets()
 --------------------------------------------------- MIDCAST ---------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 
-	sets.TP.index = {'Standard','Learning'}
+	sets.TP.index = {'Standard','Learning','DT'}
 	TP_ind = 1 --Standard set is the Default
 	
 	sets.TP['Standard'] = {
-	ammo="Coiste Bodhar",
+	ammo="Aurgelmir Orb +1",
 	head="Adhemar Bonnet +1",
 	neck="Combatant's Torque",
-	body="Malignance Tabard",
-	left_ring="Ilabrat Ring",
+	--body="Malignance Tabard",
+	body="Adhemar Jacket +1",
+	left_ring="Chirich Ring +1",
 	right_ring="Petrov Ring",
+	back="Aurist's Cape +1",
 	legs="Malignance Tights",
 	feet="Jhakri Pigaches +2",
 	
 	left_ear="Suppanomimi",
 	right_ear="Brutal Earring",
 	hands="Adhemar Wristbands +1",
-	back="Mecistopins Mantle",
 	waist="Reiki Yotai",
 	
 	main={ name="Naegling", priority=1,},
@@ -82,8 +83,6 @@ function get_sets()
 	--left_ear="Dedition Earring",
 	--right_ear="Telos Earring",
 	--hands="Magus Bazubands",
-	--back="Aurist's Cape +1",
-	--waist="Kentarch Belt +1",
 	}
 	
 	sets.TP['Learning'] = {
@@ -93,16 +92,16 @@ function get_sets()
 	ammo="Staunch Tathlum +1",
 	head="Carmine Mask +1",
 	neck="Combatant's Torque",
-	left_ear="Odr Earring",
+	left_ear="Crepuscular Earring",
 	right_ear="Telos Earring",
 	body="Malignance Tabard",
 	hands="Magus Bazubands",
-	left_ring="Cacoethic Ring",
+	left_ring="Chirich Ring +1",
 	right_ring="Cacoethic Ring +1",
 	back="Aurist's Cape +1",
 	waist="Kentarch Belt +1",
 	legs="Malignance Tights",
-	feet="Jhakri Pigaches +2"
+	feet="Gleti's Boots"
 	}
 	
 	sets.TP['DT'] = set_combine(sets.TP['Standard'], { --49
@@ -121,8 +120,8 @@ function get_sets()
 	nuke_ind = 1 --Free set is the Default
 	
 	sets.nuke['Free'] = {
-	main={ name="Maxentius", priority=2,},
-	sub={ name="Naegling", priority=1,},
+	main={ name="Bunzi's Rod", priority=2,},
+	sub={ name="Maxentius", priority=1,},
 	ammo="Ghastly Tathlum +1",
 	head=empty,
 	neck="Baetyl Pendant",
@@ -192,7 +191,7 @@ function get_sets()
     waist="Eschan Stone",
     left_ear="Dignitary's Earring",
     --right_ear="Gwati Earring",
-    --left_ring="Crepuscular Ring",
+    left_ring="Crepuscular Ring",
     right_ring="Metamor. Ring +1",
     --back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}},
 	}
@@ -225,9 +224,14 @@ function get_sets()
 	feet="Nyame Sollerets"
 	}
 	
+	sets.ws['Savage Blade'] = set_combine(sets.ws.common, {
+	nack="Republican Platinum Medal",
+	waist="Sailfi Belt +1",
+	})
+	
 	sets.ws['Sanguine Blade'] = set_combine(sets.ws.common, {
 	head="Pixie Hairpin +1",
-	neck="Baetyl Pendant",
+	neck="Sibyl Scarf",
 	left_ear="Regal Earring",
 	right_ear="Friomisi Earring",
 	body="Jhakri Robe +2",
@@ -307,9 +311,7 @@ function midcast(spell)
 				equip(sets.midcast.breath)
 			end
 		elseif spell.skill == "Enhancing Magic" then
-			if spell.name == 'Refresh' then
-				equip(sets.midcast.enhancingduration)
-			end
+			equip(sets.midcast.enhancingduration)
 		elseif spell.skill == 'Elemental Magic' then
 			equip(sets.nuke[sets.nuke.index[nuke_ind]])
 		end
@@ -458,9 +460,9 @@ function set_style(sheet)
 end
  
 --Page, Book--
---set_macros(1,5)
+set_macros(8,5)
 --Use the Lockstyle Number--
---set_style(001)
+set_style(008)
 
 -- Physical spell list, not enough difference to be specified
 Blue_PhysicalStat = S{'Bilgestorm','Heavy Strike','Battle Dance','Bloodrake','Death Scissors','Dimensional Death','Empty Thrash','Quadrastrike','Saurian Slide','Sinker Drill','Spinal Cleave','Sweeping Gouge','Uppercut','Vertical Cleave','Amorphic Spikes','Asuran Claws','Barbed Crescent','Claw Cyclone','Disseverment','Foot Kick','Frenetic Rip','Goblin Rush','Hysteric Barrage','Paralyzing Triad','Seedspray','Sickle Slash','Smite of Rage','Terror Touch','Thrashing Assault','Vanity Dive','Body Slam','Cannonball','Delta Thrust','Glutinous Dart','Grand Slam','Power Attack','Quad. Continuum','Sprout Smack','Sub-zero Smash','Benthic Typhoon','Feather Storm','Helldive','Hydro Shot','Jet Stream','Pinecone Bomb','Spiral Spin','Wild Oats','Mandibular Bite','Queasyshroom','Ram Charge','Screwdriver','Tourbillion','Bludgeon'}

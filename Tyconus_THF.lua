@@ -14,6 +14,7 @@ legs-Relic (5)
 feet-AF+3 (15)]]
 
 res = require 'resources'
+require('vectors')
 
 function get_sets()
 	sets.fc = {}
@@ -25,7 +26,7 @@ function get_sets()
 	sets.midcast = {}
 	ammo = {}
 	
-	ammo.melee = {ammo="Coiste Bodhar"}
+	ammo.melee = {ammo="Aurgelmir Orb +1"}
 	ammo.ws = {ammo="Seething Bomblet +1"}
 	ammo.dt = {ammo="Staunch Tathlum +1"}
 	ammo.th = {ammo="Perfect Lucky Egg"}
@@ -45,12 +46,14 @@ function get_sets()
 	}
 	
 	sets.regen = {
+	head="Gleti's Mask",
 	neck="Sanctity Necklace",
 	left_ear="Infused Earring",
-	body="Meghanada Cuirie +2",
-	hands="Meghanada Gloves +2",
+	body="Turms Harness",
+	hands="Turms Mittens +1",
+	left_ring="Chirich Ring +1",
 	right_ring="Paguroidea Ring",
-	legs="Meghanada Chausses +2",
+	legs="Turms Subligar",
 	}
 	
 	sets.Dagger = {
@@ -97,11 +100,12 @@ function get_sets()
 	})
 	
 	sets.TP['DT'] = set_combine(sets.TP['Standard'], { --48%
-	--head="Nyame Helm", --ME123 MDB5 DT7
+	head="Nyame Helm", --ME123 MDB5 DT7
 	--neck="Loricate Torque +1", --6
 	left_ear="Odnowa Earring +1",
 	body="Nyame Mail", --ME139 MDB8 DT9
 	--hands="Nyame Gauntlets", --ME112 MDB4 DT7
+	hands="Malignance Gloves",
 	right_ring="Moonlight Ring", --5
 	legs="Nyame Flanchard", --ME150 MDB7 DT8
 	--feet="Nyame Sollerets", --ME150 MDB5 DT7
@@ -115,7 +119,7 @@ function get_sets()
 	}
 	
 	sets.TH['Full'] = { --9
-	head="White Rarab cap +1", --1
+	head="Volte Cap", --1
 	hands="Plunderer's Armlets +3", --4
 	waist="Chaac Belt", --1
 	feet="Skulker's Poulaines +1" --3
@@ -144,22 +148,32 @@ function get_sets()
 	
 	-- Weaponskills --
 	sets.ws.common = {
-	head="Adhemar Bonnet +1",
+	head="Nyame Helm",
 	neck="Fotia Gorget",
 	right_ear="Odr Earring",
-	body="Plunderer's Vest +3",
-	hands="Meghanada Gloves +2",
+	body="Nyame Mail",
+	hands="Nyame Gauntlets",
 	left_ring="Regal Ring",
 	right_ring="Epaminondas's Ring",
 	back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
-	waist="Grunfeld Rope",
-	legs="Mummu Kecks +2",
-	feet="Mummu Gamashes +2"
+	waist="Sailfi Belt +1",
+	legs="Nyame Flanchard",
+	feet="Nyame Sollerets"
 	}
+	
+	sets.ws["Shark Bite"] = set_combine(sets.ws.common, {
+	head="Nyame Helm",
+	neck="Assassin's Gorget +2",
+	right_ear="Sherida Earring",
+	body="Plunderer's Vest +3",
+	right_ring="Ilabrat Ring",
+	waist="Grunfeld Rope",
+	legs="Pillager's Culottes +3",
+	feet="Nyame Sollerets"
+	})
 	
 	sets.ws["Evisceration"] = set_combine(sets.ws.common, { --50% DEX, crit rate/dmg
 	head="Adhemar Bonnet +1",
-	right_ear="Odr Earring",
 	body="Plunderer's Vest +3",
 	right_ring="Ilabrat Ring",
 	hands="Adhemar Wristbands +1",
@@ -170,10 +184,9 @@ function get_sets()
 	
 	sets.ws["Aeolian Edge"] = set_combine(sets.ws.common, { --40% DEX / 40% INT
 	head="Nyame Helm",
-	neck="Baetyl Pendant",
+	neck="Sibyl Scarf",
 	right_ear="Friomisi Earring",
 	body="Nyame Mail",
-	hands="Nyame Gauntlets",
 	waist="Orpheus's Sash",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
@@ -182,14 +195,15 @@ function get_sets()
 	sets.ws["Rudra's Storm"] = set_combine(sets.ws.common, {
 	head="Pillager's Bonnet +3",
 	neck="Assassin's Gorget +2",
-	body="Plunderer's Vest +3",
-	hands="Meghanada Gloves +2",
+	body="Gleti's Cuirass",
 	waist="Kentarch Belt +1",
+	legs="Plunderer's Culottes +3",
+	feet="Nyame Sollerets"
 	})
 	
 	sets.ws["Exenterator"] = set_combine(sets.ws.common, {
 	right_ear="Sherida Earring",
-	hands="Mummu Wrists +2",
+	hands="Malignance Gloves",
 	left_ring="Regal Ring",
 	right_ring="Ilabrat Ring",
 	legs="Meghanada Chausses +2",
@@ -197,25 +211,15 @@ function get_sets()
 	})
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
-	head="Nyame Helm",
 	right_ear="Sherida Earring",
-	body="Nyame Mail",
-	hands="Nyame Gauntlets",
 	left_ring="Gere Ring",
-	--waist="Sailfi Belt +1",
-	legs="Nyame Flanchard",
-	feet="Nyame Sollerets"
+	waist="Sailfi Belt +1",
 	})
 	
 	sets.ws['Empyreal Arrow'] = set_combine(sets.ws.common, {
-	head="Nyame Helm",
 	neck="Iskur Gorget",
-	body="Nyame Mail",
-	hands="Nyame Gauntlets",
 	left_ring="Regal Ring",
 	right_ring="Cacoethic Ring +1",
-	legs="Nyame Flanchard",
-	feet="Nyame Sollerets"
 	})
 	
 	-- Magic --
@@ -237,8 +241,22 @@ function get_sets()
 	feet="Nyame Sollerets"
 	}
 	
-	sets.THwhore = set_combine(sets.macc, {
-	--head="White Rarab Cap +1",
+	sets.nomacc = {
+	head="Pillager's Bonnet +3",
+	neck="Loricate Torque +1",
+	left_ear="Etiolation Earring",
+	right_ear="Enervating Earring",
+	body="Adhemar Jacket +1",
+	left_ring="Gelatinous Ring +1",
+	right_ring="Moonlight Ring", --5
+	waist="Sailfi Belt +1",
+	legs="Turms Subligar",
+	feet="Turms Leggings +1"
+	}
+	
+	--sets.THwhore = set_combine(sets.macc, {
+	sets.THwhore = set_combine(sets.nomacc, {
+	--head="Volte Cap",
 	hands="Plunderer's Armlets +3",
 	--waist="Chaac Belt",
 	--feet="Skulker's Poulaines +1"
@@ -247,14 +265,15 @@ function get_sets()
 	-- ja --
 	sets.ja['Perfect Dodge'] = {hands="Plunderer's Armlets +3"}
 	sets.ja['Hide'] = {body="Pillager's Vest +3"}
-	sets.ja['Steal'] = set_combine(sets.THwhore, {hands="Pillager's Armlets +1",legs="Assassin's Culottes",feet="Pillager's Poulaines +3"})
+	sets.ja['Steal'] = set_combine(sets.THwhore, {neck="Pentalagus Charm",hands="Pillager's Armlets +1",legs="Assassin's Culottes",feet="Pillager's Poulaines +3"})
 	sets.ja['Mug'] = set_combine(sets.THwhore, {head="Assassin's Bonnet"})
 	sets.ja['Flee'] = {feet="Pillager's Poulaines +3"}
-	sets.ja['Despoil'] = set_combine(sets.THwhore, {feet="Skulker's Poulaines +1",})
+	sets.ja['Despoil'] = set_combine(sets.THwhore, {legs="Skulker's Culottes +1",feet="Skulker's Poulaines +1",})
+	sets.ja['Feint'] = {legs="Plunderer's Culottes +3"}
 	sets.ja.waltz = {body="Passion Jacket",feet="Rawhide Boots"}
 	
 	sets.low_hp = {
-	head=empty,
+	head="Pixie Hairpin +1",
 	neck=empty,
 	left_ear=empty,
 	right_ear=empty,
@@ -278,7 +297,7 @@ function get_sets()
 	left_ring="Gelatinous Ring +1",
 	right_ring="Moonlight Ring",
 	back="Reiki Cloak",
-	waist="Carrier's Sash",
+	waist="Gold Moogle Belt",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}
@@ -301,8 +320,7 @@ function get_sets()
 	hands="Malignance Gloves",
 	left_ring="Crepuscular Ring",
 	right_ring="Cacoethic Ring +1",
-	waist="Eschan Stone",
-	--waist="Yemaya Belt",
+	waist="Yemaya Belt",
 	legs="Malignance Tights",
 	feet="Nyame Sollerets",
 	}
@@ -313,6 +331,22 @@ function check_height()
 	targetz = math.floor(windower.ffxi.get_mob_by_index(player.target.index).z * 10)/10
 	heightdiff = selfz - targetz
 	targdistance = math.floor(windower.ffxi.get_mob_by_index(player.target.index).distance:sqrt() * 10+0.5)/10
+end
+
+function check_facing()
+    local target = windower.ffxi.get_mob_by_target('t')
+    if target == nil then return nil end
+    local player = windower.ffxi.get_mob_by_target('me')
+    local dir_target = V{player.x, player.y} - V{target.x, target.y}
+    local dir_player = V{target.x, target.y} - V{player.x, player.y}
+    local player_heading = V{}.from_radian(player.facing)
+    local target_heading = V{}.from_radian(target.facing)
+    local player_angle = V{}.angle(dir_player, player_heading):degree():abs()
+    local target_angle = V{}.angle(dir_target, target_heading):degree():abs()
+    if player_angle < 45 and target_angle > 135 then
+        return true
+    end
+    return false
 end
 
 function precast(spell)
@@ -349,8 +383,20 @@ function precast(spell)
 			cancel_spell()
 			add_to_chat(123, spell.name..' Canceled: [Out of Range]')
 		elseif player.tp >= 1000 then
-			if player.equipment.main == "Aeneas" then
+			if player.equipment.main == "Aeneas" and (player.equipment.sub == "Fusetto +2" or player.equipment.sub == "Fusetto +3" or player.equipment.sub == "Centovente") then
+				if (player.tp >= 1000 and player.tp < 1500) then
+					equip({left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}}})
+				else
+					equip({left_ear="Ishvara Earring"})
+				end
+			elseif player.equipment.main == "Aeneas" then
 				if (player.tp >= 1000 and player.tp < 2500) then
+					equip({left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}}})
+				else
+					equip({left_ear="Ishvara Earring"})
+				end
+			elseif (player.equipment.sub == "Fusetto +2" or player.equipment.sub == "Fusetto +3" or player.equipment.sub == "Centovente") then
+				if (player.tp >= 1000 and player.tp < 2000) then
 					equip({left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}}})
 				else
 					equip({left_ear="Ishvara Earring"})
@@ -461,7 +507,7 @@ function aftercast(spell)
 			end
 		else
 			if player.equipment.range == 'empty' then
-				equip(ammo.acc)
+				equip(ammo.melee)
 			end
 		end
 	else
@@ -474,6 +520,9 @@ function aftercast(spell)
 				equip(ammo.acc)
 			end
 		end
+	end
+	if check_facing() == true then
+		equip({body="Plunderer's Vest +3"})
 	end
 end
 
@@ -496,8 +545,11 @@ function status_change(new,old)
 			end
 		else
 			if player.equipment.range == 'empty' then
-				equip(ammo.acc)
+				equip(ammo.melee)
 			end
+		end
+		if check_facing() == true then
+			equip({body="Plunderer's Vest +3"})
 		end
 	elseif new == 'Idle' then
 		if (S{player.sub_job}:contains('BLM') or S{player.sub_job}:contains('DRK') or S{player.sub_job}:contains('RDM')) and player.mpp <= 50 then
@@ -505,7 +557,7 @@ function status_change(new,old)
 		else
 			equip(sets.TP[sets.TP.index[TP_ind]],sets.idle)
 			if player.equipment.range == 'empty' then
-				equip(ammo.acc)
+				equip(ammo.melee)
 			end
 		end
 	end
@@ -526,7 +578,7 @@ function weathercheck(spell_element,set)
 end
 
 send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
-
+send_command('bind !w gs c toggle TH set') -- Hit alt+q, toggles the sets
 send_command('bind !a gs c reequip') -- Hit alt+a, reequips your gear
 send_command('bind !r gs equip sets.regen')
 send_command('bind !w gs c toggle TH set') -- Hit alt+n, toggles the sets

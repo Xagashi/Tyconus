@@ -6,6 +6,7 @@ res = require 'resources'
 --Chaotic Eye, Blank Gaze (single target hate)
 --Awful Eye, Jettatura (conal hate)
 --Stinking Gas, Soporific, Geist Wall (aoe hate)
+--Ice Break + Magnetite Cloud (MDB)
 
 function get_sets()
 	sets.fc = {}
@@ -19,15 +20,14 @@ function get_sets()
 	
 	sets.movement = {legs="Carmine Cuisses +1"}
 	
-	sets.fc.base = { --2+14+10+5+4+10+4+8=57
+	sets.fc.base = { --2+14+10+5+4+10+8+8=61
 	ammo="Sapience Orb", --2%
 	head={name="Carmine Mask +1",priority=12}, --14%
 	body={name="Reverence Surcoat +3",priority=15}, --10%
 	hands="Leyline Gloves", --5%
 	left_ring="Kishar ring", --4%
 	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',},priority=13},
-	--legs={name="Enif Cosciales",priority=11}, --8%
-	legs={name="Arjuna Breeches",priority=11}, --4%
+	legs={name="Enif Cosciales",priority=11}, --8%
 	feet={name="Carmine Greaves +1",priority=14} --8%
 	}
 	
@@ -43,7 +43,7 @@ function get_sets()
 	
 	sets.hp = {
 	sub={name="Srivatsa",priority=8}, --150
-	ammo="Egoist's Tathlum",
+	--ammo="Egoist's Tathlum",
 	head={name="Souveran Schaller +1",priority=15}, --280
 	neck={name="Unmoving Collar +1",priority=11}, --200
 	left_ear={name="Tuisto Earring",priority=9}, --150
@@ -55,16 +55,17 @@ function get_sets()
 	right_ring={name="Moonlight Ring",priority=5}, --110
 	back={name="Reiki Cloak",priority=8}, --130
 	waist="Gold Moogle Belt",
-	waist={name="Creed Baudrier",priority=4}, --40
 	legs={name="Souveran diechlings +1",priority=10}, --162
 	feet={name="Souveran schuhs +1",priority=12}, --227
 	}
 	
 	sets.buff["Phalanx"] = { --29
 	head={ name="Valorous Mask", augments={'"Conserve MP"+3','"Mag.Atk.Bns."+23','Phalanx +5',},priority=10}, --5
+	neck="Moonlight Necklace",
 	body="Valorous Mail", --4
 	hands={name="Souveran Handschuhs +1",priority=15}, --5
 	back="Weard Mantle", --5
+	waist="Audumbla Sash",
 	legs={name="Sakpata's Cuisses",priority=13}, --5
 	feet={name="Souveran schuhs +1",priority=14}, --5
 	}
@@ -99,15 +100,16 @@ function get_sets()
 	feet="Odyssean Greaves" --20
 	})
 	
-	--sets.th_sird = set_combine(sets.enmity, {  --For when I get Founder's Hose.
-	--ammo="Perfect Lucky Egg",
-	--head={name="Souveran Schaller +1",priority=15}, --20
-	--neck="Moonlight Necklace", --15
-	--right_ear="Knightly Earring", --9
-	--waist="Chaac Belt",
-	--legs={name="Founder's Hose",priority=14}, --30
-	--feet={name="Odyssean Greaves",priority=13} --20
-	--})
+	sets.th_sird = set_combine(sets.enmity, {
+	ammo="Perfect Lucky Egg",
+	head={name="Souveran Schaller +1",priority=15}, --20
+	neck="Moonlight Necklace", --15
+	right_ear="Knightly Earring", --9
+	left_ring="Gelatinous Ring +1",
+	waist="Chaac Belt",
+	legs={name="Founder's Hose",priority=14}, --30
+	feet={name="Odyssean Greaves",priority=13} --20
+	})
 	
 	sets.ja["Provoke"] = sets.enmity
 	sets.ja["Warcry"] = sets.enmity
@@ -134,16 +136,20 @@ function get_sets()
 	right_ring={name="Moonlight Ring",priority=10},
 	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=6},
 	waist="Asklepian Belt",
-	--waist={name="Creed Baudrier",priority=4},
 	legs={name="Sakpata's Cuisses",priority=12},
 	feet={name="Sakpata's Leggings",priority=5}
 	}
 	
 	sets.EnhancingDuration = {
 	--sub="Ajax +1",
-	--body="Shabti cuirass +1",
-	--hands="Regal Gauntlets",
+	body="Shabti cuirass +1",
+	hands="Regal Gauntlets",
 	}
+	
+	sets.protect = set_combine(sets.EnhancingDuration, {
+	main="Colada",
+	sub="Srivatsa",
+	})
 	
 	sets.divine = {
 	neck="Incanter's Torque",
@@ -152,40 +158,70 @@ function get_sets()
 	waist="Asklepian Belt",
 	}
 	
+	sets.divinedmg = {
+	main={name="Sakpata's Sword",priority=13}, --100
+	sub={name="Forfend +1",priority=9}, --22
+	ammo="Ghastly Tathlum +1",
+	neck="Baetyl Pendant",
+	left_ear="Dignitary's Earring",
+	right_ear="Friomisi Earring",
+	body={name="Cohort Cloak +1",priority=11}, --91
+	hands={name="Nyame Gauntlets",priority=12}, --91
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
+	back={name="Reiki Cloak",priority=15}, --130
+	waist={name="Eschan Stone",priority=8}, --20
+	legs={name="Nyame Flanchard",priority=14}, --114
+	feet={name="Nyame Sollerets",priority=10}, --68
+	}
+	
 	sets.refresh = {
 	ammo="Homiliary",
+	body="Crepuscular Mail",
+	hands="Regal Gauntlets",
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	waist="Fucho-no-obi",
 	}
 	
-	sets.sword.index = {'Malignance Sword','Naegling'}
+	sets.resistcharm = {
+	neck="Unmoving Collar +1",
+	back="Solemnity Cape",
+	legs="Souveran Diechlings +1",
+	}
+	
+	sets.sword.index = {'Burtgang','Malignance Sword','Naegling','Malevolence'--[[,'Mafic Cudgel']]}
 	sword_ind = 1 --Malignance Sword is the Default
 	
+	sets.sword['Burtgang'] = {main="Burtgang"}
 	sets.sword['Malignance Sword'] = {main="Malignance Sword"}
 	sets.sword['Naegling'] = {main="Naegling"}
+	sets.sword['Malevolence'] = {main="Malevolence"}
+	--sets.sword['Mafic Cudgel'] = {main="Mafic Cudgel"}
 	
-	sets.shield.index = {'Srivatsa','Ochain','Aegis'}
+	sets.shield.index = {'Srivatsa','Ochain','Aegis','Priwen','Blurred'}
 	shield_ind = 1 --Srivatsa is the Default
 	
 	sets.shield['Srivatsa'] = {sub="Srivatsa",waist="Asklepian Belt",}
 	sets.shield['Aegis'] = {sub="Aegis",neck="Warder's Charm +1",waist="Carrier's Sash",}
 	sets.shield['Ochain'] = {sub="Ochain",waist="Flume Belt +1",}
+	sets.shield['Priwen'] = {sub="Priwen",waist="Flume Belt +1",}
+	sets.shield['Blurred'] = {sub="Blurred Shield +1",waist="Sailfi Belt +1",}
 	
 	sets.TP.index = {'None','Standard','HighAcc'}
 	TP_ind = 1 --None is the Default
 	
 	sets.TP['Standard'] = {
-	ammo="Coiste Bodhar",
-	head="Flamma Zucchetto +2",
+	ammo="Aurgelmir Orb +1",
+	head="Hjarrandi Helm",
 	neck="Vim Torque +1",
 	left_ear="Telos Earring",
-	right_ear="Dedition Earring",
+	right_ear="Mache Earring +1",
 	body="Sakpata's Plate",
 	hands="Sakpata's Gauntlets",
-	left_ring="Regal Ring",
+	left_ring="Chirich Ring +1",
 	right_ring="Moonlight Ring",
-	back="Weard Mantle",
+	back="Relucent Cape",
 	waist="Sailfi Belt +1",
 	legs="Sakpata's Cuisses",
 	feet="Flam. Gambieras +2"
@@ -193,26 +229,24 @@ function get_sets()
 	
 	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {})
 	
+	sets.TP['Sword'] = set_combine(sets.TP['Standard'], {
+	ammo="Aurgelmir Orb +1",
+	head="Hjarrandi Helm",
+	body="Hjarrandi Breastplate",
+	})
+	
 	sets.ws.common = {
 	ammo="Coiste Bodhar",
-	head={ name="Valorous Mask", augments={'Attack+8','Sklchn.dmg.+1%','Weapon skill damage +7%',},priority=12}, --38
+	head={ name="Nyame Helm",priority=13}, --91
 	neck="Fotia Gorget",
 	right_ear="Thrud Earring",
-	body={name="Sakpata's Breastplate",priority=15}, --136
-	hands={name="Sakpata's Gauntlets",priority=13}, --91
+	body={name="Nyame Mail",priority=15}, --136
+	hands={name="Nyame Gauntlets",priority=12}, --91
 	left_ring="Regal Ring",
 	right_ring="Epaminondas's Ring",
 	waist="Fotia Belt",
-	legs={name="Sakpata's Cuisses",priority=14}, --114
-	feet={name="Nyame Sollerets",priority=11} --20
-	
-	--head="Nyame Helm", --ME123 MDB5 DT7
-	--neck="Loricate Torque +1", --6
-	--body="Nyame Mail", --ME139 MDB8 DT9
-	--hands="Nyame Gauntlets", --ME112 MDB4 DT7
-	--back="Solemnity Cape", --4
-	--legs="Nyame Flanchard", --ME150 MDB7 DT8
-	--feet="Nyame Sollerets", --ME150 MDB5 DT7
+	legs={name="Nyame Flanchard",priority=14}, --114
+	feet={name="Nyame Sollerets",priority=11} --68
 	}
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {})
@@ -220,6 +254,25 @@ function get_sets()
 	
 	sets.ws['Torcleaver'] = set_combine(sets.ws.common, {
 	})
+	
+	sets.ws['Aeolian Edge'] = set_combine(sets.ws.common, {
+	ammo="Ghastly Tathlum +1",
+	neck="Sibyl Scarf",
+	left_ring="Metamorph Ring +1",
+	waist="Orpheus's Sash",
+	})
+	
+	sets.ws['Cataclysm'] = set_combine(sets.ws['Aeolian Edge'], {
+	head="Pixie Hairpin +1",
+	left_ring="Archon Ring",
+	})
+	
+	sets.ws['Shell Crusher'] = {
+	neck="Moonlight Necklace",
+	waist="Acuity Belt +1",
+	}
+	
+	sets.ws['Energy Steal'] = {}
 	
 end
 
@@ -265,12 +318,18 @@ function precast(spell)
 			else
 				equip(sets.ws.common)
 			end
-			if (player.tp >= 1000 and player.tp < 3000) then
-				equip({left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}}})
-			elseif world.time >= (17*60) or world.time <= (7*60) then
-				equip({left_ear="Lugra Earring +1"})
-			else
-				equip({left_ear="Ishvara Earring"})
+			if spell.name ~= "Shell Crusher" then
+				if (player.tp >= 1000 and player.tp < 3000) then
+					equip({left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}}})
+				elseif world.time >= (17*60) or world.time <= (7*60) then
+					equip({left_ear="Lugra Earring +1"})
+				else
+					if spell.name == "Aeolian Edge" then
+						equip({left_ear="Friomisi Earring"})
+					else
+						equip({left_ear="Ishvara Earring"})
+					end
+				end
 			end
 		end
 	elseif spell.action_type == 'Magic' then
@@ -295,14 +354,18 @@ function midcast(spell)
 	if sets.buff[spell.english] and sets.TP[sets.TP.index[TP_ind]] == sets.TP['None'] then
 		equip(sets.buff[spell.english])
 		if spell.name == "Phalanx" then
-			equip({right_ear="Mimir Earring",})
+			--equip({right_ear="Mimir Earring",})
 			if player.tp < 750 then
 				equip(sets.phalanx2)
 			end
 		end
 	elseif spell.action_type == 'Magic' and not spell.type:contains('Trust') then
 		if SIRDspells:contains(spell.name) then
-			equip(sets.sird)
+			if spell.name == "Soporific" then
+				equip(sets.th_sird)
+			else
+				equip(sets.sird)
+			end
 		elseif spell.skill == 'Enhancing Magic' then
 			if string.find(spell.english,'Protect') then
 				equip(sets.protect)
@@ -313,8 +376,12 @@ function midcast(spell)
 			else
 				equip(sets.EnhancingDuration)
 			end
-		elseif string.find(spell.english,'Enlight') then
-			equip(sets.divine)
+		elseif spell.skill == 'Divine Magic' and spell.name ~= "Flash" then
+			if string.find(spell.english,'Enlight') then
+				equip(sets.divine)
+			elseif spell.name == "Holy II" or spell.name == "Banish II" then
+				equip(sets.divinedmg)
+			end
 		else
 			equip(sets.enmity)
 		end
@@ -407,20 +474,24 @@ function self_command(command)
     end
 end
 
+------------------------------------------
+-- Macro and Style Change on Job Change
+------------------------------------------
 function set_macros(sheet,book)
     if book then
         send_command('@input /macro book '..tostring(book)..';wait .1;input /macro set '..tostring(sheet))
         return
     end
     send_command('@input /macro set '..tostring(sheet))
-	add_to_chat (55, 'You are on '..('Paladin'):color(5)..('. '):color(55)..''..('Macros set!'):color(121))
+	
 end
  
 function set_style(sheet)
     send_command('@input ;wait 5.0;input /lockstyleset '..sheet)
+    add_to_chat (55, 'You are on '..('Paladin'):color(5)..''..('. '):color(55)..''..('Macros set!'):color(121))
 end
-
+ 
 --Page, Book--
 set_macros(1,4)
 --Use the Lockstyle Number--
---set_style(001)
+set_style(005)

@@ -35,21 +35,21 @@ function get_sets()
 -------------------------------------------------- Fast Cast ---------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 	
-	sets.fc.base = { --81%
+	sets.fc.base = { --82%
 	main={ name="Gada", augments={'"Fast Cast"+6','Mag. Acc.+11','"Mag.Atk.Bns."+18','DMG:+3',}}, --6
 	sub="Chanter's Shield", --3
-	ammo="Sapience Orb", --2
+	ammo="Impatiens", --2 qm
 	head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}}, --10
 	neck="Cleric's Torque", --6
 	left_ear="Loquacious Earring", --2
-	right_ear="Etiolation Earring", --1
+	right_ear="Malignance Earring", --4
 	body="Inyanga Jubbah +2", --14
 	hands="Fanatic Gloves", --7
 	left_ring="Lebeche Ring", --2 qm
 	right_ring="Kishar Ring", --4
 	back="Fi Follet Cape +1", --10
-	waist="Embla Sash", --5
-	legs="Ayanmo Cosciales +2", --6
+	waist="Witful Belt", --3 3 qm
+	legs="Volte Brais", --8
 	feet="Regal Pumps +1" --5
 	}
 	
@@ -57,7 +57,6 @@ function get_sets()
 	--sub="Sors Shield",
 	--head="Piety Cap",
 	--left_ear="Nourishing Earring +1",
-	--legs="Doyen Pants",
 	})
 	
 	sets.fc.healing = set_combine(sets.fc.base, {
@@ -67,7 +66,6 @@ function get_sets()
 	
 	sets.fc.stoneskin = set_combine(sets.fc.base, {
 	--head="Umuthi Hat",
-	--legs="Doyen Pants",
 	})
 	
 	sets.fc['Enhancing Magic'] = set_combine(sets.fc.base, {
@@ -79,6 +77,7 @@ function get_sets()
 ---------------------------------------------------------------------------------------------------------------
 
 	sets.midcast.conservemp = {
+	ammo="Pemphredo Tathlum",
 	head="Vanya Hood",
 	right_ear="Gifted Earring",
 	body="Vedic Coat",
@@ -103,36 +102,37 @@ function get_sets()
 	left_ring="Janniston Ring", --II +5%
 	right_ring="Menelaus's Ring", --3%
 	back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Cure" potency +10%','Spell interruption rate down-10%',}}, --10%
-	waist="Luminary Sash",
+	waist="Bishop's Sash",
 	legs="Ebers Pantaloons +1",
 	feet="Theophany Duckbills +3"
 	}
 	
-	sets.midcast.raise = { --FC 80% cap + Haste+23% + leftover slots for conserve mp.
+	sets.midcast.raise = { --FC 84% cap + Haste+25% + leftover slots for conserve mp.
 	main={ name="Gada", augments={'"Fast Cast"+6','Mag. Acc.+11','"Mag.Atk.Bns."+18','DMG:+3',}}, --6
 	sub="Chanter's Shield", --3
 	ammo="Sapience Orb", --2
 	head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}}, --10
 	neck="Cleric's Torque", --6
-	left_ear="Loquacious Earring", --2
-	right_ear="Gifted Earring",
+	left_ear={name="Malignance Earring",priority=14}, --4
+	right_ear={name="Gifted Earring",priority=15},
 	body="Inyanga Jubbah +2", --14
 	hands="Fanatic Gloves", --7
 	left_ring="Mephitas's Ring +1",
 	right_ring="Kishar Ring", --4
 	back="Fi Follet Cape +1", --10
 	waist="Embla Sash", --5
-	legs="Ayanmo Cosciales +2", --6
+	legs="Volte Brais", --8
 	feet="Regal Pumps +1" --5
 	}
 	
 	sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.conservemp, {
-	main={ name="Gada", augments={'"Fast Cast"+6','Mag. Acc.+11','"Mag.Atk.Bns."+18','DMG:+3',}},
+	main={ name="Gada", augments={'Enh. Mag. eff. dur. +6','MND+1',}},
 	head="Befouled Crown",
 	neck="Incanter's Torque",
+	left_ear="Andoaa Earring",
 	right_ear="Mimir Earring",
-	hands="Dynasty Mitts",
-	left_ring="Stikini Ring +1",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
     legs="Piety Pantaloons +3",
     feet="Theophany Duckbills +3"
 	})
@@ -153,17 +153,18 @@ function get_sets()
 	body="Piety Bliaut +3",
 	hands="Ebers Mitts +1",
 	legs="Theophany Pantaloons +3",
+	feet="Bunzi's Sabots"
 	})
 	
 	sets.midcast.bar_element = set_combine(sets.midcast.EnhancingDuration, {
 	main="Beneficus",
-	--head="Ebers Cap +1",
+	head="Ebers Cap +1",
 	neck="Incanter's Torque",
     body="Ebers Bliaut +1",
 	hands="Ebers Mitts +1",
 	back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Cure" potency +10%','Spell interruption rate down-10%',}},
     legs="Piety Pantaloons +3",
-	--feet="Ebers Duckbills +1"
+	feet="Ebers Duckbills +1"
 	})
 	
 	sets.midcast.shell = set_combine(sets.midcast.EnhancingDuration, {
@@ -190,16 +191,8 @@ function get_sets()
 	feet={ name="Vanya Clogs", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
 	})
 	
-	sets.midcast.MagicMAB = {
-		Dark={
-			--head={ name="Pixie Hairpin +1", hp=-35,mp=120},
-			left_ear="Regal Earring",
-			--right_ring="Archon Ring",
-		}
-	}
-	
 	sets.midcast.enfeeble = set_combine(sets.midcast.conservemp, { --478 enfeebling, 420 mnd, 451 m.acc, 242 m.acc skill
-	main="Daybreak",
+	main="Bunzi's Rod",
 	sub="Ammurapi Shield",
 	ammo="Hydrocera",
 	head="Theophany Cap +3",
@@ -208,10 +201,10 @@ function get_sets()
 	right_ear="Vor Earring",
 	body="Theophany Bliaut +3",
 	hands="Inyanga Dastanas +2",
-	left_ring="Stikini Ring +1",
-	right_ring="Kishar Ring",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Aurist's Cape +1",
-	waist="Luminary Sash",
+	waist="Obstinate Sash",
 	legs={ name="Chironic Hose", augments={'Mag. Acc.+13','MND+15','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 	feet="Theophany Duckbills +3"
 	})
@@ -234,8 +227,8 @@ function get_sets()
 	body="Theophany Bliaut +3",
 	hands="Theophany Mitts +3",
 	--hands="Piety Mitts +3",
-	left_ring="Stikini Ring +1",
-	right_ring="Vertigo Ring",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Aurist's Cape +1",
 	waist="Luminary Sash",
 	legs="Theophany Pantaloons +3",
@@ -250,13 +243,13 @@ function get_sets()
 	hands="Fanatic Gloves",
 	right_ring="Freke Ring",
 	back={ name="Alaunus's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Mag.Atk.Bns."+10',}},
-	waist="Refoccilation Stone",
-	legs="Lengo Pants",
-	--legs="Kaykaus Tights +1", --Path D
-	feet="Navon Crackows"
+	waist="Orpheus's Sash",
+	legs="Bunzi's Pants",
+	feet="Bunzi's Sabots"
 	})
 	
 	sets.midcast.elemental = set_combine(sets.midcast.divinedmg, {
+	hands="Nyame Gauntlets",
 	})
 	
 	sets.midcast.dark = set_combine(sets.midcast.conservemp, {
@@ -299,7 +292,7 @@ function get_sets()
 	sets.ja['Devotion'] = {head="Piety Cap"}
 	--sets.ja['Martyr'] = {hands="Piety Mitts"}
 	sets.sublimation = {waist="Embla Sash"}
-	sets.caress = set_combine(sets.midcast.conservemp, {hands="Ebers Mitts +1",--[[back="Mending Cape",]]})
+	sets.caress = set_combine(sets.midcast.conservemp, {main="Yagrush",hands="Ebers Mitts +1",--[[back="Mending Cape",]]})
 	
 	sets.idle.index = {'Refresh','DT'}
 	idle_ind = 1 --Refresh set is the Default
@@ -308,7 +301,7 @@ function get_sets()
 	main="Daybreak",
 	sub="Genmei Shield",
 	ammo="Homiliary",
-	head="Befouled Crown",
+	head="Volte Beret",
 	neck="Loricate Torque +1",
 	left_ear="Etiolation Earring",
 	right_ear="Glorious Earring",
@@ -318,7 +311,7 @@ function get_sets()
 	right_ring="Defending Ring",
 	back="Solemnity Cape",
 	waist="Carrier's Sash",
-	legs="Lengo Pants",
+	legs="Assiduity Pants",
 	feet={ name="Chironic Slippers", augments={'Accuracy+9','Enmity-5','"Refresh"+1',}},
 	}
 	
@@ -344,8 +337,8 @@ function get_sets()
 	hands="Nyame Gauntlets",
 	left_ring="Petrov Ring",
 	right_ring="Ilabrat Ring",
-	back="Relucent Cape",
-	waist="Virtuoso Belt",
+	back="Aurist's Cape +1",
+	waist="Grunfeld Rope",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets",
 	}
@@ -365,19 +358,19 @@ function get_sets()
 	
 	sets.high_hp = {
 	head="Theophany Cap +3",
-	neck="Sanctity Necklace",
+	neck="Unmoving Collar +1",
 	left_ear="Tuisto Earring",
 	right_ear="Odnowa Earring +1",
 	body="Ebers Bliaut +1",
 	hands="Telchine gloves",
 	right_ring="Ilabrat Ring",
-	back={ name="Mecisto. Mantle", augments={'Cap. Point+48%','HP+27','Accuracy+5','DEF+4',}},
+	back="Twilight Cape",
+	waist="Gold Moogle Belt",
 	legs="Ebers Pantaloons +1",
 	feet="Theophany Duckbills +3"
 	}
 	
 	sets.misc.rest = {
-	head="Befouled Crown",
 	body="Theophany Bliaut +3",
 	hands={ name="Chironic Gloves", augments={'"Conserve MP"+2','Mag. Acc.+21','"Refresh"+1','Accuracy+2 Attack+2',}},
 	waist="Shinjutsu-no-obi +1",
@@ -399,11 +392,13 @@ function get_sets()
 ------------------------------------------- You're in the wrong. ----------------------------------------------
 	sets.ws.common = {
 	head="Nyame Helm",
-	neck="Cleric's Torque",
+	neck="Fotia Gorget",
+	right_ear="Ishvara Earring",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
-	leftt_ring="Epaminondas's Ring",
+	left_ring="Epaminondas's Ring",
 	right_ring="Metamorph Ring +1",
+	waist="Fotia Belt",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets",
 	}
@@ -427,7 +422,20 @@ function get_sets()
 	})
 	
 	sets.ws['Black Halo'] = set_combine(sets.ws.common, {
+	ammo="Hydrocera",
+	right_ear="Regal Earring",
+	back="Aurist's Cape +1",
 	waist="Luminary Sash",
+	})
+	
+	sets.ws['Earth Crusher'] = set_combine(sets.ws.common, {
+	neck="Sibyl Scarf",
+	waist="Orpheus's Sash",
+	})
+	
+	sets.ws['Cataclysm'] = set_combine(sets.ws['Earth Crusher'], {
+	head="Pixie Hairpin +1",
+	right_ring="Archon Ring",
 	})
 
 end
@@ -552,16 +560,16 @@ function midcast(spell)
 				equip(sets.midcast.regen)
 			elseif BarElements:contains(spell.name) then
 				equip(sets.midcast.bar_element)
-				if buffactive['Light Arts'] then
-					equip({head="Ebers Cap +1",feet="Ebers Duckbills +1"})
-				end
+				--if buffactive['Light Arts'] then
+				--	equip({head="Ebers Cap +1",feet="Ebers Duckbills +1"})
+				--end
 			elseif spell.name == 'Erase' then
 				equip({main="Yagrush",neck="Cleric's Torque"})
 			elseif sets.buff[spell.name] then
 				equip(sets.buff[spell.name])
-				if not buffactive['Light Arts'] then
-					equip({hands="Dynasty Mitts"})
-				end
+				--if not buffactive['Light Arts'] then
+				--	equip({hands="Dynasty Mitts"})
+				--end
 			elseif string.find(spell.english,'Refresh') and spell.target.type == 'SELF' then
 				equip(sets.buff.refresh)
 			else
@@ -584,7 +592,7 @@ function midcast(spell)
 			if spell.name == "Repose" or spell.name == "Flash" then
 				weathercheck(spell.element,sets.midcast.divine)
 			else
-				equip(spell.element,sets.midcast.divinedmg)
+				equip(sets.midcast.divinedmg)
 			end
 		elseif spell.skill == 'Dark Magic' then
 			weathercheck(spell.element,sets.midcast.dark)
@@ -678,7 +686,7 @@ function weathercheck(spell_element,set)
 		return
 	end
     if spell_element == world.weather_element or spell_element == world.day_element then
-		equip(set,{back="Twilight Cape",waist="Hachirin-no-Obi"})
+		equip(set,{waist="Hachirin-no-Obi"})
     else
 		equip(set)
     end
@@ -857,17 +865,15 @@ if S{player.sub_job}:contains('SCH') then
 		send_command('alias aoecure4 input /ja "Accession" <me>;wait 1;input /ma "Cure IV" <t>')
 	end
 	if buffactive['Light Arts'] then
-		send_command('alias naegling input /ja "Accession" <me>;wait 1;input /ma "Aquaveil" <me>;wait 5;input /ja "Accession" <me>;wait 1;input /ma "Stoneskin" <me>;wait 7;input /ma "Protectra V" <me>;wait 7;input /ma "Shellra V" <me>;wait 6;input /ma "Barstonra" <me>;wait 4;input /ma "Baramnesra" <me>;wait 5;input /ma "Boost-STR" <t>;wait 5;input /ma "Auspice" <me>')
+		send_command('alias naegling input /ja "Accession" <me>;wait 1;input /ma "Aquaveil" <me>;wait 5;input /ja "Accession" <me>;wait 1;input /ma "Firestorm" <me>;wait 7;input /ma "Protectra V" <me>;wait 7;input /ma "Shellra V" <me>;wait 6;input /ma "Barstonra" <me>;wait 4;input /ma "Baramnesra" <me>;wait 5;input /ma "Boost-STR" <t>;wait 5;input /ma "Auspice" <me>;wait 5;input /ja "Accession" <me>;wait 1;input /ma "Regen IV" <me>')
 	else
-		send_command('alias naegling input /ja "Light Arts" <me>;wait 2;input /ja "Accession" <me>;wait 1;input /ma "Aquaveil" <me>;wait 5;input /ja "Accession" <me>;wait 1;input /ma "Stoneskin" <me>;wait 7;input /ma "Protectra V" <me>;wait 7;input /ma "Shellra V" <me>;wait 6;input /ma "Barstonra" <me>;wait 4;input /ma "Baramnesra" <me>;wait 5;input /ma "Boost-STR" <t>;wait 5;input /ma "Auspice" <me>')
+		send_command('alias naegling input /ja "Light Arts" <me>;wait 2;input /ja "Accession" <me>;wait 1;input /ma "Aquaveil" <me>;wait 5;input /ja "Accession" <me>;wait 1;input /ma "Firestorm" <me>;wait 7;input /ma "Protectra V" <me>;wait 7;input /ma "Shellra V" <me>;wait 6;input /ma "Barstonra" <me>;wait 4;input /ma "Baramnesra" <me>;wait 5;input /ma "Boost-STR" <t>;wait 5;input /ma "Auspice" <me>;wait 5;input /ja "Accession" <me>;wait 1;input /ma "Regen IV" <me>')
 		send_command('alias arise input /ja "Celerity" <me>;wait 1; input /ma "Arise" <t>')
 	end
 else
 	if not buffactive['Afflatus Solace'] then
 		send_command('alias la input /ja "Afflatus Solace" <me>')
 		send_command('alias larr input /ja "Afflatus Solace" <me>;wait 1;input /ma "Reraise IV" <me>')
-	else
-		cancel_spell()
 	end
 	send_command('alias naegling input /ma "Protectra V" <me>;wait 7;input /ma "Shellra V" <me>;wait 6;input /ma "Barstonra" <me>;wait 4;input /ma "Baramnesra" <me>;wait 5;input /ma "Boost-STR" <t>;wait 5;input /ma "Auspice" <me>')
 end
