@@ -1,3 +1,4 @@
+Weapons = S{"Blizzard Brand +1","Hornetneedle","Trainee Burin","Feline Hagoita +1","Lament","Lost Sickle +1","Sha Wujing's Lance","Mutsunokami +1","Aern Staff II"}
 AbysseaWS = S{"Red Lotus Blade","Seraph Blade","Cyclone","Energy Drain","Blade: Ei","Seraph Strike","Freezebite","Shadow of Death","Raiden Thrust","Tachi: Jinpu","Tachi: Koki","Earth Crusher","Sunburst"}
 res = require 'resources'
 ElementalWheel = S{"Katon: Ichi","Katon: Ni","Katon: San","Suiton: Ichi","Suiton: Ni","Suiton: San","Doton: Ichi","Doton: Ni","Doton: San","Hyoton: Ichi","Hyoton: Ni","Hyoton: San","Huton: Ichi","Huton: Ni","Huton: San","Raiton: Ichi","Raiton: Ni","Raiton: San"}
@@ -31,32 +32,16 @@ function get_sets()
 	neck="Magoraga Bead Necklace",
 	})
 	
-	sets.acc = {
-	ammo="Seki Shuriken",
-	head="Mummu Bonnet +2",
-	neck="Combatant's Torque",
-	left_ear="Telos Earring",
-	right_ear="Odr Earring",
-	body="Tatenashi Haramaki +1",
-	hands="Tatenashi Gote +1",
-	left_ring="Regal Ring",
-	right_ring="Cacoethic Ring +1",
-	back="Agema Cape",
-	waist="Kentarch Belt +1",
-	legs="Tatenashi Haidate +1",
-	feet="Mummu Gamashes +2"
-	}
-	
 	sets.macc = {
 	ammo="Yamarang",
 	head="Nyame Helm",
-	neck="Combatant's Torque",
+	neck="Incanter's Torque",
 	left_ear="Dignitary's Earring",
-	right_ear="Lugra Earring +1",
+	right_ear="Crepuscular Earring",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
-	left_ring="Stikini Ring +1",
-	right_ring="Metamorph Ring +1",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Andartia's Mantle",
 	waist="Eschan Stone",
 	legs="Nyame Flanchard",
@@ -68,108 +53,139 @@ function get_sets()
 	
 	sets.nuke['Free'] = {
 	ammo="Seething Bomblet +1",
-	head="Nyame Helm",
-	neck="Sanctity Necklace",
-	left_ear="Dignitary's Earring",
+	head="Mochizuki Hatsuburi +3",
+	neck="Sibyl Scarf",
+	left_ear="Hecate's Earring",
 	right_ear="Friomisi Earring",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
 	left_ring="Stikini Ring +1",
 	right_ring="Metamorph Ring +1",
 	back="Andartia's Mantle",
-	waist="Eschan Stone",
+	waist="Orpheus's Sash",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}
 	
-	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {})
+	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {
+	left_ring="Mujin Band",
+	})
 
 	sets.aby.index = {'Staff','Sword','Dagger','Katana','Club','Great Sword','Scythe','Polearm','Great Katana'}
 	Aby_ind = 1
 	
-	sets.aby['Sword'] = set_combine(sets.acc, {
+	sets.aby['Sword'] = {
 	main={ name="Blizzard Brand +1", priority=2,},
-	sub={ name="Mercurial Kris", priority=1,}
-	})
-	
-	sets.aby['Dagger'] = set_combine(sets.acc, {
-	main={ name="Hornetneedle", priority=2,},
-	sub={ name="Mercurial Kris", priority=1,}
-	})
-	
-	sets.aby['Katana'] = set_combine(sets.acc, {
-	main={ name="Trainee Burin", priority=2,},
-	sub={ name="Mercurial Kris", priority=1,}
-	})
-	
-	sets.aby['Club'] = set_combine(sets.acc, {
-	main={ name="Heartbeater +1", priority=2,},
 	sub={ name="Mercurial Kris", priority=1,},
-	neck="Combatant's Torque"
-	})
+	waist="Reiki Yotai",
+	}
 	
-	sets.aby['Great Sword'] = set_combine(sets.acc, {
+	sets.aby['Dagger'] = {
+	main={ name="Hornetneedle", priority=2,},
+	sub={ name="Mercurial Kris", priority=1,},
+	waist="Reiki Yotai",
+	}
+	
+	sets.aby['Katana'] = {
+	main={ name="Trainee Burin", priority=2,},
+	sub={ name="Mercurial Kris", priority=1,},
+	waist="Reiki Yotai",
+	}
+	
+	sets.aby['Club'] = {
+	main={ name="Feline Hagoita +1", priority=2,},
+	sub={ name="Mercurial Kris", priority=1,},
+	waist="Reiki Yotai",
+	}
+	
+	sets.aby['Great Sword'] = {
 	main="Lament",
-	neck="Combatant's Torque"
-	})
+	waist="Sailfi Belt +1",
+	}
 	
-	sets.aby['Scythe'] = set_combine(sets.acc, {
-	main="Lost Sickle +1"
-	})
+	sets.aby['Scythe'] = {
+	main="Lost Sickle +1",
+	waist="Sailfi Belt +1",
+	}
 	
-	sets.aby['Polearm'] = set_combine(sets.acc, {
-	main="Sha Wujing's Lance"
-	})
+	sets.aby['Polearm'] = {
+	main="Sha Wujing's Lance",
+	waist="Sailfi Belt +1",
+	}
 	
-	sets.aby['Great Katana'] = set_combine(sets.acc, {
-	main="Mutsunokami +1"
-	})
+	sets.aby['Great Katana'] = {
+	main="Mutsunokami +1",
+	waist="Sailfi Belt +1",
+	}
 	
-	sets.aby['Staff'] = set_combine(sets.acc, {
-	main="Aern Staff II"
-	})
+	sets.aby['Staff'] = {
+	main="Aern Staff II",
+	waist="Sailfi Belt +1",
+	}
 	
 	sets.katana = {
 	main={ name="Heishi Shorinken", priority=2,},
-	sub={ name="Kanaria", priority=1,},
+	sub={ name="Kunimitsu", priority=1,},
 	}
 	
 	sets.dagger = {
 	main={ name="Tauret", priority=2,},
-	sub={ name="Ternion Dagger +1", priority=1,}
+	sub={ name="Gleti's Knife", priority=1,}
 	--main={ name="Hornetneedle", priority=2,},
 	--sub={ name="Mercurial Kris", priority=1,}
 	}
 	
-	sets.TP.index = {'Standard','DT',}
+	sets.TP.index = {'Standard','DT','Abyssea'}
 	TP_ind = 1
 	
-	sets.TP['Standard'] = set_combine(sets.acc, {
+	sets.TP['Standard'] = {
+	ammo="Seki Shuriken",
 	head="Adhemar Bonnet +1",
+	neck="Iskur Gorget",
+	--right_ear="Dedition Earring",
 	right_ear="Brutal Earring",
 	body="Malignance Tabard",
-	hands="Adhemar Wristbands +1",
+	--hands="Adhemar Wristbands +1",
+	hands="Malignance Gloves",
 	left_ring="Gere Ring",
-	right_ring="Hetairoi Ring",
-	waist="Kentarch Belt +1",
-	legs="Kendatsuba Hakama +1",
+	--left_ring="Ilabrat Ring",
+	right_ring="Petrov Ring",
+	--right_ring="Hetairoi Ring",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+	waist="Reiki Yotai",
+	--legs="Kendatsuba Hakama +1",
+	legs="Malignance Tights",
 	feet="Tatenashi Sune-Ate +1"
-	})
+	}
 	
 	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {
 	head="Mpaca's Cap",
 	hands="Tatenashi Gote +1",
 	})
 	
-	sets.TP['DT'] = {
-	head="Blistering Sallet +1",
+	sets.TP['DT'] = set_combine(sets.TP['Standard'], {
 	neck="Loricate Torque +1",
 	hands="Malignance Gloves",
 	left_ring="Gelatinous Ring +1",
 	right_ring="Defending Ring",
 	back="Andartia's Mantle",
 	legs="Malignance Tights",
-	}
+	})
+	
+	sets.TP['Abyssea'] = set_combine(sets.TP['Standard'], {
+	ammo="Coiste Bodhar",
+	head="Mpaca's Cap",
+	neck="Combatant's Torque",
+	left_ear="Telos Earring",
+	right_ear="Brutal Earring",
+	hands="Tatenashi Gote +1",
+	left_ring="Gere Ring",
+	right_ring="Chirich Ring +1",
+	legs="Tatenashi Haidate +1",
+	feet="Tatenashi Sune-Ate +1"
+	})
+	
+	sets.ja["Mijin Gakure"] = {legs="Mochizuki Hakama +1"}
 	
 	sets.idle = set_combine(sets.TP['Standard'], {
 	left_ring="Warp Ring",
@@ -178,8 +194,9 @@ function get_sets()
 	
 	sets.th = {
 	ammo="Perfect Lucky Egg",
-	head="White Rarab Cap +1",
+	head="Volte Cap",
 	waist="Chaac Belt",
+	feet="Volte Boots"
 	}
 	
 	sets.enmity = {
@@ -188,9 +205,15 @@ function get_sets()
 	back="Agema Cape",
 	}
 	
-	sets.utsusemi = {
-	back="Andartia's Mantle",
+	sets.ninjatoolexpert = {
+	hands="Mochizuki Tekko +3",
+	waist="Gosha Sarashi",
 	}
+	
+	sets.utsusemi = set_combine(sets.ninjatoolexpert, {
+	back="Andartia's Mantle",
+	feet="Hattori Kyahan +1"
+	})
 	
 	--Snapshot > Rapid Shot
 	sets.precast.RA = {}
@@ -213,7 +236,7 @@ function get_sets()
 	sets.ws.common = {
 	head="Nyame Helm",
 	neck="Fotia Gorget",
-	right_ear="Brutal Earring",
+	right_ear="Ishvara Earring",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
 	left_ring="Gere Ring",
@@ -227,10 +250,10 @@ function get_sets()
 	
 	sets.ws["Blade: Chi"] = set_combine(sets.ws.common, {
 	ammo="Seething Bomblet +1",
-	neck="Baetyl Pendant",
+	neck="Sibyl Scarf",
 	right_ear="Friomisi Earring",
 	right_ring="Regal Ring",
-	waist="Eschan Stone",
+	waist="Orpheus's Sash",
 	--waist="Sailfi Belt +1",
 	})
 	
@@ -256,11 +279,15 @@ function get_sets()
 	})
 	
 	sets.ws["Aeolian Edge"] = set_combine(sets.ws["Blade: Chi"], {
-	neck="Baetyl Pendant",
-	waist="Eschan Stone",
+	left_ring="Dingir Ring",
+	waist="Orpheus's Sash",
 	})
 	
 	sets.ws["Evisceration"] = sets.ws["Blade: Hi"]--50% DEX, crit rate/dmg
+	
+	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
+	neck="Republican Platinum Medal",
+	})
 end
 
 function check_height() 
@@ -293,7 +320,12 @@ function precast(spell)
 		elseif spell.target.distance > (ability_distance * range_mult[ability_distance] + spell.target.model_size + player.model_size) then
 			cancel_spell()
 			add_to_chat(123, spell.name..' Canceled: [Out of Range]')
-		elseif player.TP >= 1000 and not AbysseaWS:contains(spell.name) then
+		elseif player.TP >= 1000 and not Weapons:contains(player.equipment.main) then
+			if sets.ws[spell.name] then
+				equip(sets.ws[spell.name])
+			else
+				equip(sets.ws.common)
+			end
 			if player.equipment.main == "Keishi Shorinken" then
 				if player.tp >= 1000 and player.tp < 2250 then
 					equip({head="Mpaca's Cap", left_ear="Moonshade Earring"})
@@ -315,11 +347,6 @@ function precast(spell)
 					equip({left_ear="Ishvara Earring"})
 				end
 			end
-			if sets.ws[spell.name] then
-				equip(sets.ws[spell.name])
-			else
-				equip(sets.ws.common)
-			end
 		end
 	elseif spell.action_type == 'Magic' then
 		if spell.english:startswith('Utsusemi') then
@@ -340,19 +367,23 @@ end
 function midcast(spell)
 	if (spell.name == 'Sneak' or spell.english == 'Spectral Jig' or spell.english:contains('Monomi')) and spell.target.name == player.name and buffactive["Sneak"] then
 		send_command('cancel Sneak')
-	elseif spell.english:contains('Utsusemi') then
-		equip(sets.utsusemi)
-		if spell.english == 'Utsusemi: Ichi' then
-			if buffactive["Copy Image"] then
-				windower.send_command('wait 1;cancel 66;')
-			elseif buffactive['Copy Image (2)'] then 
-				windower.send_command('wait 1;cancel 444')
+	elseif spell.skill == 'Ninjutsu' then
+		if spell.english:contains('Utsusemi') then
+			equip(sets.utsusemi)
+			if spell.english == 'Utsusemi: Ichi' then
+				if buffactive["Copy Image"] then
+					windower.send_command('wait 1;cancel 66;')
+				elseif buffactive['Copy Image (2)'] then 
+					windower.send_command('wait 1;cancel 444')
+				end
 			end
+		elseif spell.english:contains('Katon') or spell.english:contains('Suiton') or spell.english:contains('Doton') or spell.english:contains('Hyoton') or spell.english:contains('Huton') or spell.english:contains('Raiton') then
+			weathercheck(spell.element,sets.nuke[sets.nuke.index[nuke_ind]])
+		elseif spell.english:contains('Kurayami') or spell.english:contains('Hojo') or spell.english:contains('Dokumori') or spell.english:contains('Jubaku') or spell.english:contains('Aisha') or spell.english:contains('Yurin') then
+			equip(sets.macc)
+		else
+			equip(sets.ninjatoolexpert)
 		end
-	elseif ElementalWheel:contains(spell.name) then
-		weathercheck(spell.element,sets.nuke[sets.nuke.index[nuke_ind]])
-	elseif EnfeeblingWheel:contains(spell.name) then
-		equip(sets.macc)
 	elseif spell.action_type == 'Ranged Attack' then
 		equip(sets.midcast.RA)
 	end
@@ -379,7 +410,7 @@ function weathercheck(spell_element,set)
 		return
 	end
     if spell_element == world.weather_element or spell_element == world.day_element then
-		equip(set,{back="Twilight Cape",waist="Hachirin-no-Obi"})
+		equip(set,{waist="Hachirin-no-Obi"})
     else
 		equip(set)
     end
