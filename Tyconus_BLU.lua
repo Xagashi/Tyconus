@@ -131,7 +131,7 @@ function get_sets()
 	hands="Amalric Gages +1",
 	left_ring="Stikini Ring +1",
 	right_ring="Metamorph Ring +1",
-	back="Aurist's Cape +1",
+	back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+5','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
 	waist="Orpheus's Sash",
 	legs="Jhakri Slops +2",
 	feet="Amalric Nails +1"
@@ -149,11 +149,11 @@ function get_sets()
 	
 	sets.midcast.enhancing = {}
 	sets.midcast.enhancingduration = set_combine(sets.enhancing, {
-	head="Telchine Cap",
-	body="Telchine Chasuble",
-	hands="Telchine Gloves",
-	legs="Telchine Braconi",
-	feet="Telchine Pigaches"
+	head={ name="Telchine Cap", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	body={ name="Telchine Chasuble", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	hands={ name="Telchine Gloves", augments={'Pet: "Mag.Atk.Bns."+20','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
+	legs={ name="Telchine Braconi", augments={'Pet: Evasion+16','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
+	feet={ name="Telchine Pigaches", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}}
 	})
 	
 	sets.midcast.blueskill = {
@@ -242,6 +242,34 @@ function get_sets()
 	legs="Jhakri Slops +2",
 	feet="Amalric Nails +1"
 	})
+	
+	sets.low_hp = {
+	head="Pixie Hairpin +1",
+	neck=empty,
+	left_ear=empty,
+	right_ear=empty,
+	body=empty,
+	hands=empty,
+	left_ring="Mephitas's Ring +1",
+	right_ring="Metamorph Ring +1",
+	back=empty,
+	legs=empty,
+	feet=empty,
+	}
+	
+	sets.high_hp = {
+	head="Nyame Helm",
+	neck="Unmoving Collar +1",
+	left_ear="Tuisto Earring",
+	right_ear="Odnowa Earring +1",
+	body="Nyame Mail",
+	hands="Nyame Gauntlets",
+	left_ring="Gelatinous Ring +1",
+	right_ring="Defending Ring",
+	waist="Gold Moogle Belt",
+	legs="Nyame Flanchard",
+	feet="Nyame Sollerets"
+	}
 
 end
 

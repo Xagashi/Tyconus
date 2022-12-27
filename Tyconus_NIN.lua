@@ -42,7 +42,7 @@ function get_sets()
 	hands="Nyame Gauntlets",
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
-	back="Andartia's Mantle",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Mag. Acc+20 /Mag. Dmg.+20','DEX+10','Weapon skill damage +10%','Damage taken-5%',}},
 	waist="Eschan Stone",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
@@ -61,7 +61,7 @@ function get_sets()
 	hands="Nyame Gauntlets",
 	left_ring="Stikini Ring +1",
 	right_ring="Metamorph Ring +1",
-	back="Andartia's Mantle",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Mag. Acc+20 /Mag. Dmg.+20','DEX+10','Weapon skill damage +10%','Damage taken-5%',}},
 	waist="Orpheus's Sash",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
@@ -135,21 +135,21 @@ function get_sets()
 	--sub={ name="Mercurial Kris", priority=1,}
 	}
 	
-	sets.TP.index = {'Standard','DT','Abyssea'}
+	sets.TP.index = {'Standard','DW','DT','Abyssea'}
 	TP_ind = 1
 	
 	sets.TP['Standard'] = {
 	ammo="Seki Shuriken",
 	head="Adhemar Bonnet +1",
-	neck="Iskur Gorget",
-	--right_ear="Dedition Earring",
-	right_ear="Brutal Earring",
+	neck="Ninja Nodowa +2",
+	left_ear="Telos Earring",
+	right_ear="Dedition Earring",
 	body="Malignance Tabard",
 	--hands="Adhemar Wristbands +1",
 	hands="Malignance Gloves",
 	left_ring="Gere Ring",
+	right_ring="Epona's Ring",
 	--left_ring="Ilabrat Ring",
-	right_ring="Petrov Ring",
 	--right_ring="Hetairoi Ring",
 	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
 	waist="Reiki Yotai",
@@ -158,6 +158,13 @@ function get_sets()
 	feet="Tatenashi Sune-Ate +1"
 	}
 	
+	sets.TP['DW'] = set_combine(sets.TP['Standard'], {
+	head="Ryuo Somen +1",
+	left_ear="Suppanomimi",
+	--body="Mochizuki Chainmail +3",
+	hands="Adhemar Wristbands +1",
+	})
+	
 	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {
 	head="Mpaca's Cap",
 	hands="Tatenashi Gote +1",
@@ -165,18 +172,21 @@ function get_sets()
 	
 	sets.TP['DT'] = set_combine(sets.TP['Standard'], {
 	neck="Loricate Torque +1",
-	hands="Malignance Gloves",
+	--hands="Malignance Gloves",
 	left_ring="Gelatinous Ring +1",
 	right_ring="Defending Ring",
-	back="Andartia's Mantle",
-	legs="Malignance Tights",
+	--legs="Malignance Tights",
+	
+	head="Nyame Helm",
+	body="Nyame Mail",
+	hands="Nyame Gauntlets",
+	legs="Nyame Flanchard",
+	feet="Nyame Sollerets",
 	})
 	
 	sets.TP['Abyssea'] = set_combine(sets.TP['Standard'], {
 	ammo="Coiste Bodhar",
 	head="Mpaca's Cap",
-	neck="Combatant's Torque",
-	left_ear="Telos Earring",
 	right_ear="Brutal Earring",
 	hands="Tatenashi Gote +1",
 	left_ring="Gere Ring",
@@ -184,6 +194,76 @@ function get_sets()
 	legs="Tatenashi Haidate +1",
 	feet="Tatenashi Sune-Ate +1"
 	})
+	
+	sets.haste0 = {
+	ammo="Seki Shuriken",
+	head="Ryuo Somen +1",
+	neck="Ninja Nodowa +2",
+	left_ear="Telos Earring",
+	right_ear="Suppanomimi",
+	body="Malignance Tabard",
+	--hands="Adhemar Wristbands +1",
+	hands="Malignance Gloves",
+	left_ring="Gere Ring",
+	right_ring="Epona's Ring",
+	--left_ring="Ilabrat Ring",
+	--right_ring="Hetairoi Ring",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+	waist="Reiki Yotai",
+	--legs="Kendatsuba Hakama +1",
+	legs="Malignance Tights",
+	feet="Tatenashi Sune-Ate +1"
+	}
+	
+	sets.haste15 = {}
+	
+	sets.haste30 = {
+	ammo="Seki Shuriken",
+	head="Ryuo Somen +1",
+	neck="Ninja Nodowa +2",
+	left_ear="Telos Earring",
+	right_ear="Dedition Earring",
+	body="Adhemar Jacket +1",
+	hands="Malignance Gloves",
+	left_ring="Gere Ring",
+	right_ring="Epona's Ring",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+	waist="Sailfi Belt +1",
+	legs="Samnuha Tights",
+	feet="Tatenashi Sune-Ate +1"
+	}
+	
+	sets.haste40 = {
+	ammo="Seki Shuriken",
+	head="Adhemar Bonnet +1",
+	neck="Ninja Nodowa +2",
+	left_ear="Telos Earring",
+	right_ear="Dedition Earring",
+	body="Tatenashi Haramaki +1",
+	hands="Adhemar Wristbands +1",
+	left_ring="Gere Ring",
+	right_ring="Epona's Ring",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+	waist="Sailfi Belt +1",
+	legs="Samnuha Tights",
+	feet="Tatenashi Sune-Ate +1"
+	}
+	
+	sets.dwfull = {
+	ammo="Seki Shuriken",
+	head="Ryuo Somen +1",
+	neck="Ninja Nodowa +2",
+	left_ear="Suppanomimi",
+	right_ear="Telos Earring",
+	body="Mochizuki Chainmail +3",
+	hands="Adhemar Wristbands +1",
+	left_ring="Gere Ring",
+	right_ring="Epona's Ring",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+	waist="Reiki Yotai",
+	legs="Samnuha Tights",
+	feet="Tatenashi Sune-Ate +1"
+	}
 	
 	sets.ja["Mijin Gakure"] = {legs="Mochizuki Hakama +1"}
 	
@@ -211,8 +291,8 @@ function get_sets()
 	}
 	
 	sets.utsusemi = set_combine(sets.ninjatoolexpert, {
-	back="Andartia's Mantle",
-	feet="Hattori Kyahan +1"
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+	feet="Hattori Kyahan +2"
 	})
 	
 	--Snapshot > Rapid Shot
@@ -241,23 +321,37 @@ function get_sets()
 	hands="Nyame Gauntlets",
 	left_ring="Gere Ring",
 	right_ring="Epaminondas's Ring",
-	back="Andartia's Mantle",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Mag. Acc+20 /Mag. Dmg.+20','DEX+10','Weapon skill damage +10%','Damage taken-5%',}},
 	waist="Fotia Belt",
-	--waist="Sailfi Belt +1",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}
 	
 	sets.ws["Blade: Chi"] = set_combine(sets.ws.common, {
 	ammo="Seething Bomblet +1",
-	neck="Sibyl Scarf",
+	head="Mochizuki Hatsuburi +3",
 	right_ear="Friomisi Earring",
 	right_ring="Regal Ring",
 	waist="Orpheus's Sash",
-	--waist="Sailfi Belt +1",
 	})
 	
+	sets.ws["Blade: Ei"] = set_combine(sets.ws["Blade: Chi"], {
+	head="Pixie Hairpin +1",
+	neck="Baetyl Pendant",
+	left_ring="Archon Ring",
+	right_ring="Epaminondas's Ring",
+	})
+	
+	sets.ws["Blade: To"] = set_combine(sets.ws["Blade: Chi"], {
+	neck="Baetyl Pendant",
+	right_ring="Epaminondas's Ring",
+	})
+	
+	sets.ws["Blade: Yu"] = sets.ws["Blade: To"]
+	
 	sets.ws["Blade: Ten"] = set_combine(sets.ws.common, {
+	neck="Republican Platinum Medal",
+	waist="Sailfi Belt +1",
 	})
 	
 	sets.ws["Blade: Hi"] = set_combine(sets.ws.common, {
@@ -267,7 +361,7 @@ function get_sets()
 	--body=Kendatsuba Samue +1",
 	--hands="Mpaca's Gloves",
 	right_ring="Hetairoi Ring",
-	--waist="Sailfi Belt +1",
+	waist="Sailfi Belt +1",
 	--legs="Mpaca's Hose",
 	--feet="Mpaca's Boots"
 	})
@@ -279,6 +373,7 @@ function get_sets()
 	})
 	
 	sets.ws["Aeolian Edge"] = set_combine(sets.ws["Blade: Chi"], {
+	neck="Sibyl Scarf",
 	left_ring="Dingir Ring",
 	waist="Orpheus's Sash",
 	})
@@ -287,6 +382,15 @@ function get_sets()
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
 	neck="Republican Platinum Medal",
+	waist="Sailfi Belt +1",
+	})
+	
+	sets.ws["Seraph Blade"] = sets.ws["Blade: To"]
+	
+	sets.ws["Tachi: Jinpu"] = set_combine(sets.ws.common, {
+	ammo="Seething Bomblet +1",
+	right_ear="Friomisi Earring",
+	waist="Orpheus's Sash",
 	})
 end
 
@@ -322,7 +426,11 @@ function precast(spell)
 			add_to_chat(123, spell.name..' Canceled: [Out of Range]')
 		elseif player.TP >= 1000 and not Weapons:contains(player.equipment.main) then
 			if sets.ws[spell.name] then
-				equip(sets.ws[spell.name])
+				if spell.name == "Blade: Ei" then
+					weathercheck(spell.element,sets.ws[spell.name])
+				else
+					equip(sets.ws[spell.name])
+				end
 			else
 				equip(sets.ws.common)
 			end
@@ -391,7 +499,15 @@ end
 
 function aftercast(spell)
 	if player.status == "Engaged" then
-		equip(sets.TP[sets.TP.index[TP_ind]])
+		if buffactive["Weakness"] then
+			equip(sets.dwfull)
+		elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
+			equip(sets.haste40)
+		elseif buffactive["Haste"] and not buffactive["March"] then
+			equip(sets.haste30)
+		else
+			equip(sets.TP['DW'])
+		end
 	else
 		equip(sets.idle)
 	end
@@ -401,7 +517,27 @@ function status_change(new,old)
 	if new == 'Idle' then
 		equip(sets.idle)
 	elseif new == 'Engaged' then
-		equip(sets.TP[sets.TP.index[TP_ind]])
+		if buffactive["Weakness"] then
+			equip(sets.dwfull)
+		elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
+			equip(sets.haste40)
+		elseif buffactive["Haste"] and not buffactive["March"] then
+			equip(sets.haste30)
+		else
+			equip(sets.TP['DW'])
+		end
+	end
+end
+
+function buff_change(n, gain, buff_table)
+	local name
+	name = string.lower(n)
+	if S{"doom"}:contains(name) then
+		if gain then
+			send_command('@input /p Cursna - Doomed')
+		else
+			send_command('@input /p Doom - Off')
+		end
 	end
 end
 

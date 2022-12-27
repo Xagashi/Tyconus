@@ -69,12 +69,12 @@ function get_sets()
 	TP_ind = 1 -- Standard set is the Default
 	
 	sets.TP['Standard'] = {
-	head="Adhemar Bonnet +1",
+	head="Skulker's Bonnet +3",
 	neck="Assassin's Gorget +2",
 	left_ear="Dedition Earring",
-	right_ear="Sherida Earring",
+	right_ear="Skulker's Earring +1",
 	body="Pillager's Vest +3",
-	hands="Adhemar Wristbands +1",
+	hands="Gleti's Gauntlets",
 	left_ring="Gere Ring",
 	right_ring="Hetairoi Ring",
 	back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
@@ -122,7 +122,7 @@ function get_sets()
 	head="Volte Cap", --1
 	hands="Plunderer's Armlets +3", --4
 	waist="Chaac Belt", --1
-	feet="Skulker's Poulaines +1" --3
+	feet="Skulker's Poulaines +2" --3
 	}
 	
 	sets.melee = sets.TP['Standard']
@@ -195,7 +195,8 @@ function get_sets()
 	sets.ws["Rudra's Storm"] = set_combine(sets.ws.common, {
 	head="Pillager's Bonnet +3",
 	neck="Assassin's Gorget +2",
-	body="Gleti's Cuirass",
+	body="Skulker's Vest +2",
+	right_ring="Ilabrat Ring",
 	waist="Kentarch Belt +1",
 	legs="Plunderer's Culottes +3",
 	feet="Nyame Sollerets"
@@ -259,7 +260,7 @@ function get_sets()
 	--head="Volte Cap",
 	hands="Plunderer's Armlets +3",
 	--waist="Chaac Belt",
-	--feet="Skulker's Poulaines +1"
+	--feet="Skulker's Poulaines +2"
 	})
 	
 	-- ja --
@@ -268,9 +269,11 @@ function get_sets()
 	sets.ja['Steal'] = set_combine(sets.THwhore, {neck="Pentalagus Charm",hands="Pillager's Armlets +1",legs="Assassin's Culottes",feet="Pillager's Poulaines +3"})
 	sets.ja['Mug'] = set_combine(sets.THwhore, {head="Assassin's Bonnet"})
 	sets.ja['Flee'] = {feet="Pillager's Poulaines +3"}
-	sets.ja['Despoil'] = set_combine(sets.THwhore, {legs="Skulker's Culottes +1",feet="Skulker's Poulaines +1",})
+	sets.ja['Despoil'] = set_combine(sets.THwhore, {legs="Skulker's Culottes +2",feet="Skulker's Poulaines +2",})
 	sets.ja['Feint'] = {legs="Plunderer's Culottes +3"}
 	sets.ja.waltz = {body="Passion Jacket",feet="Rawhide Boots"}
+	sets.ja['Accomplice'] = {head="Skulker's Bonnet +3"}
+	sets.ja['Collaborator'] = {head="Skulker's Bonnet +3"}
 	
 	sets.low_hp = {
 	head="Pixie Hairpin +1",
@@ -455,7 +458,7 @@ function midcast(spell)
 		if player.equipment.range == 'empty' then
 			equip(ammo.acc)
 		end
-		if S{player.sub_job}:contains('BLM') then
+		if S{player.sub_job}:contains('BLM') or S{player.sub_job}:contains('DRK') then
 			equip(sets.THwhore)
 			if player.equipment.range == 'empty' then
 				equip(ammo.th)

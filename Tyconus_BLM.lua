@@ -76,14 +76,16 @@ function get_sets()
 	}
 	
 	sets.midcast.cure = { 
-	head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
-	neck="Incanter's Torque",
+	head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}}, --10
+	neck="Nodens Gorget", --5
 	left_ear="Meili Earring",
 	right_ear="Beatific Earring",
+	body="Annointed Kalasiris", --10
+	hands="Telchine Gloves", --10
 	left_ring="Janniston Ring", --II +5%
 	right_ring="Lebeche Ring", --3%
 	waist="Luminary Sash",
-	feet="Regal Pumps +1"
+	feet="Vanya Clogs" --5
 	}
 	
 	sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.conservemp, {
@@ -100,12 +102,12 @@ function get_sets()
 	})
 	
 	sets.midcast.EnhancingDuration = set_combine(sets.midcast['Enhancing Magic'], {
-	head="Telchine Cap",
-	body="Telchine Chasuble",
-	hands="Telchine Gloves",
+	head={ name="Telchine Cap", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	body={ name="Telchine Chasuble", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	hands={ name="Telchine Gloves", augments={'Pet: "Mag.Atk.Bns."+20','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
 	waist="Embla Sash",
-	legs="Telchine Braconi",
-	feet="Telchine Pigaches"
+	legs={ name="Telchine Braconi", augments={'Pet: Evasion+16','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
+	feet={ name="Telchine Pigaches", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}}
 	})
 	
 	sets.midcast.enfeeble = set_combine(sets.midcast.conservemp, {
@@ -242,8 +244,8 @@ function get_sets()
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Solemnity Cape",
 	waist="Carrier's Sash",
-	legs="Assiduity Pants",
-	feet="Nyame Sollerets"
+	legs="Volte Brais",
+	feet="Volte Gaiters"
 	}
 	
 	sets.idle['DT'] = {
@@ -355,7 +357,6 @@ function get_sets()
 	ammo="Ghastly Tathlum +1",
 	hands="Volte Gloves",
 	back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}},
-	waist="Refoccilation Stone",
 	legs="Jhakri Slops +2",
 	}
 

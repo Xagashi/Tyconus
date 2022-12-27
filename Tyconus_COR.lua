@@ -62,43 +62,45 @@ function get_sets()
     range={ name="Anarchy +3", priority=1,},
 	}
 	
+	sets.sortie = {
+	main={ name="Tauret", priority=2},
+    sub={ name="Gleti's Knife", priority=1},
+	range="Fomalhaut",
+	}
+	
 	sets.TP.index = {'Standard','HighAcc','DT'}
 	TP_ind = 1 --Standard set is the Default
 	
 	sets.TP['Standard'] = {
 	head={ name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
 	neck="Iskur gorget",
+	left_ear="Telos Earring",
 	right_ear="Dedition Earring",
 	body="Malignance Tabard",
 	hands="Adhemar Wristbands +1",
-	left_ring="Regal Ring",
+	left_ring="Epona's Ring",
 	right_ring="Petrov Ring",
 	back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
 	--legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
 	legs={ name="Samnuha Tights", augments={'STR+9','DEX+8','"Dbl.Atk."+2','"Triple Atk."+2',}},
-	feet="Mummu Gamashes +2",
+	feet="Chasseur's Bottes +3"
 	}
 	
 	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {
-	head="Mummu Bonnet +2",
+	head="Chasseur's Tricorne +2",
 	neck="Combatant's Torque",
 	right_ear="Crepuscular Earring",
-	body="Malignance Tabard",
 	hands="Malignance Gloves",
-	left_ring="Chirich Ring +1",
-	right_ring="Cacoethic Ring +1",
-	back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
-	legs="Malignance Tights",
-	feet="Mummu Gamash. +2"
+	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
+	right_ring={name="Chirich Ring +1", bag="wardrobe6"},
+	legs="Chasseur's Culottes +3",
+	feet="Chasseur's Bottes +3"
 	})
 	
 	sets.TP['DT'] = set_combine(sets.TP['Standard'], {
 	head="Nyame Helm",
-	body="Malignance Tabard",
 	hands="Malignance Gloves",
-	left_ring="Gelatinous Ring +1",
-	back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
-	legs="Malignance Tights",
+	legs="Chasseur's Culottes +3",
 	feet="Nyame Sollerets"
 	})
 	
@@ -112,8 +114,8 @@ function get_sets()
 	})
 	
 	--Snapshot > Rapid Shot
-	sets.precast.RA = { --60+10JP Snapshot | 30+38 Rapid Shot
-	head="Chasseur's tricorne +1", --14R
+	sets.precast.RA = { --60+10JP Snapshot | 30+40 Rapid Shot
+	head="Chasseur's Tricorne +2", --16R
 	neck="Commodore Charm +2", --4S
 	body="Oshosi Vest", --12S
 	hands={ name="Carmine Finger Gauntlets +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, --8S 11R
@@ -124,7 +126,7 @@ function get_sets()
 	feet="Meghanada Jambeaux +2" --10S
 	}
 	
-	sets.precast.RA.Flurry = set_combine(sets.midcast.RA, { --45+10JP+15% Snapshot | 30+73 Rapid Shot
+	sets.precast.RA.Flurry = set_combine(sets.midcast.RA, { --45+10JP+15% Snapshot | 30+75 Rapid Shot
 	body="Laksamana's Frac +3", --20R
 	waist="Yemaya Belt", --5R
 	feet="Pursuer's Gaiters"
@@ -141,14 +143,14 @@ function get_sets()
 	left_ring="Ilabrat Ring",
 	right_ring="Dingir Ring",
 	back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',}},
-	waist="Yemaya Belt",
+	waist="Kwahu Kachina Belt +1",
 	legs="Ikenga's Trousers",
 	feet="Ikenga's Clogs"
 	}
 	
 	sets.midcast['Triple Shot'] = set_combine(sets.midcast.RA, {
 	head="Oshosi Mask",
-	body="Chasseur's Frac +1",
+	body="Chasseur's Frac +3",
 	hands="Lanun Gants +3",
 	legs="Oshosi Trousers",
 	feet="Oshosi Leggings"
@@ -159,16 +161,16 @@ function get_sets()
 	range="Compensator",
 	head="Lanun Tricorne +1",
 	neck="Regal necklace",
-	hands="Chasseur's Gants +1",
+	hands="Chasseur's Gants +3",
 	left_ring="Luzaf's Ring",
 	back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
 	}
 	
-	sets.ja["Caster's Roll"] = set_combine(sets.ja.CorsairRoll, {legs="Chasseur's Culottes +1"})
-	sets.ja["Courser's Roll"] = set_combine(sets.ja.CorsairRoll, {feet="Chasseur's Bottes +1"})
-	sets.ja["Blitzer's Roll"] = set_combine(sets.ja.CorsairRoll, {head="Chasseur's Tricorne +1"})
-	sets.ja["Tactician's Roll"] = set_combine(sets.ja.CorsairRoll, {body="Chasseur's Frac +1"})
-	sets.ja["Allies' Roll"] = set_combine(sets.ja.CorsairRoll, {hands="Chasseur's Gants +1"})
+	sets.ja["Caster's Roll"] = set_combine(sets.ja.CorsairRoll, {legs="Chasseur's Culottes +3"})
+	sets.ja["Courser's Roll"] = set_combine(sets.ja.CorsairRoll, {feet="Chasseur's Bottes +3"})
+	sets.ja["Blitzer's Roll"] = set_combine(sets.ja.CorsairRoll, {head="Chasseur's Tricorne +2"})
+	sets.ja["Tactician's Roll"] = set_combine(sets.ja.CorsairRoll, {body="Chasseur's Frac +3"})
+	sets.ja["Allies' Roll"] = set_combine(sets.ja.CorsairRoll, {hands="Chasseur's Gants +3"})
 	
 	sets.ja["Wild Card"] = {feet="Lanun Bottes +3"}
 	sets.ja["Double-Up"] = sets.ja.CorsairRoll
@@ -176,7 +178,7 @@ function get_sets()
 	sets.ja["Snake Eye"] = {legs="Lanun Trews +3"}
 	sets.ja.waltz = {body="Passion Jacket",}
 	
-	sets.QD.index = {'STP','MAB','Empy'}
+	sets.QD.index = {'Empy','MAB','STP'}
 	QD_ind = 1 --Standard set is the Default
 	
 	sets.QD['STP'] = {
@@ -190,7 +192,8 @@ function get_sets()
 	left_ring="Chirich ring +1",
 	right_ring="Crepuscular Ring",
 	back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',}},
-	waist="Tellen belt",
+	--waist="Tellen belt",
+	waist="Yemaya Belt",
 	legs="Malignance Tights",
 	--feet="Malignance Boots"
 	feet="Ikenga's Clogs"
@@ -214,8 +217,8 @@ function get_sets()
 	feet="Lanun Bottes +3"
 	}
 	
-	sets.QD['Empy'] = set_combine(sets.QD['STP'], {
-	feet="Chasseur's Bottes +1"
+	sets.QD['Empy'] = set_combine(sets.QD['MAB'], {
+	feet="Chasseur's Bottes +3"
 	})
 	
 	sets.midcast.quickmacc = {
@@ -249,6 +252,7 @@ function get_sets()
 	}
 	
 	sets.ws["Last Stand"] = set_combine(sets.ws.common, {
+	hands="Chasseur's Gants +3",
 	back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
 	})
 	
@@ -270,7 +274,10 @@ function get_sets()
 	right_ring="Epaminondas's ring",
 	})
 	
-	sets.ws["Hot Shot"] = sets.ws["Wildfire"]
+	sets.ws["Hot Shot"] = set_combine(sets.ws["Wildfire"], {
+	body="Nyame Mail",
+	neck="Fotia Gorget",
+	})
 	
 	sets.ws["Sniper Shot"] = {
 	head="Meghanada Visor +2",
@@ -289,14 +296,15 @@ function get_sets()
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
 	neck="Republican Platinum Medal",
+	hands="Chasseur's Gants +3",
 	})
 	
 	sets.ws["Evisceration"] = {
 	head="Adhemar Bonnet +1",
 	neck="Fotia Gorget",
 	right_ear="Odr Earring",
-	body="Mummu Jacket +2",
-	hands="Adhemar Wristbands +1",
+	body="Meghanada Cuirie +2",
+	hands="Chasseur's Gants +3",
 	left_ring="Regal Ring",
 	right_ring="Begrudging Ring",
 	waist="Fotia Belt",
@@ -331,6 +339,9 @@ function get_sets()
 	legs="Carmine Cuisses +1",
 	feet="Carmine Greaves +1"
 	}
+	
+	sets.subjobnin = {left_ear="Eabani Earring",waist="Reiki Yotai"}
+	sets.subjobdnc = {left_ear="Eabani Earring",back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+18 Attack+18','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},waist="Reiki Yotai"}
 
 end
 
@@ -342,7 +353,7 @@ function check_height()
 end
 
 function precast(spell)
-	if buffactive['Stun'] or buffactive['Petrify'] or ((spell.action_type == "WeaponSkill" or spell.action_type == "JobAbility") and buffactive['Amnesia']) or (spell.action_type == 'Magic' and buffactive['Silence']) or (buffactive[spell.name] and not spell.action_type == 'Magic') or (spell.name == "Snake Eye" and not buffactive['Double-Up Chance']) then
+	if buffactive['Stun'] or buffactive['Petrify'] or ((spell.action_type == "WeaponSkill" or spell.action_type == "JobAbility") and buffactive['Amnesia']) or (spell.action_type == 'Magic' and buffactive['Silence']) or (buffactive[spell.name] and not spell.action_type == 'Magic') or (spell.name == "Snake Eye" and not buffactive['Double-Up Chance']) or (spell.name == "Fold" and not buffactive['Bust']) then
 		cancel_spell()
 	elseif (sets.ja[spell.english]) then
 		equip(sets.ja[spell.english])
@@ -497,10 +508,20 @@ end
 function aftercast(spell)
 	if player.status == 'Engaged' then
 		equip(sets.TP[sets.TP.index[TP_ind]])
-		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' then
+		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
 			equip({left_ear="Telos Earring",waist="Sailfi Belt +1"})
 		else
-			equip({left_ear="Suppanomimi",waist="Reiki Yotai"})
+			if S{player.sub_job}:contains('DNC') then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"]) and buffactive["Haste Samba"] then
+					equip({waist="Reiki Yotai"})
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] then
+					equip(sets.subjobdnc)
+				elseif buffactive["Haste"] and not buffactive["March"] then
+					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+				end
+			elseif S{player.sub_job}:contains('NIN') then
+				equip(sets.subjobnin)
+			end
 		end
 	elseif player.status == 'Idle' then
 		equip(sets.TP[sets.TP.index[TP_ind]],sets.movement)
@@ -520,7 +541,29 @@ function status_change(new,old)
 		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' then
 			equip({left_ear="Telos Earring",waist="Sailfi Belt +1"})
 		else
-			equip({left_ear="Suppanomimi",waist="Reiki Yotai"})
+			if S{player.sub_job}:contains('DNC') then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"]) and buffactive["Haste Samba"] then
+					equip({waist="Reiki Yotai"})
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] then
+					equip(sets.subjobdnc)
+				elseif buffactive["Haste"] and not buffactive["March"] then
+					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+				end
+			elseif S{player.sub_job}:contains('NIN') then
+				equip(sets.subjobnin)
+			end
+		end
+	end
+end
+
+function buff_change(n, gain, buff_table)
+	local name
+	name = string.lower(n)
+	if S{"doom"}:contains(name) then
+		if gain then
+			send_command('@input /p Cursna - Doomed')
+		else
+			send_command('@input /p Doom - Off')
 		end
 	end
 end
@@ -549,6 +592,7 @@ send_command('alias roll gs equip sets.roll')
 send_command('alias sdp gs equip sets.sdp')
 send_command('alias sf gs equip sets.sf')
 send_command('alias stp gs equip sets.stp')
+send_command('alias sortie gs equip sets.sortie')
 
 function file_unload()
 	send_command('unbind !q')
@@ -567,7 +611,11 @@ function self_command(command)
 		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' then
 			equip({left_ear="Telos Earring",waist="Grunfeld Rope"})
 		else
-			equip({left_ear="Suppanomimi",waist="Reiki Yotai"})
+			if S{player.sub_job}:contains('DNC') then
+				equip(sets.subjobdnc)
+			elseif S{player.sub_job}:contains('NIN') then
+				equip(sets.subjobnin)
+			end
 		end
 	end
 	if command == 'toggle QD set' then

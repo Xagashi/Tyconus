@@ -8,6 +8,7 @@ NaSpells = S{"Blindna","Erase","Paralyna","Poisona","Silena","Stona","Viruna"}
 BoostSpells = S{"Boost-STR","Boost-DEX","Boost-VIT","Boost-AGI","Boost-INT","Boost-MND","Boost-CHR"}
 EnfeeblingMND = S{"Paralyze","Slow"}
 EnfeeblingINT = S{"Blind","Bind","Dispel","Sleep","Sleep II","Sleepga","Poison","Poison II","Poisonga"}
+send_command('lua l Skillchains')
 
 --Potency >>>>>> MND > VIT > Skill
 
@@ -78,22 +79,12 @@ function get_sets()
 	legs="Vanya Slops", --12
 	}
 	
-	sets.midcast.cure = { 
-	main="",
-	sub="Ammurapi Shield",
+	sets.midcast.cure = set_combine(sets.midcast.conservemp, { 
+	main="Daybreak",
 	head="Vanya Hood",
-	neck="",
-	left_ear="",
-	right_ear="",
-	body="",
-	hands="",
+	body="Annointed Kalasiris",
 	left_ring="Janniston Ring", --II +5%
-	right_ring="Lebeche Ring", --3%
-	back="",
-	waist="Luminary Sash",
-	legs="",
-	feet=""
-	}
+	})
 	
 	sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.conservemp, {
 	main={ name="Gada", augments={'Enh. Mag. eff. dur. +6','MND+1',}},
@@ -110,12 +101,12 @@ function get_sets()
 	
 	sets.midcast.EnhancingDuration = set_combine(sets.midcast['Enhancing Magic'], {
 	sub="Ammurapi Shield",
-	head="Telchine Cap",
-	--body="Telchine Chasuble",
-	hands="Telchine Gloves",
+	head={ name="Telchine Cap", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	body={ name="Telchine Chasuble", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	hands={ name="Telchine Gloves", augments={'Pet: "Mag.Atk.Bns."+20','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
 	waist="Embla Sash",
-	legs="Telchine Braconi",
-	feet="Telchine Pigaches"
+	legs={ name="Telchine Braconi", augments={'Pet: Evasion+16','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
+	feet={ name="Telchine Pigaches", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}}
 	})
 	
 	sets.midcast.MagicMAB = {
@@ -152,27 +143,34 @@ function get_sets()
 	sets.midcast.enfeebleINT = set_combine(sets.midcast.enfeeble, {
 	})
 	
+	sets.midcast.impact = set_combine(sets.midcast.conservemp, {
+	body="Crepuscular Cloak",
+	hands="Azimuth Gloves +2",
+	legs="Azimuth Tights +2",
+	feet="Azimuth Gaiters +2"
+	})
+	
 	sets.nuke.index = {'Free','MB'}
 	nuke_ind = 1 --Free set is the Default
 	
 	sets.nuke['Free'] = {
-	--main="Daybreak",
-	--sub="Ammurapi Shield",
-	main={name="Marin Staff +1",priority=2},
-	sub={name="Enki Strap",priority=1},
+	main="Bunzi's Rod",
+	sub="Ammurapi Shield",
+	--main={name="Marin Staff +1",priority=2},
+	--sub={name="Enki Strap",priority=1},
 	ammo="Ghastly Tathlum +1",
 	head=empty,
-	neck="Baetyl Pendant",
+	neck="Sibyl Scarf",
 	left_ear="Regal Earring",
 	right_ear="Malignance Earring",
 	body="Cohort Cloak +1",
-	hands="Amalric Gages +1",
+	hands="Agwu's Gages",
 	left_ring="Freke Ring",
 	right_ring="Metamorph Ring +1",
 	back={ name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+5','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
 	waist="Refoccilation Stone",
 	legs="Bagua Pants +3",
-	feet="Amalric Nails +1"
+	feet="Agwu's Pigaches"
 	}
 	
 	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {
@@ -206,14 +204,14 @@ function get_sets()
 	main={ name="Gada", augments={'Indi. eff. dur. +10','CHR+1','Mag. Acc.+18',}},
 	back="Lifestream Cape",
 	legs="Bagua Pants +3",
-	feet="Azimuth Gaiters +1",
+	feet="Azimuth Gaiters +2",
 	})
 
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------- MISC -----------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 
-	sets.ja['Full Circle'] = {head="Azimuth Hood +1",hands="Bagua Mitaines +1",}
+	sets.ja['Full Circle'] = {head="Azimuth Hood +2",hands="Bagua Mitaines +1",}
 	sets.ja['Life Cycle'] = {body="Geomancy Tunic +2",back={ name="Nantosuelta's Cape", augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: "Regen"+5',}},}
 	sets.ja['Bolster'] = {body="Bagua Tunic +3",}
 	sets.ja['Radial Arcana'] = {feet="Bagua Sandals +3"}
@@ -250,7 +248,7 @@ function get_sets()
 	main="Idris", --25/0
 	sub="Genmei Shield",
 	ammo="Staunch Tathlum +1",
-	head="Azimuth Hood +1", --0/3
+	head="Azimuth Hood +2", --0/3
 	neck="Bagua Charm +2",
 	hands="Geomancy Mitaines +3", --13/0
 	back={ name="Nantosuelta's Cape", augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: "Regen"+5',}}, --0/15
@@ -424,7 +422,9 @@ function precast(spell)
 				equip(sets.fc['Enhancing Magic'])
 			end
 		elseif spell.skill == 'Enfeebling Magic' and spell.name == "Dispelga" then
-				equip(set_combine(sets.fc.base,{main="Daybreak"}))
+			equip(set_combine(sets.fc.base,{main="Daybreak"}))
+		elseif spell.skill == 'Elemental Magic' and spell.name == "Impact" then
+			equip(set_combine(sets.fc.base,{head=empty,body="Crepuscular Cloak"}))
 		else
 			equip(sets.fc.base)
 		end
@@ -482,8 +482,12 @@ function midcast(spell)
 		elseif sets.midcast[spell.name] then
 			weathercheck(spell.element,sets.midcast[spell.name])
 		elseif spell.skill == 'Elemental Magic' then
-			weathercheck(spell.element,sets.nuke[sets.nuke.index[nuke_ind]])
-			zodiaccheck(spell.element)
+			if spell.name == "Impact" then
+				equip({sets.midcast.impact})
+			else
+				weathercheck(spell.element,sets.nuke[sets.nuke.index[nuke_ind]])
+				zodiaccheck(spell.element)
+			end
 		elseif spell.skill == "Enhancing Magic" and not S{'Warp','Warp II','Retrace','Teleport-Holla','Teleport-Mea','Teleport-Dem','Teleport-Altep','Teleport-Vahzl','Teleport-Yhoat'}:contains(spell.english) then
 			if spell.english == "Sneak" or spell.english == "Invisible" then
 				equip(sets.buff.skulk)
@@ -502,13 +506,11 @@ function midcast(spell)
 				equip(sets.buff.refresh)
 			else
 				equip(sets.midcast.EnhancingDuration)
-				--if buffactive['Light Arts'] then
-				--	equip({hands="Telchine Gloves"})
-				--end
 			end
 		elseif spell.skill == 'Enfeebling Magic' then
 			if spell.name == "Dispelga" then
 				equip({main="Daybreak"})
+				equip(sets.midcast.enfeeble)
 			elseif EnfeeblingMND:contains(spell.name) then
 				equip(sets.midcast.enfeebleMND)
 			elseif EnfeeblingINT:contains(spell.name) then

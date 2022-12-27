@@ -59,10 +59,10 @@ function get_sets()
 	feet={name="Souveran schuhs +1",priority=12}, --227
 	}
 	
-	sets.buff["Phalanx"] = { --29
+	sets.buff["Phalanx"] = { --30
 	head={ name="Valorous Mask", augments={'"Conserve MP"+3','"Mag.Atk.Bns."+23','Phalanx +5',},priority=10}, --5
 	neck="Moonlight Necklace",
-	body="Valorous Mail", --4
+	body="Valorous Mail", --5
 	hands={name="Souveran Handschuhs +1",priority=15}, --5
 	back="Weard Mantle", --5
 	waist="Audumbla Sash",
@@ -70,7 +70,7 @@ function get_sets()
 	feet={name="Souveran schuhs +1",priority=14}, --5
 	}
 	
-	sets.phalanx2 = set_combine(sets.buff["Phalanx"], { --36
+	sets.phalanx2 = set_combine(sets.buff["Phalanx"], { --37
 	main={name="Sakpata's Sword",priority=12}, --5
 	sub={name="Priwen",priority=11}, --2
 	})
@@ -88,7 +88,7 @@ function get_sets()
 	waist={name="Creed Baudrier",priority=9}, --5
 	legs={name="Souveran Diechlings +1",priority=13}, --9
 	feet={ name="Eschite Greaves", augments={'HP+80','Enmity+7','Phys. dmg. taken -4',},priority=11},
-	--feet={name="Chevalier's Sabatons +1",priority=9} --11
+	--feet={name="Chevalier's Sabatons +2",priority=9} --11
 	}
 	
 	sets.sird = set_combine(sets.enmity, {
@@ -115,14 +115,14 @@ function get_sets()
 	sets.ja["Warcry"] = sets.enmity
 	sets.ja["Invincible"] = {legs="Caballarius Breeches",}
 	sets.ja["Holy Circle"] = {feet="Reverence Leggings"}
-	sets.ja["Shield Bash"] = {right_ear="Knightly Earring",hands="Caballarius Gauntlets +3",--[[left_ring="Fenian Ring",]]}
+	sets.ja["Shield Bash"] = set_combine(sets.enmity, {right_ear="Knightly Earring",hands="Caballarius Gauntlets +3",--[[left_ring="Fenian Ring",]]})
 	sets.ja["Weapon Bash"] = {right_ear="Knightly Earring",}
 	sets.ja["Sentinel"] = set_combine(sets.enmity, {feet="Caballarius Leggings +3"})
 	sets.ja["Cover"] = {--[[head="Reverence Coronet",]]}
 	sets.ja["Rampart"] = set_combine(sets.enmity, {head="Caballarius Coronet",})
 	sets.ja["Fealty"] = {body="Caballarius Surcoat",}
 	sets.ja["Chivalry"] = {hands="Caballarius Gauntlets +3"}
-	sets.ja["Divine Emblem"] = {feet="Chevalier's Sabatons +1"}
+	sets.ja["Divine Emblem"] = {feet="Chevalier's Sabatons +2"}
 	
 	sets.dt = {
 	ammo={name="Staunch Tathlum +1",priority=1},
@@ -199,7 +199,7 @@ function get_sets()
 	sets.sword['Malevolence'] = {main="Malevolence"}
 	--sets.sword['Mafic Cudgel'] = {main="Mafic Cudgel"}
 	
-	sets.shield.index = {'Srivatsa','Ochain','Aegis','Priwen','Blurred'}
+	sets.shield.index = {'Duban','Srivatsa','Aegis','Priwen','Blurred'}
 	shield_ind = 1 --Srivatsa is the Default
 	
 	sets.shield['Srivatsa'] = {sub="Srivatsa",waist="Asklepian Belt",}
@@ -207,6 +207,7 @@ function get_sets()
 	sets.shield['Ochain'] = {sub="Ochain",waist="Flume Belt +1",}
 	sets.shield['Priwen'] = {sub="Priwen",waist="Flume Belt +1",}
 	sets.shield['Blurred'] = {sub="Blurred Shield +1",waist="Sailfi Belt +1",}
+	sets.shield['Duban'] = {sub="Duban",waist="Asklepian Belt",}
 	
 	sets.TP.index = {'None','Standard','HighAcc'}
 	TP_ind = 1 --None is the Default
@@ -424,6 +425,19 @@ function buff_change(n, gain, buff_table)
 	if S{"doom"}:contains(name) then
 		if gain then
 			send_command('@input /p Cursna - Doomed')
+		else
+			send_command('@input /p Doom - Off')
+		end
+	elseif S{"stoneskin"}:contains(name) then
+		if gain then
+			send_command('cancel Stoneskin')
+		end
+	elseif S{"phalanx"}:contains(name) then
+		if gain then
+		else
+			if player.hp ~= 0 then
+				add_to_chat(123, 'Phalanx: [lost]')
+			end
 		end
 	end
 end
@@ -483,7 +497,6 @@ function set_macros(sheet,book)
         return
     end
     send_command('@input /macro set '..tostring(sheet))
-	
 end
  
 function set_style(sheet)

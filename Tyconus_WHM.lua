@@ -53,24 +53,13 @@ function get_sets()
 	feet="Regal Pumps +1" --5
 	}
 	
-	sets.fc.cure = set_combine(sets.fc.base, {
-	--sub="Sors Shield",
-	--head="Piety Cap",
-	--left_ear="Nourishing Earring +1",
-	})
+	sets.fc.cure = set_combine(sets.fc.base, {})
 	
-	sets.fc.healing = set_combine(sets.fc.base, {
-	--main="Vadose Rod",
-	--legs="Ebers Pantaloons +1",
-	})
+	sets.fc.healing = set_combine(sets.fc.base, {})
 	
-	sets.fc.stoneskin = set_combine(sets.fc.base, {
-	--head="Umuthi Hat",
-	})
+	sets.fc.stoneskin = set_combine(sets.fc.base, {})
 	
-	sets.fc['Enhancing Magic'] = set_combine(sets.fc.base, {
-	--waist="Siegel Sash"
-	})
+	sets.fc['Enhancing Magic'] = set_combine(sets.fc.base, {})
 	
 ---------------------------------------------------------------------------------------------------------------
 --------------------------------------------------- MIDCAST ---------------------------------------------------
@@ -103,7 +92,7 @@ function get_sets()
 	right_ring="Menelaus's Ring", --3%
 	back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Cure" potency +10%','Spell interruption rate down-10%',}}, --10%
 	waist="Bishop's Sash",
-	legs="Ebers Pantaloons +1",
+	legs="Ebers Pantaloons +3",
 	feet="Theophany Duckbills +3"
 	}
 	
@@ -139,11 +128,11 @@ function get_sets()
 	
 	sets.midcast.EnhancingDuration = set_combine(sets.midcast['Enhancing Magic'], {
 	sub="Ammurapi Shield",
-	head="Telchine Cap",
-	body="Telchine Chasuble",
-	hands="Telchine Gloves",
+	head={ name="Telchine Cap", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	body={ name="Telchine Chasuble", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
+	hands={ name="Telchine Gloves", augments={'Pet: "Mag.Atk.Bns."+20','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
 	waist="Embla Sash",
-	legs="Telchine Braconi",
+	legs={ name="Telchine Braconi", augments={'Pet: Evasion+16','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
 	feet="Theophany Duckbills +3"
 	})
 	
@@ -151,20 +140,20 @@ function get_sets()
 	main="Bolelabunga",
 	head="Inyanga Tiara +2",
 	body="Piety Bliaut +3",
-	hands="Ebers Mitts +1",
+	hands="Ebers Mitts +2",
 	legs="Theophany Pantaloons +3",
 	feet="Bunzi's Sabots"
 	})
 	
 	sets.midcast.bar_element = set_combine(sets.midcast.EnhancingDuration, {
 	main="Beneficus",
-	head="Ebers Cap +1",
+	head="Ebers Cap +2",
 	neck="Incanter's Torque",
-    body="Ebers Bliaut +1",
-	hands="Ebers Mitts +1",
+    body="Ebers Bliaut +3",
+	hands="Ebers Mitts +2",
 	back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Cure" potency +10%','Spell interruption rate down-10%',}},
     legs="Piety Pantaloons +3",
-	feet="Ebers Duckbills +1"
+	feet="Ebers Duckbills +2"
 	})
 	
 	sets.midcast.shell = set_combine(sets.midcast.EnhancingDuration, {
@@ -179,9 +168,9 @@ function get_sets()
 	main="Yagrush",
 	head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
 	neck="Debilis Medallion",
-	left_ear="Beatific Earring",
-	right_ear="Meili Earring",
-	body="Ebers Bliaut +1",
+	left_ear="Meili Earring",
+	right_ear="Ebers Earring +1",
+	body="Ebers Bliaut +3",
 	hands={ name="Fanatic Gloves", augments={'MP+50','Healing magic skill +10','"Conserve MP"+7','"Fast Cast"+7',}},
 	left_ring="Haoma's Ring",
 	right_ring="Menelaus's Ring",
@@ -281,7 +270,7 @@ function get_sets()
 	})
 	
 	sets.buff['Auspice'] = set_combine(sets.midcast.EnhancingDuration, {
-	feet="Ebers Duckbills +1",
+	feet="Ebers Duckbills +2",
 	})
 	
 	sets.buff.refresh = set_combine(sets.midcast.EnhancingDuration, {
@@ -292,7 +281,7 @@ function get_sets()
 	sets.ja['Devotion'] = {head="Piety Cap"}
 	--sets.ja['Martyr'] = {hands="Piety Mitts"}
 	sets.sublimation = {waist="Embla Sash"}
-	sets.caress = set_combine(sets.midcast.conservemp, {main="Yagrush",hands="Ebers Mitts +1",--[[back="Mending Cape",]]})
+	sets.caress = set_combine(sets.midcast.conservemp, {main="Yagrush",hands="Ebers Mitts +2",--[[back="Mending Cape",]]})
 	
 	sets.idle.index = {'Refresh','DT'}
 	idle_ind = 1 --Refresh set is the Default
@@ -304,15 +293,15 @@ function get_sets()
 	head="Volte Beret",
 	neck="Loricate Torque +1",
 	left_ear="Etiolation Earring",
-	right_ear="Glorious Earring",
-	body="Theophany Bliaut +3",
-	hands={ name="Chironic Gloves", augments={'"Conserve MP"+2','Mag. Acc.+21','"Refresh"+1','Accuracy+2 Attack+2',}},
+	right_ear="Eabani Earring",
+	body="Ebers Bliaut +3",
+	hands="Volte Gloves",
 	left_ring="Stikini Ring +1",
 	right_ring="Defending Ring",
 	back="Solemnity Cape",
 	waist="Carrier's Sash",
 	legs="Assiduity Pants",
-	feet={ name="Chironic Slippers", augments={'Accuracy+9','Enmity-5','"Refresh"+1',}},
+	feet="Volte Gaiters"
 	}
 	
 	sets.idle['DT'] = {
@@ -329,18 +318,18 @@ function get_sets()
 	TP_ind = 1 --Melee set is the Default
 	
 	sets.TP['Melee'] = {
-	head="Nyame Helm",
+	head="Ebers Cap +2",
 	neck="Combatant's Torque",
 	left_ear="Brutal Earring",
 	right_ear="Telos Earring",
-	body="Nyame Mail",
-	hands="Nyame Gauntlets",
+	body="Ebers Bliaut +3",
+	hands="Bunzi's Gloves",
 	left_ring="Petrov Ring",
 	right_ring="Ilabrat Ring",
 	back="Aurist's Cape +1",
-	waist="Grunfeld Rope",
-	legs="Nyame Flanchard",
-	feet="Nyame Sollerets",
+	waist="Olseni Belt",
+	legs="Ebers Pantaloons +3",
+	feet="Ebers Duckbills +2"
 	}
 	
 	sets.low_hp = {
@@ -349,11 +338,11 @@ function get_sets()
 	left_ear="Nourishing Earring +1",
 	right_ear="Glorious Earring",
 	body=empty,
-	hands={ name="Chironic Gloves", augments={'"Conserve MP"+2','Mag. Acc.+21','"Refresh"+1','Accuracy+2 Attack+2',}},
+	hands=empty,
 	right_ring="Mephitas's Ring +1",
 	--back="Vates Cape +1",
 	legs={ name="Chironic Hose", augments={'Mag. Acc.+13','MND+15','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
-	feet={ name="Chironic Slippers", augments={'Accuracy+9','Enmity-5','"Refresh"+1',}},
+	feet="Volte Gaiters"
 	}
 	
 	sets.high_hp = {
@@ -361,29 +350,20 @@ function get_sets()
 	neck="Unmoving Collar +1",
 	left_ear="Tuisto Earring",
 	right_ear="Odnowa Earring +1",
-	body="Ebers Bliaut +1",
+	body="Ebers Bliaut +3",
 	hands="Telchine gloves",
 	right_ring="Ilabrat Ring",
 	back="Twilight Cape",
 	waist="Gold Moogle Belt",
-	legs="Ebers Pantaloons +1",
+	legs="Ebers Pantaloons +3",
 	feet="Theophany Duckbills +3"
 	}
 	
 	sets.misc.rest = {
 	body="Theophany Bliaut +3",
-	hands={ name="Chironic Gloves", augments={'"Conserve MP"+2','Mag. Acc.+21','"Refresh"+1','Accuracy+2 Attack+2',}},
 	waist="Shinjutsu-no-obi +1",
-	feet={ name="Chironic Slippers", augments={'Accuracy+9','Enmity-5','"Refresh"+1',}},
+	feet="Volte Gaiters"
 	}
-	
-	--sets.fashion = {
-	--head="Inyanga Tiara +2",
-	--body="Theophany Bliaut +3",
-	--hands="Theophany Mitts +3",
-	--legs="Assiduity Pants",
-	--feet="Theophany Duckbills +3"
-	--}
 	
 	sets.refresh = sets.idle['Refresh']
 	
@@ -528,7 +508,7 @@ function midcast(spell)
 				if player.max_hp <= 2185 or buffactive['Max HP Boost'] or world.area:contains("Escha") or world.area == ("Reisenjima") then
 					weathercheck(spell.element,sets.midcast.cure)
 					if string.find(spell.english,'Cure') and buffactive['Afflatus Solace'] then
-						equip({body="Ebers Bliaut +1",back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Cure" potency +10%','Spell interruption rate down-10%',}},})
+						equip({body="Ebers Bliaut +3",back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Cure" potency +10%','Spell interruption rate down-10%',}},})
 					end
 				end
 			elseif spell.english == 'Cursna' then
@@ -540,7 +520,7 @@ function midcast(spell)
 					equip(sets.midcast.naremoval)
 				end
 				if player.equipment.main ~= "Yagrush" then
-					equip({head="Ebers Cap +1",})
+					equip({head="Ebers Cap +2",})
 				end
 			elseif spell.name == 'Arise' or spell.english:contains('raise') then
 				equip(sets.midcast.raise)
@@ -550,9 +530,6 @@ function midcast(spell)
 		elseif spell.skill == 'Elemental Magic' then
 			weathercheck(spell.element,sets.midcast.elemental)
 			zodiaccheck(spell.element)
-			if sets.midcast.MagicMAB[spell.element] then
-				equip(sets.midcast.MagicMAB[spell.element])
-			end
 		elseif spell.skill == "Enhancing Magic" and not S{'Warp','Warp II','Retrace','Teleport-Holla','Teleport-Mea','Teleport-Dem','Teleport-Altep','Teleport-Vahzl','Teleport-Yhoat','Recall-Jugner','Recall-Pashh','Recall-Meriph'}:contains(spell.english) then
 			if spell.english == "Sneak" or spell.english == "Invisible" then
 				equip(sets.buff.skulk)
@@ -561,7 +538,7 @@ function midcast(spell)
 			elseif BarElements:contains(spell.name) then
 				equip(sets.midcast.bar_element)
 				--if buffactive['Light Arts'] then
-				--	equip({head="Ebers Cap +1",feet="Ebers Duckbills +1"})
+				--	equip({head="Ebers Cap +2",feet="Ebers Duckbills +2"})
 				--end
 			elseif spell.name == 'Erase' then
 				equip({main="Yagrush",neck="Cleric's Torque"})
@@ -644,8 +621,8 @@ function buff_change(n, gain, buff_table)
 	name = string.lower(n)
 	if S{"silence"}:contains(name) then
 		if gain then
-			send_command('@input /item "Echo Drops" <me>')
-			--send_command('@input /item "Remedy" <me>')
+			--send_command('@input /item "Echo Drops" <me>')
+			send_command('@input /item "Remedy" <me>')
 		end
 	elseif S{"reraise"}:contains(name) then
 		if gain then
@@ -677,6 +654,15 @@ function buff_change(n, gain, buff_table)
 			if player.hp ~= 0 then
 				add_to_chat(123, 'Afflatus Misery: [lost]')
 			end
+		end
+	elseif S{"sleep"}:contains(name) then
+		if gain then
+			if buffactive["Stoneskin"] then
+				send_command('cancel Stoneskin')
+			end
+			equip({main="Lorg Mor",})
+		else
+			equip({main="Daybreak"})
 		end
 	end
 end
@@ -915,11 +901,11 @@ function set_macros(sheet,book)
         return
     end
     send_command('@input /macro set '..tostring(sheet))
-	add_to_chat (55, 'You are on '..('White Mage'):color(5)..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 function set_style(sheet)
     send_command('@input ;wait 5.0;input /lockstyleset '..sheet)
+	add_to_chat (55, 'You are on '..('White Mage'):color(5)..''..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 --Page, Book--
