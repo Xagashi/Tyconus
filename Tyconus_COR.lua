@@ -68,6 +68,12 @@ function get_sets()
 	range="Fomalhaut",
 	}
 	
+	sets.hotshot = {
+	main={ name="Naegling", priority=2},
+    sub={ name="Tauret", priority=1},
+	range="Fomalhaut",
+	}
+	
 	sets.TP.index = {'Standard','HighAcc','DT'}
 	TP_ind = 1 --Standard set is the Default
 	
@@ -241,7 +247,6 @@ function get_sets()
 	neck="Fotia Gorget",
 	right_ear="Ishvara Earring",
 	body="Nyame Mail",
-	--body="Laksamana's Frac +3",
 	hands="Nyame Gauntlets",
 	left_ring="Regal Ring",
 	right_ring="Epaminondas's ring",
@@ -295,8 +300,10 @@ function get_sets()
 	}
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
-	neck="Republican Platinum Medal",
+	neck="Commodore Charm +2",
+	--right_ear="Chasseur's Earring +2",
 	hands="Chasseur's Gants +3",
+	waist="Sailfi Belt +1",
 	})
 	
 	sets.ws["Evisceration"] = {
@@ -341,8 +348,7 @@ function get_sets()
 	}
 	
 	sets.subjobnin = {left_ear="Eabani Earring",waist="Reiki Yotai"}
-	sets.subjobdnc = {left_ear="Eabani Earring",back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+18 Attack+18','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},waist="Reiki Yotai"}
-
+	sets.subjobdnc = set_combine(sets.subjobnin, {back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+18 Attack+18','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},})
 end
 
 function check_height() 
@@ -512,15 +518,19 @@ function aftercast(spell)
 			equip({left_ear="Telos Earring",waist="Sailfi Belt +1"})
 		else
 			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"]) and buffactive["Haste Samba"] then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
 					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] then
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
 					equip(sets.subjobdnc)
-				elseif buffactive["Haste"] and not buffactive["March"] then
+				else
 					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
 				end
 			elseif S{player.sub_job}:contains('NIN') then
-				equip(sets.subjobnin)
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+					equip(sets.subjobnin)
+				else
+					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+				end
 			end
 		end
 	elseif player.status == 'Idle' then
@@ -538,19 +548,23 @@ function status_change(new,old)
 		equip({neck="Republican Platinum Medal",waist="Flume Belt +1",})
 	elseif new == 'Engaged' then
 		equip(sets.TP[sets.TP.index[TP_ind]])
-		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' then
+		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
 			equip({left_ear="Telos Earring",waist="Sailfi Belt +1"})
 		else
 			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"]) and buffactive["Haste Samba"] then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
 					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] then
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
 					equip(sets.subjobdnc)
-				elseif buffactive["Haste"] and not buffactive["March"] then
+				else
 					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
 				end
 			elseif S{player.sub_job}:contains('NIN') then
-				equip(sets.subjobnin)
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+					equip(sets.subjobnin)
+				else
+					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+				end
 			end
 		end
 	end
@@ -593,6 +607,7 @@ send_command('alias sdp gs equip sets.sdp')
 send_command('alias sf gs equip sets.sf')
 send_command('alias stp gs equip sets.stp')
 send_command('alias sortie gs equip sets.sortie')
+send_command('alias hs gs equip sets.hotshot')
 
 function file_unload()
 	send_command('unbind !q')
