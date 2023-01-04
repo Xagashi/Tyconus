@@ -1,7 +1,21 @@
---Melee/Range mode doesn't work.
-
 --Snake Eye 3 - Fold 1 - Winning Streak 5 - Loaded Deck 1
 --Ongo: Snake Eye 1 - Fold 0 - Winning Streak 4 - Loaded Deck 5
+
+send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
+send_command('bind !w gs equip movement') -- Hit alt+w, toggles the sets
+send_command('bind !` gs c toggle QD set') -- Hit alt+`, toggles the sets
+send_command('bind !u gs equip low_hp;wait 1; gs equip high_hp') -- Hit alt+u, Used specifically for the HP objectives for Omen
+
+-------- Aliases --------
+--Type //bolt to use Bolter's Roll.
+send_command('alias food input /item "Grape Daifuku" <me>')
+send_command('alias bolt input /ja "Bolter\'s roll" <me>')
+send_command('alias roll gs equip sets.roll')
+send_command('alias sdp gs equip sets.sdp')
+send_command('alias sf gs equip sets.sf')
+send_command('alias stp gs equip sets.stp')
+send_command('alias sortie gs equip sets.sortie')
+send_command('alias hs gs equip sets.hotshot')
 
 res = require 'resources'
 send_command('lua l Skillchains')
@@ -391,6 +405,13 @@ function precast(spell)
 			cancel_spell()
 			add_to_chat(123, spell.name..' Canceled: [Out of Range]')
 		elseif player.tp >= 1000 then
+			if elemental_ws:contains(spell.name) then
+				weathercheck(spell.element,sets.ws[spell.name])
+			elseif sets.ws[spell.name] then
+				equip(sets.ws[spell.name])
+			else
+				equip(sets.ws.common)
+			end
 			if spell.skill == 'Marksmanship' then
 				if no_shoot_ammo:contains(player.equipment.ammo) then
 					cancel_spell()
@@ -456,13 +477,6 @@ function precast(spell)
 					end
 				end
 			end
-			if elemental_ws:contains(spell.name) then
-				weathercheck(spell.element,sets.ws[spell.name],bullet.MA)
-			elseif sets.ws[spell.name] then
-				equip(sets.ws[spell.name])
-			else
-				equip(sets.ws.common)
-			end
 		end
 	elseif spell.action_type == 'Ranged Attack' then
 		if player.equipment.ammo == 'empty' then
@@ -523,13 +537,21 @@ function aftercast(spell)
 				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
 					equip(sets.subjobdnc)
 				else
-					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
 				end
 			elseif S{player.sub_job}:contains('NIN') then
 				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
 					equip(sets.subjobnin)
 				else
-					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
 				end
 			end
 		end
@@ -557,13 +579,21 @@ function status_change(new,old)
 				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
 					equip(sets.subjobdnc)
 				else
-					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
 				end
 			elseif S{player.sub_job}:contains('NIN') then
 				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
 					equip(sets.subjobnin)
 				else
-					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
 				end
 			end
 		end
@@ -596,19 +626,6 @@ function weathercheck(spell_element,set)
 	end
 end
 
-send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
-send_command('bind !w gs equip movement') -- Hit alt+w, toggles the sets
-send_command('bind !` gs c toggle QD set') -- Hit alt+`, toggles the sets
-send_command('bind !u gs equip low_hp;wait 1; gs equip high_hp')
-send_command('alias food input /item "Grape Daifuku" <me>')
-send_command('alias bolt input /ja "Bolter\'s roll" <me>')
-send_command('alias roll gs equip sets.roll')
-send_command('alias sdp gs equip sets.sdp')
-send_command('alias sf gs equip sets.sf')
-send_command('alias stp gs equip sets.stp')
-send_command('alias sortie gs equip sets.sortie')
-send_command('alias hs gs equip sets.hotshot')
-
 function file_unload()
 	send_command('unbind !q')
 	send_command('unbind !w')
@@ -623,13 +640,31 @@ function self_command(command)
 		if TP_ind > #sets.TP.index then TP_ind = 1 end
 		windower.add_to_chat(1,'<----- TP Set changed to '..sets.TP.index[TP_ind]..' ----->')
 		equip(sets.TP[sets.TP.index[TP_ind]])
-		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' then
+		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
 			equip({left_ear="Telos Earring",waist="Grunfeld Rope"})
 		else
 			if S{player.sub_job}:contains('DNC') then
-				equip(sets.subjobdnc)
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
+					equip({waist="Reiki Yotai"})
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
+					equip(sets.subjobdnc)
+				else
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
+				end
 			elseif S{player.sub_job}:contains('NIN') then
-				equip(sets.subjobnin)
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+					equip(sets.subjobnin)
+				else
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
+				end
 			end
 		end
 	end
@@ -649,7 +684,7 @@ function set_macros(sheet,book)
         return
     end
     send_command('@input /macro set '..tostring(sheet))
-	add_to_chat (55, 'You are on '..('Samurai'):color(5)..('. '):color(55)..''..('Macros set!'):color(121))
+	add_to_chat (55, 'You are on '..('Corsair'):color(5)..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 function set_style(sheet)
