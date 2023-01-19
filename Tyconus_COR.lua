@@ -107,7 +107,7 @@ function get_sets()
 	}
 	
 	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {
-	head="Chasseur's Tricorne +2",
+	head="Chasseur's Tricorne +3",
 	neck="Combatant's Torque",
 	right_ear="Crepuscular Earring",
 	hands="Malignance Gloves",
@@ -135,7 +135,7 @@ function get_sets()
 	
 	--Snapshot > Rapid Shot
 	sets.precast.RA = { --60+10JP Snapshot | 30+40 Rapid Shot
-	head="Chasseur's Tricorne +2", --16R
+	head="Chasseur's Tricorne +3", --16R
 	neck="Commodore Charm +2", --4S
 	body="Oshosi Vest", --12S
 	hands={ name="Carmine Finger Gauntlets +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, --8S 11R
@@ -146,7 +146,7 @@ function get_sets()
 	feet="Meghanada Jambeaux +2" --10S
 	}
 	
-	sets.precast.RA.Flurry = set_combine(sets.midcast.RA, { --45+10JP+15% Snapshot | 30+75 Rapid Shot
+	sets.precast.RA.Flurry = set_combine(sets.precast.RA, { --45+10JP+15% Snapshot | 30+75 Rapid Shot
 	body="Laksamana's Frac +3", --20R
 	waist="Yemaya Belt", --5R
 	feet="Pursuer's Gaiters"
@@ -157,11 +157,10 @@ function get_sets()
 	head="Ikenga's Hat",
 	neck="Iskur gorget",
 	left_ear="Telos Earring",
-	right_ear="Enervating Earring",
+	right_ear="Crepuscular Earring",
 	body="Malignance Tabard",
 	hands="Malignance Gloves",
 	left_ring="Ilabrat Ring",
-	right_ring="Dingir Ring",
 	back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',}},
 	waist="Kwahu Kachina Belt +1",
 	legs="Ikenga's Trousers",
@@ -169,11 +168,11 @@ function get_sets()
 	}
 	
 	sets.midcast['Triple Shot'] = set_combine(sets.midcast.RA, {
-	head="Oshosi Mask",
+	--head="Oshosi Mask",
 	body="Chasseur's Frac +3",
 	hands="Lanun Gants +3",
-	legs="Oshosi Trousers",
-	feet="Oshosi Leggings"
+	--legs="Oshosi Trousers",
+	--feet="Oshosi Leggings"
 	})
 	
 	sets.ja.CorsairRoll = {
@@ -188,7 +187,7 @@ function get_sets()
 	
 	sets.ja["Caster's Roll"] = set_combine(sets.ja.CorsairRoll, {legs="Chasseur's Culottes +3"})
 	sets.ja["Courser's Roll"] = set_combine(sets.ja.CorsairRoll, {feet="Chasseur's Bottes +3"})
-	sets.ja["Blitzer's Roll"] = set_combine(sets.ja.CorsairRoll, {head="Chasseur's Tricorne +2"})
+	sets.ja["Blitzer's Roll"] = set_combine(sets.ja.CorsairRoll, {head="Chasseur's Tricorne +3"})
 	sets.ja["Tactician's Roll"] = set_combine(sets.ja.CorsairRoll, {body="Chasseur's Frac +3"})
 	sets.ja["Allies' Roll"] = set_combine(sets.ja.CorsairRoll, {hands="Chasseur's Gants +3"})
 	
@@ -608,6 +607,56 @@ function buff_change(n, gain, buff_table)
 			send_command('@input /p Cursna - Doomed')
 		else
 			send_command('@input /p Doom - Off')
+		end
+	elseif S{"Haste Samba"}:contains(name) then
+		if gain then
+			if S{player.sub_job}:contains('DNC') then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
+					equip({waist="Reiki Yotai"})
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
+					equip(sets.subjobdnc)
+				else
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
+				end
+			elseif S{player.sub_job}:contains('NIN') then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+					equip(sets.subjobnin)
+				else
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
+				end
+			end
+		else
+			if S{player.sub_job}:contains('DNC') then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
+					equip({waist="Reiki Yotai"})
+				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
+					equip(sets.subjobdnc)
+				else
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
+				end
+			elseif S{player.sub_job}:contains('NIN') then
+				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+					equip(sets.subjobnin)
+				else
+					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+					else
+						equip(sets.subjobdnc)
+					end
+				end
+			end
 		end
 	end
 end
