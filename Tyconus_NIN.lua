@@ -1,4 +1,4 @@
-Weapons = S{"Blizzard Brand +1","Hornetneedle","Trainee Burin","Feline Hagoita +1","Lament","Lost Sickle +1","Sha Wujing's Lance","Mutsunokami +1","Aern Staff II"}
+Weapons = S{"Blizzard Brand +1","Hornetneedle","Trainee Burin","Feline Hagoita +1","Lament","Lost Sickle +1","Sha Wujing's La. +1","Mutsunokami +1","Aern Staff II"}
 AbysseaWS = S{"Red Lotus Blade","Seraph Blade","Cyclone","Energy Drain","Blade: Ei","Seraph Strike","Freezebite","Shadow of Death","Raiden Thrust","Tachi: Jinpu","Tachi: Koki","Earth Crusher","Sunburst"}
 res = require 'resources'
 ElementalWheel = S{"Katon: Ichi","Katon: Ni","Katon: San","Suiton: Ichi","Suiton: Ni","Suiton: San","Doton: Ichi","Doton: Ni","Doton: San","Hyoton: Ichi","Hyoton: Ni","Hyoton: San","Huton: Ichi","Huton: Ni","Huton: San","Raiton: Ichi","Raiton: Ni","Raiton: San"}
@@ -24,6 +24,7 @@ function get_sets()
 	right_ear="Loquacious Earring",
 	body="Taeon Tabard",
 	hands="Leyline Gloves",
+	left_ring="Medada's Ring",
 	right_ring="Kishar Ring",
 	legs="Arjuna Breeches",
 	}
@@ -52,14 +53,14 @@ function get_sets()
 	nuke_ind = 1 --Free set is the Default
 	
 	sets.nuke['Free'] = {
-	ammo="Seething Bomblet +1",
+	ammo="Ghastly Tathlum +1",
 	head="Mochizuki Hatsuburi +3",
 	neck="Sibyl Scarf",
 	left_ear="Hecate's Earring",
 	right_ear="Friomisi Earring",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
-	left_ring="Stikini Ring +1",
+	left_ring="Dingir Ring",
 	right_ring="Metamorph Ring +1",
 	back={ name="Andartia's Mantle", augments={'DEX+20','Mag. Acc+20 /Mag. Dmg.+20','DEX+10','Weapon skill damage +10%','Damage taken-5%',}},
 	waist="Orpheus's Sash",
@@ -109,7 +110,7 @@ function get_sets()
 	}
 	
 	sets.aby['Polearm'] = {
-	main="Sha Wujing's Lance",
+	main="Sha Wujing's Lance +1",
 	waist="Sailfi Belt +1",
 	}
 	
@@ -135,12 +136,12 @@ function get_sets()
 	--sub={ name="Mercurial Kris", priority=1,}
 	}
 	
-	sets.TP.index = {'Standard','DW','DT','Abyssea'}
+	sets.TP.index = {'Standard','DT','Abyssea'}
 	TP_ind = 1
 	
 	sets.TP['Standard'] = {
 	ammo="Seki Shuriken",
-	head="Adhemar Bonnet +1",
+	head="Malignance Chapeau",
 	neck="Ninja Nodowa +2",
 	left_ear="Telos Earring",
 	right_ear="Dedition Earring",
@@ -184,16 +185,19 @@ function get_sets()
 	feet="Nyame Sollerets",
 	})
 	
-	sets.TP['Abyssea'] = set_combine(sets.TP['Standard'], {
+	sets.TP['Abyssea'] = {
 	ammo="Coiste Bodhar",
 	head="Mpaca's Cap",
+	neck="Ninja Nodowa +2",
 	right_ear="Brutal Earring",
+	body="Tatenashi Haramaki +1",
 	hands="Tatenashi Gote +1",
 	left_ring="Gere Ring",
 	right_ring="Chirich Ring +1",
+	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
 	legs="Tatenashi Haidate +1",
 	feet="Tatenashi Sune-Ate +1"
-	})
+	}
 	
 	sets.haste0 = {
 	ammo="Seki Shuriken",
@@ -235,7 +239,7 @@ function get_sets()
 	
 	sets.haste40 = {
 	ammo="Seki Shuriken",
-	head="Adhemar Bonnet +1",
+	head="Malignance Chapeau",
 	neck="Ninja Nodowa +2",
 	left_ear="Telos Earring",
 	right_ear="Dedition Earring",
@@ -246,7 +250,7 @@ function get_sets()
 	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
 	waist="Sailfi Belt +1",
 	legs="Samnuha Tights",
-	feet="Tatenashi Sune-Ate +1"
+	feet="Malignance Boots"
 	}
 	
 	sets.dwfull = {
@@ -292,7 +296,7 @@ function get_sets()
 	
 	sets.utsusemi = set_combine(sets.ninjatoolexpert, {
 	back={ name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
-	feet="Hattori Kyahan +2"
+	feet="Hattori Kyahan +3"
 	})
 	
 	--Snapshot > Rapid Shot
@@ -499,14 +503,18 @@ end
 
 function aftercast(spell)
 	if player.status == "Engaged" then
-		if buffactive["Weakness"] then
-			equip(sets.dwfull)
-		elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
-			equip(sets.haste40)
-		elseif buffactive["Haste"] and not buffactive["March"] then
-			equip(sets.haste30)
+		if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['Abyssea'] then
+			if buffactive["Weakness"] then
+				equip(sets.dwfull)
+			elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
+				equip(sets.haste40)
+			elseif buffactive["Haste"] and not buffactive["March"] then
+				equip(sets.haste30)
+			else
+				equip(sets.TP['DW'])
+			end
 		else
-			equip(sets.TP['DW'])
+			equip(sets.TP[sets.TP.index[TP_ind]])
 		end
 	else
 		equip(sets.idle)
@@ -517,14 +525,18 @@ function status_change(new,old)
 	if new == 'Idle' then
 		equip(sets.idle)
 	elseif new == 'Engaged' then
-		if buffactive["Weakness"] then
-			equip(sets.dwfull)
-		elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
-			equip(sets.haste40)
-		elseif buffactive["Haste"] and not buffactive["March"] then
-			equip(sets.haste30)
+		if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['Abyssea'] then
+			if buffactive["Weakness"] then
+				equip(sets.dwfull)
+			elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
+				equip(sets.haste40)
+			elseif buffactive["Haste"] and not buffactive["March"] then
+				equip(sets.haste30)
+			else
+				equip(sets.TP['DW'])
+			end
 		else
-			equip(sets.TP['DW'])
+			equip(sets.TP[sets.TP.index[TP_ind]])
 		end
 	end
 end
@@ -574,7 +586,19 @@ function self_command(command)
 		TP_ind = TP_ind +1
 		if TP_ind > #sets.TP.index then TP_ind = 1 end
 		windower.add_to_chat(1,'<----- Melee Set changed to '..sets.TP.index[TP_ind]..' ----->')
-		equip(sets.TP[sets.TP.index[TP_ind]])
+		if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['Standard'] then
+			equip(sets.TP[sets.TP.index[TP_ind]])
+		else
+			if buffactive["Weakness"] then
+				equip(sets.dwfull)
+			elseif (buffactive["Haste"] and buffactive["March"]) or (buffactive["March"] and not buffactive["Haste"]) then
+				equip(sets.haste40)
+			elseif buffactive["Haste"] and not buffactive["March"] then
+				equip(sets.haste30)
+			else
+				equip(sets.TP['DW'])
+			end
+		end
 		if player.status == 'Idle' then
 			equip(sets.movement)
 		end

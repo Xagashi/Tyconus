@@ -62,21 +62,19 @@ function get_sets()
 	TP_ind = 1 --Standard set is the Default
 	
 	sets.TP['Standard'] = {
-	ammo="Aurgelmir Orb +1",
-	head="Adhemar Bonnet +1",
+	ammo="Coiste Bodhar",
+	head="Malignance Chapeau",
 	neck="Combatant's Torque",
-	--body="Malignance Tabard",
-	body="Adhemar Jacket +1",
-	left_ring="Chirich Ring +1",
-	right_ring="Petrov Ring",
-	back="Aurist's Cape +1",
-	legs="Malignance Tights",
-	feet="Jhakri Pigaches +2",
-	
 	left_ear="Suppanomimi",
-	right_ear="Brutal Earring",
-	hands="Adhemar Wristbands +1",
-	waist="Reiki Yotai",
+	right_ear="Hashishin Earring +1",
+	body="Adhemar Jacket +1",
+	hands="Malignance Gloves",
+	left_ring="Chirich Ring +1",
+	right_ring="Epona's Ring",
+	back="Aurist's Cape +1",
+	waist="Kentarch Belt +1",
+	legs="Gleti's Breeches",
+	feet="Malignance Boots",
 	
 	main={ name="Naegling", priority=1,},
 	sub={ name="Sakpata's Sword", priority=2,},
@@ -90,7 +88,7 @@ function get_sets()
 	--main={ name="Blizzard Brand +1", priority=1,},
 	sub={ name="Genmei Shield", priority=2,},
 	ammo="Staunch Tathlum +1",
-	head="Carmine Mask +1",
+	head="Malignance Chapeau",
 	neck="Combatant's Torque",
 	left_ear="Crepuscular Earring",
 	right_ear="Telos Earring",
@@ -100,8 +98,8 @@ function get_sets()
 	right_ring="Cacoethic Ring +1",
 	back="Aurist's Cape +1",
 	waist="Kentarch Belt +1",
-	legs="Malignance Tights",
-	feet="Gleti's Boots"
+	legs="Gleti's Breeches",
+	feet="Malignance Boots"
 	}
 	
 	sets.TP['DT'] = set_combine(sets.TP['Standard'], { --49
@@ -110,7 +108,6 @@ function get_sets()
 	neck="Loricate Torque +1", --6
 	body="Nyame Mail", --9
 	hands="Nyame Gauntlets", --7
-	left_ring="Paguroidea Ring",
 	right_ring="Defending Ring", --10
 	legs="Carmine Cuisses +1",
 	feet="Nyame Sollerets" --7
@@ -133,7 +130,7 @@ function get_sets()
 	right_ring="Metamorph Ring +1",
 	back={ name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+5','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
 	waist="Orpheus's Sash",
-	legs="Jhakri Slops +2",
+	legs="Hashishin Tayt +2",
 	feet="Amalric Nails +1"
 	}
 	
@@ -159,6 +156,7 @@ function get_sets()
 	sets.midcast.blueskill = {
 	--ammo="Mavi Tathlum",
 	neck="Incanter's Torque",
+	right_ear="Hashishin Earring +1",
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Cornflower Cape",
@@ -182,11 +180,11 @@ function get_sets()
 	
 	sets.midcast.magicacc = {
 	--ammo="Mavi Tathlum",
-    --head="Malignance Chapeau",
+    head="Malignance Chapeau",
     body="Malignance Tabard",
     hands="Malignance Gloves",
     legs="Malignance Tights",
-    --feet="Malignance Boots",
+    feet="Malignance Boots",
     --neck="Mirage Stole +2",
     waist="Eschan Stone",
     left_ear="Dignitary's Earring",
@@ -239,7 +237,7 @@ function get_sets()
 	left_ring="Archon Ring",
 	back="Aurist's Cape +1",
 	waist="Eschan Stone",
-	legs="Jhakri Slops +2",
+	legs="Hashishin Tayt +2",
 	feet="Amalric Nails +1"
 	})
 	
@@ -266,7 +264,7 @@ function get_sets()
 	hands="Nyame Gauntlets",
 	left_ring="Gelatinous Ring +1",
 	right_ring="Defending Ring",
-	waist="Gold Moogle Belt",
+	waist="Platinum Moogle Belt",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}

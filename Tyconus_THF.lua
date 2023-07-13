@@ -27,12 +27,13 @@ function get_sets()
 	ammo = {}
 	
 	ammo.melee = {ammo="Aurgelmir Orb +1"}
-	ammo.ws = {ammo="Seething Bomblet +1"}
+	ammo.ws = {ammo="Coiste Bodhar"}
 	ammo.dt = {ammo="Staunch Tathlum +1"}
 	ammo.th = {ammo="Perfect Lucky Egg"}
 	ammo.fc = {ammo="Sapience Orb"}
 	ammo.acc = {ammo="Yamarang"}
 	ammo.shooty = {ammo="Chapuli Arrow"}
+	ammo.capped = {ammo="Crepuscular Pebble"}
 	
 	sets.fc.base = {
 	head="Herculean Helm",
@@ -42,7 +43,8 @@ function get_sets()
 	body="Taeon Tabard",
 	hands="Leyline Gloves",
 	left_ring="Lebeche Ring",
-	legs="Limbo Trousers",
+	right_ring="Medada's Ring",
+	legs="Enif Cosciales",
 	}
 	
 	sets.regen = {
@@ -51,8 +53,8 @@ function get_sets()
 	left_ear="Infused Earring",
 	body="Turms Harness",
 	hands="Turms Mittens +1",
-	left_ring="Chirich Ring +1",
-	right_ring="Paguroidea Ring",
+	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
+    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
 	legs="Turms Subligar",
 	}
 	
@@ -65,7 +67,7 @@ function get_sets()
 	
 	-- Melee Sets --
 	
-	sets.TP.index = {'Standard','Acc','Hybrid','DT'}	
+	sets.TP.index = {'Standard','Acc','Hybrid','DT','Evasion'}	
 	TP_ind = 1 -- Standard set is the Default
 	
 	sets.TP['Standard'] = {
@@ -79,8 +81,7 @@ function get_sets()
 	right_ring="Hetairoi Ring",
 	back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
 	waist="Reiki Yotai",
-	--legs="Samnuha Tights",
-	legs="Pillager's Culottes +3",
+	legs="Gleti's Breeches",
 	feet="Plunderer's Poulaines +3"
 	}
 	
@@ -97,6 +98,7 @@ function get_sets()
 	hands="Malignance Gloves",
 	right_ring="Moonlight Ring",
 	legs="Malignance Tights",
+	feet="Malignance Boots"
 	})
 	
 	sets.TP['DT'] = set_combine(sets.TP['Standard'], { --48%
@@ -111,18 +113,33 @@ function get_sets()
 	--feet="Nyame Sollerets", --ME150 MDB5 DT7
 	})
 	
+	sets.TP['Evasion'] = {
+	head="Nyame Helm",
+	neck="Assassin's Gorget +2",
+	left_ear="Sherida Earring",
+	right_ear="Infused Earring",
+	body="Malignance Tabard",
+	hands="Turms Mittens +1",
+	left_ring="Gelatinous Ring +1",
+	right_ring="Defending Ring",
+	waist="Reiki Yotai",
+	legs="Malignance Tights",
+	feet="Turms Leggings +1"
+	}
+	
 	sets.TH.index = {'None','TH',--[['Full']]}	
 	TH_ind = 1 -- Standard set is the Default
 	
 	sets.TH['TH'] = {
 	hands="Plunderer's Armlets +3",
+	--feet="Skulker's Poulaines +3",
 	}
 	
 	sets.TH['Full'] = { --9
 	head="Volte Cap", --1
 	hands="Plunderer's Armlets +3", --4
 	waist="Chaac Belt", --1
-	feet="Skulker's Poulaines +2" --3
+	feet="Skulker's Poulaines +3" --3
 	}
 	
 	sets.melee = sets.TP['Standard']
@@ -193,13 +210,17 @@ function get_sets()
 	})
 	
 	sets.ws["Rudra's Storm"] = set_combine(sets.ws.common, {
-	head="Pillager's Bonnet +3",
 	neck="Assassin's Gorget +2",
-	body="Skulker's Vest +2",
+	body="Skulker's Vest +3",
 	right_ring="Ilabrat Ring",
 	waist="Kentarch Belt +1",
 	legs="Plunderer's Culottes +3",
-	feet="Nyame Sollerets"
+	})
+	
+	sets.ws["Rudra's Storm"].capped = set_combine(sets.ws["Rudra's Storm"], {
+	head="Skulker's Bonnet +3",
+	body="Gleti's Cuirass",
+	right_ring="Epaminondas's Ring",
 	})
 	
 	sets.ws["Exenterator"] = set_combine(sets.ws.common, {
@@ -255,12 +276,11 @@ function get_sets()
 	feet="Turms Leggings +1"
 	}
 	
-	--sets.THwhore = set_combine(sets.macc, {
 	sets.THwhore = set_combine(sets.nomacc, {
 	--head="Volte Cap",
 	hands="Plunderer's Armlets +3",
 	--waist="Chaac Belt",
-	--feet="Skulker's Poulaines +2"
+	--feet="Skulker's Poulaines +3"
 	})
 	
 	-- ja --
@@ -269,11 +289,12 @@ function get_sets()
 	sets.ja['Steal'] = set_combine(sets.THwhore, {neck="Pentalagus Charm",hands="Pillager's Armlets +1",legs="Assassin's Culottes",feet="Pillager's Poulaines +3"})
 	sets.ja['Mug'] = set_combine(sets.THwhore, {head="Assassin's Bonnet"})
 	sets.ja['Flee'] = {feet="Pillager's Poulaines +3"}
-	sets.ja['Despoil'] = set_combine(sets.THwhore, {legs="Skulker's Culottes +2",feet="Skulker's Poulaines +2",})
+	sets.ja['Despoil'] = set_combine(sets.THwhore, {legs="Skulker's Culottes +3",feet="Skulker's Poulaines +3",})
 	sets.ja['Feint'] = {legs="Plunderer's Culottes +3"}
 	sets.ja.waltz = {body="Passion Jacket",feet="Rawhide Boots"}
 	sets.ja['Accomplice'] = {head="Skulker's Bonnet +3"}
 	sets.ja['Collaborator'] = {head="Skulker's Bonnet +3"}
+	sets.ja['Bully'] = {head="Halitus Helm",body="Plunderer's Vest +3",}
 	
 	sets.low_hp = {
 	head="Pixie Hairpin +1",
@@ -300,7 +321,7 @@ function get_sets()
 	left_ring="Gelatinous Ring +1",
 	right_ring="Moonlight Ring",
 	back="Reiki Cloak",
-	waist="Gold Moogle Belt",
+	waist="Platinum Moogle Belt",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}
@@ -426,6 +447,8 @@ function precast(spell)
 				equip(sets.ws[spell.name])
 				if spell.name == "Aeolian Edge" and (sets.TH[sets.TH.index[TH_ind]] == sets.TH['TH']) or (sets.TH[sets.TH.index[TH_ind]] == sets.TH['Full']) then
 					equip({hands="Plunderer's Armlets +3",waist="Chaac Belt"})
+				elseif (player.equipment.sub == "Fusetto +2" or player.equipment.sub == "Fusetto +3" or player.equipment.sub == "Centovente") then
+					equip(sets.ws[spell.name].capped,ammo.capped)
 				end
 			else
 				equip(sets.ws.common)
@@ -500,7 +523,7 @@ function aftercast(spell)
 			else
 				equip({left_ear="Suppanomimi",waist="Chaac Belt",})
 			end
-		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] then
+		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] or sets.TP[sets.TP.index[TP_ind]] == sets.TP['Evasion'] then
 			if player.equipment.range == 'empty' then
 				equip(ammo.acc)
 			end
@@ -524,9 +547,6 @@ function aftercast(spell)
 			end
 		end
 	end
-	if check_facing() == true then
-		equip({body="Plunderer's Vest +3"})
-	end
 end
 
 function status_change(new,old)
@@ -538,7 +558,7 @@ function status_change(new,old)
 			else
 				equip({left_ear="Suppanomimi",waist="Chaac Belt",})
 			end
-		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] then
+		elseif sets.TP[sets.TP.index[TP_ind]] == sets.TP['Acc'] or sets.TP[sets.TP.index[TP_ind]] == sets.TP['Evasion'] then
 			if player.equipment.range == 'empty' then
 				equip(ammo.acc)
 			end
@@ -666,6 +686,20 @@ function self_command(command)
 		end
 	end
 end
+
+--windower.register_event('prerender', function()
+--	if player then
+--		if player.status == 'Engaged' then
+--			if check_facing() == true then
+--				equip({body="Plunderer's Vest +3"})
+--			else
+--				equip({body="Pillager's Vest +3",})
+--			end
+--		end
+--	else
+--		stratBox:hide()
+--	end
+--end)
 
 function set_macros(sheet,book)
     if book then

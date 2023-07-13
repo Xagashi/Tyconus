@@ -9,6 +9,7 @@ GainSpells = S{'Gain-STR','Gain-INT','Gain-AGI','Gain-VIT','Gain-DEX','Gain-MND'
 EnSpells = S{"Enfire","Enfire II","Enblizzard","Enblizzard II","Enaero","Enaero II","Enstone","Enstone II","Enthunder","Enthunder II","Enwater","Enwater II"}
 NaSpells = S{"Blindna","Erase","Paralyna","Poisona","Silena","Stona","Viruna"}
 Spikes = S{"Blaze Spikes","Ice Spikes","Shock Spikes"}
+SubWeapon = S{"Gleti's Knife","Daybreak","Bunzi's Rod"}
 res = require 'resources'
 
 function get_sets()
@@ -35,11 +36,10 @@ function get_sets()
 	--right_ear="Loquacious Earring", --2
 	body="Vitiation Tabard +3", --15
 	--hands="Leyline Gloves", --5
-	--left_ring="Kishar Ring", --4
+	left_ring="Medada's Ring", --10
 	right_ring="Lebeche Ring", --2 qm
 	back="Perimede Cape", --4 qm
 	waist="Witful Belt", --3 qm
-	legs={ name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, --7
 	feet="Carmine Greaves +1" --8
 	}
 	
@@ -67,11 +67,10 @@ function get_sets()
 	right_ear="Loquacious Earring", --2
 	--body="Crepuscular Cloak",
 	hands="Leyline Gloves", --5
-	left_ring="Kishar Ring", --4
+	left_ring="Medada's Ring", --10
 	right_ring="Lebeche Ring", --2 qm
 	back="Perimede Cape", --4 qm
 	waist="Witful Belt", --3/3 qm
-	legs={ name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, --7
 	feet="Carmine Greaves +1" --8
 	}
 	
@@ -116,32 +115,28 @@ function get_sets()
 	nuke_ind = 1 --Free set is the Default
 	
 	sets.nuke['Free'] = {
-	main="Daybreak",
+	main="Bunzi's Rod",
 	sub="Ammurapi Shield",
 	ammo="Ghastly Tathlum +1",
-	head=empty,
-	neck="Baetyl Pendant",
+	head="Lethargy Chappel +3",
+	neck="Sibyl Scarf",
 	left_ear="Regal Earring",
 	right_ear="Malignance Earring",
-	body="Cohort Cloak +1",
-	hands="Amalric Gages +1",
+	body="Lethargy Sayon +3",
+	hands="Lethargy Gantherots +3",
 	--left_ring="Stikini Ring +1",
 	left_ring="Metamorph Ring +1",
 	right_ring="Freke Ring",
 	back="Aurist's Cape +1",
 	waist="Acuity Belt +1",
-	legs="Jhakri Slops +2",
+	legs="Lethargy Fuseau +3",
 	feet="Lethargy Houseaux +3"
 	}
 	
 	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {
-	main="Bunzi's Rod",
 	head="Ea Hat +1",
-	neck="Sibyl Scarf",
 	body="Ea Houppelande +1",
-	right_ring="Mujin Band",
-	legs="Lethargy Fuseau +3",
-	feet="Bunzi's Sabots"
+	hands="Bunzi's Gloves",
 	})
 	
 	sets.midcast.raise = set_combine(sets.midcast.conservemp, { --30(base)(8JP) +51  +21 haste
@@ -221,7 +216,7 @@ function get_sets()
 	
 	sets.midcast.dia = set_combine(sets.midcast.Enfeebling, {
 	ammo="Regal Gem",
-	head="Lethargy Chappel +2",
+	head="Lethargy Chappel +3",
 	body="Lethargy Sayon +3",
 	--hands="Regal Cuffs",
 	right_ring="Kishar Ring",
@@ -371,35 +366,40 @@ function get_sets()
 	
 	sets.TP['Standard'] = {
 	ammo="Aurgelmir Orb +1",
-	head="Nyame Helm",
-	neck="Combatant's Torque",
+	head="Malignance Chapeau",
+	--head="Bunzi's Hat",
+	neck="Anu Torque",
 	left_ear="Dedition Earring",
 	right_ear="Sherida Earring",
 	body="Malignance Tabard",
 	hands="Malignance Gloves",
-	left_ring="Petrov Ring",
-	right_ring="Hetairoi Ring",
+	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
+    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
 	back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},
 	waist="Reiki Yotai",
 	legs="Malignance Tights",
-	feet="Nyame Sollerets",
+	feet="Malignance Boots"
 	}
 	
 	sets.TP['EnSpell'] = {
 	ammo="Sroda Tathlum",
-	head="Nyame Helm",
+	head="Malignance Chapeau",
+	--head="Bunzi's Hat",
 	neck="Anu Torque",
 	left_ear="Eabani Earring",
 	right_ear="Sherida Earring",
 	body="Malignance Tabard",
 	hands="Aya. Manopolas +2",
-	left_ring="Chirich Ring +1",
-	right_ring="Ilabrat Ring",
+	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
+    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
 	back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},
 	waist="Orpheus's Sash",
 	legs="Malignance Tights",
-	feet="Nyame Sollerets"
+	feet="Malignance Boots"
 	}
+	
+	sets.subjobnin = {left_ear="Eabani Earring",}
+	sets.subjobdnc = {back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},}
 	
 	sets.ws.common = {
 	head="Nyame Helm",
@@ -422,32 +422,34 @@ function get_sets()
 	
 	sets.ws["Seraph Blade"] = set_combine(sets.ws.common, { --Crocea Mors/Daybreak
 	ammo="Sroda Tathlum",
-	neck="Duelist's Torque +2",
+	head="Lethargy Chappel +3",
+	neck="Fotia Gorget",
 	right_ear="Malignance Earring",
-	hands="Jhakri Cuffs +2",
+	hands="Lethargy Gantherots +3",
 	waist="Orpheus's Sash",
-	legs="Lethargy Fuseau +3",
 	})
 	
 	sets.ws["Sanguine Blade"] = set_combine(sets.ws["Seraph Blade"], { --Crocea Mors/Bunzi's Rod
 	head="Pixie Hairpin +1",
-	neck="Sibyl Scarf",
+	neck="Duelist's Torque +2",
 	left_ear="Regal Earring",
+	hands="Jhakri Cuffs +2",
 	right_ring="Archon Ring",
+	legs="Lethargy Fuseau +3",
 	})
 	
-	sets.ws["Aeolian Edge"] = set_combine(sets.ws["Seraph Blade"], {
+	sets.ws["Aeolian Edge"] = set_combine(sets.ws["Seraph Blade"], { --Tauret/Thibron
 	neck="Sibyl Scarf",
+	hands="Jhakri Cuffs +2",
 	left_ring="Freke Ring",
 	waist="Orpheus's Sash",
+	legs="Lethargy Fuseau +3",
 	})
 	
 	sets.idle.index = {'Idle','DW'}
 	idle_ind = 1
 	
-	sets.idle['Idle'] = {
-	main="Daybreak",
-	sub="Genmei Shield",
+	sets.idle['DW'] = {
 	ammo="Homiliary",
 	head="Vitiation Chapeau +3",
 	neck="Loricate Torque +1",
@@ -463,21 +465,10 @@ function get_sets()
 	feet="Volte Gaiters"
 	}
 	
-	sets.idle['DW'] = {
-	ammo="Homiliary",
-	head="Vitiation Chapeau +3",
-	neck="Loricate Torque +1",
-	left_ear="Etiolation Earring",
-	right_ear="Dominance Earring +1",
-	body="Jhakri Robe +2",
-	hands="Volte Gloves",
-	left_ring="Stikini Ring +1",
-	right_ring="Defending Ring",
-	back="Solemnity Cape",
-	waist="Shinjutsu-no-obi +1",
-	legs="Carmine Cuisses +1",
-	feet="Volte Gaiters"
-	}
+	sets.idle['Idle'] = set_combine(sets.idle['DW'], {
+	main="Daybreak",
+	sub="Genmei Shield",
+	})
 	
 	sets.resting = {}
 	
@@ -513,7 +504,7 @@ function precast(spell)
 	elseif player.equipment.body ~= "Crepuscular Cloak" and spell.name == 'Impact' then
 		equip({body="Crepuscular Cloak"})
 	end
-	if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub == 'Forfend +1' then
+	if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub == 'Forfend +1' or SubWeapon:contains(player.equipment.sub) then
 		if player.status == "Engaged" then
 			disable('main','sub','range')
 		else
@@ -646,7 +637,7 @@ function midcast(spell)
 			else
 				equip(sets.midcast.EnhancingDuration)
 				if buffactive['Composure'] and spell.target.type ~= 'SELF' and not buffactive["Accession"] then
-					equip({head="Lethargy Chappel +2",body="Lethargy Sayon +3",legs="Lethargy Fuseau +3",})
+					equip({head="Lethargy Chappel +3",body="Lethargy Sayon +3",legs="Lethargy Fuseau +3",})
 				end
 				if GainSpells:contains(spell.name) then
 					equip({hands="Vitiation Gloves +3",})
@@ -708,10 +699,38 @@ function status_change(new,old)
 	if new == 'Resting' then
 		equip(sets.resting)
 	elseif new == 'Engaged' then
+		if S{player.sub_job}:contains('DNC') or S{player.sub_job}:contains('NIN') then
+			equip(sets.main[sets.main.index[main_ind]],sets.sub[sets.sub.index[sub_ind]])
+		else
+			equip(sets.main[sets.main.index[main_ind]],{sub="Genmei Shield"})
+		end
 		disable('main','sub','range')
 		equip(sets.TP[sets.TP.index[TP_ind]])
 		if buffactive[EnSpells] then
 			equip({hands="Ayanmo Manopolas +2",})
+		end
+		if S{player.sub_job}:contains('DNC') then
+			if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
+				equip({waist="Reiki Yotai"})
+			elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
+				equip(sets.subjobdnc)
+			else
+				if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+				else
+					equip(sets.subjobdnc)
+				end
+			end
+		elseif S{player.sub_job}:contains('NIN') then
+			if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+				equip(sets.subjobnin)
+			else
+				if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+					equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
+				else
+					equip(sets.subjobdnc)
+				end
+			end
 		end
 	elseif new == 'Idle' then
 		equip(sets.idle[sets.idle.index[idle_ind]])
@@ -730,6 +749,17 @@ function buff_change(n, gain, buff_table)
 		else
 			if player.hp ~= 0 then
 				add_to_chat(123, 'Reraise: [lost]')
+			end
+		end
+	elseif S{"sleep"}:contains(name) then
+		if player.status == "Idle" then
+			if gain then
+				if buffactive["Stoneskin"] then
+					send_command('cancel Stoneskin')
+				end
+				equip({main="Caliburnus",})
+			else
+				equip({main="Daybreak"})
 			end
 		end
 	end

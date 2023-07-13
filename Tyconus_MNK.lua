@@ -241,6 +241,8 @@ function get_sets()
 --------------------------------------------------- Misc ------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 	
+	sets.movement = {feet="Herald's Gaiters"}
+	
 	sets.low_hp = {
 	head=empty,
 	neck=empty,
@@ -266,7 +268,7 @@ function get_sets()
 	left_ring="Gelatinous Ring +1",
 	right_ring="Ilabrat Ring",
 	back="Reiki Cloak",
-	waist="Gold Moogle Belt",
+	waist="Platinum Moogle Belt",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}
@@ -496,6 +498,7 @@ end
 send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
 send_command('bind !e gs c toggle DEF set') -- Hit alt+e, toggles the sets
 send_command('alias 500hp gs equip low_hp;wait 1; gs equip high_hp')
+send_command('bind !w gs equip movement') -- Hit alt+w, equips movement equipment
 
 function file_unload()
     send_command('unbind !q')

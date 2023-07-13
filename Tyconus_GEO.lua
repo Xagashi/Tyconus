@@ -29,13 +29,13 @@ function get_sets()
 -------------------------------------------------- Fast Cast ---------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 	
-	sets.fc.base = { --rdm sub: 15+80%
-	main={ name="Gada", augments={'"Fast Cast"+6','Mag. Acc.+11','"Mag.Atk.Bns."+18','DMG:+3',}}, --6
+	sets.fc.base = { --rdm sub: 15+85%
+	main="Cath Palug Hammer", --7
 	sub="Chanter's Shield", --3
 	range="Dunna", --3
-	head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}}, --10
+	head="Amalric Coif +1", --11
 	neck="Baetyl Pendant", --4
-	left_ear="Etiolation Earring", --1
+	left_ear="Malignance Earring", --4
 	right_ear="Loquacious Earring", --2
 	body="Merlinic Jubbah", --13
 	hands="Volte Gloves", --6
@@ -55,7 +55,7 @@ function get_sets()
 	})
 	
 	sets.fc.stoneskin = set_combine(sets.fc.base, {
-	head="Umuthi Hat",
+	--head="Umuthi Hat",
 	})
 	
 	sets.fc['Enhancing Magic'] = set_combine(sets.fc.base, {
@@ -146,8 +146,8 @@ function get_sets()
 	sets.midcast.impact = set_combine(sets.midcast.conservemp, {
 	body="Crepuscular Cloak",
 	hands="Azimuth Gloves +2",
-	legs="Azimuth Tights +2",
-	feet="Azimuth Gaiters +2"
+	legs="Azimuth Tights +3",
+	feet="Azimuth Gaiters +3"
 	})
 	
 	sets.nuke.index = {'Free','MB'}
@@ -156,29 +156,23 @@ function get_sets()
 	sets.nuke['Free'] = {
 	main="Bunzi's Rod",
 	sub="Ammurapi Shield",
-	--main={name="Marin Staff +1",priority=2},
-	--sub={name="Enki Strap",priority=1},
 	ammo="Ghastly Tathlum +1",
-	head=empty,
+	head="Agwu's Cap",
 	neck="Sibyl Scarf",
 	left_ear="Regal Earring",
 	right_ear="Malignance Earring",
-	body="Cohort Cloak +1",
+	body="Azimuth Coat +3",
 	hands="Agwu's Gages",
 	left_ring="Freke Ring",
 	right_ring="Metamorph Ring +1",
 	back={ name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+5','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
-	waist="Refoccilation Stone",
-	legs="Bagua Pants +3",
+	waist="Acuity Belt +1",
+	legs="Azimuth Tights +3",
 	feet="Agwu's Pigaches"
 	}
 	
 	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {
 	head="Ea Hat +1",
-	neck="Mizukage-no-Kubikazari",
-	body="Ea Houppelande +1",
-	right_ring="Mujin Band",
-	legs="Ea Slops +1",
 	})
 	
 	sets.midcast['Dark Magic'] = set_combine(sets.midcast.conservemp, {
@@ -204,14 +198,14 @@ function get_sets()
 	main={ name="Gada", augments={'Indi. eff. dur. +10','CHR+1','Mag. Acc.+18',}},
 	back="Lifestream Cape",
 	legs="Bagua Pants +3",
-	feet="Azimuth Gaiters +2",
+	feet="Azimuth Gaiters +3",
 	})
 
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------- MISC -----------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 
-	sets.ja['Full Circle'] = {head="Azimuth Hood +2",hands="Bagua Mitaines +1",}
+	sets.ja['Full Circle'] = {head="Azimuth Hood +3",hands="Bagua Mitaines +1",}
 	sets.ja['Life Cycle'] = {body="Geomancy Tunic +2",back={ name="Nantosuelta's Cape", augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: "Regen"+5',}},}
 	sets.ja['Bolster'] = {body="Bagua Tunic +3",}
 	sets.ja['Radial Arcana'] = {feet="Bagua Sandals +3"}
@@ -248,7 +242,7 @@ function get_sets()
 	main="Idris", --25/0
 	sub="Genmei Shield",
 	ammo="Staunch Tathlum +1",
-	head="Azimuth Hood +2", --0/3
+	head="Azimuth Hood +3", --0/3
 	neck="Bagua Charm +2",
 	hands="Geomancy Mitaines +3", --13/0
 	back={ name="Nantosuelta's Cape", augments={'Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: "Regen"+5',}}, --0/15
@@ -330,7 +324,7 @@ function get_sets()
 	body="",
 	hands="Telchine gloves",
 	right_ring="Ilabrat Ring",
-	back={ name="Mecisto. Mantle", augments={'Cap. Point+48%','HP+27','Accuracy+5','DEF+4',}},
+	back="Lifestream Cape",
 	legs="",
 	feet=""
 	}
@@ -350,7 +344,7 @@ function get_sets()
 	body="Cohort Cloak +1",
 	hands="Shrieker's Cuffs",
 	legs="Vanya Slops",
-	feet="Jhakri Pigaches +2"
+	feet="Amalric Nails +1"
 	}
 	
 	sets.vagary = {
@@ -360,7 +354,6 @@ function get_sets()
 	hands="Volte Gloves",
 	back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}},
 	waist="Refoccilation Stone",
-	legs="Jhakri Slops +2",
 	}
 	
 	sets.refresh = sets.idle['Refresh']

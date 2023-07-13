@@ -20,15 +20,16 @@ function get_sets()
 	
 	sets.movement = {legs="Carmine Cuisses +1"}
 	
-	sets.fc.base = { --2+14+10+5+4+10+8+8=61
+	sets.fc.base = { --2+14+10+5+10+10+8+13=72
 	ammo="Sapience Orb", --2%
-	head={name="Carmine Mask +1",priority=12}, --14%
-	body={name="Reverence Surcoat +3",priority=15}, --10%
+	head={name="Carmine Mask +1",priority=38}, --14%
+	body={name="Reverence Surcoat +3",priority=254}, --10%
 	hands="Leyline Gloves", --5%
-	left_ring="Kishar ring", --4%
-	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',},priority=13},
-	legs={name="Enif Cosciales",priority=11}, --8%
-	feet={name="Carmine Greaves +1",priority=14} --8%
+	left_ring="Medada's ring", --10%
+	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',},priority=80},
+	waist={name="Platinum Moogle Belt",priority=300},
+	legs={name="Enif Cosciales",priority=40}, --8%
+	feet={name="Chevalier's Sabatons +3",priority=52} --13%
 	}
 	
 	sets.fc.cure = set_combine(sets.fc.base, {
@@ -42,73 +43,72 @@ function get_sets()
 	})
 	
 	sets.hp = {
-	sub={name="Srivatsa",priority=8}, --150
+	sub={name="Srivatsa",priority=150}, --150
 	--ammo="Egoist's Tathlum",
-	head={name="Souveran Schaller +1",priority=15}, --280
-	neck={name="Unmoving Collar +1",priority=11}, --200
-	left_ear={name="Tuisto Earring",priority=9}, --150
-	right_ear={name="Odnowa Earring +1",priority=6}, --110
-	body={name="Reverence Surcoat +3",priority=14}, --254
+	head={name="Souveran Schaller +1",priority=280}, --280
+	neck={name="Unmoving Collar +1",priority=200}, --200
+	left_ear={name="Tuisto Earring",priority=150}, --150
+	right_ear={name="Odnowa Earring +1",priority=110}, --110
+	body={name="Reverence Surcoat +3",priority=254}, --254
 	hands="Regal Gauntlets",
-	hands={name="Souveran Handschuhs +1",priority=13}, --239
-	left_ring={name="Gelatinous Ring +1",priority=7}, --110
-	right_ring={name="Moonlight Ring",priority=5}, --110
-	back={name="Reiki Cloak",priority=8}, --130
-	waist="Gold Moogle Belt",
-	legs={name="Souveran diechlings +1",priority=10}, --162
-	feet={name="Souveran schuhs +1",priority=12}, --227
+	hands={name="Souveran Handschuhs +1",priority=239}, --239
+	left_ring={name="Gelatinous Ring +1",priority=110}, --110
+	right_ring={name="Moonlight Ring",priority=110}, --110
+	back={name="Reiki Cloak",priority=130}, --130
+	waist={name="Platinum Moogle Belt",priority=300},
+	legs={name="Souveran diechlings +1",priority=162}, --162
+	feet={name="Souveran schuhs +1",priority=227}, --227
 	}
 	
 	sets.buff["Phalanx"] = { --30
-	head={ name="Valorous Mask", augments={'"Conserve MP"+3','"Mag.Atk.Bns."+23','Phalanx +5',},priority=10}, --5
+	head={name="Valorous Mask",priority=38}, --5
 	neck="Moonlight Necklace",
-	body="Valorous Mail", --5
-	hands={name="Souveran Handschuhs +1",priority=15}, --5
+	body={name="Valorous Mail",priority=61}, --5
+	hands={name="Souveran Handschuhs +1",priority=239}, --5
 	back="Weard Mantle", --5
 	waist="Audumbla Sash",
-	legs={name="Sakpata's Cuisses",priority=13}, --5
-	feet={name="Souveran schuhs +1",priority=14}, --5
+	legs={name="Sakpata's Cuisses",priority=114}, --5
+	feet={name="Souveran schuhs +1",priority=227}, --5
 	}
 	
 	sets.phalanx2 = set_combine(sets.buff["Phalanx"], { --37
-	main={name="Sakpata's Sword",priority=12}, --5
-	sub={name="Priwen",priority=11}, --2
+	main={name="Sakpata's Sword",priority=100}, --5
+	sub={name="Priwen",priority=80}, --2
 	})
 	
 	sets.enmity = {
 	ammo="Sapience Orb", --2
-	head={name="Loess Barbuta +1",priority=12}, --9~14
+	head={name="Loess Barbuta +1",priority=200}, --9~14
 	neck="Moonlight Necklace", --15
 	right_ear="Cryptic Earring", --4
-	body={name="Souveran cuirass +1",priority=14}, --20
-	hands={name="Souveran Handschuhs +1",priority=15}, --9
-	left_ring="Petrov Ring", --4
+	body={name="Souveran cuirass +1",priority=171}, --20
+	hands={name="Souveran Handschuhs +1",priority=239}, --9
+	left_ring="Eihwaz Ring", --4
 	right_ring="Apeile Ring +1", --5
-	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=10},
-	waist={name="Creed Baudrier",priority=9}, --5
-	legs={name="Souveran Diechlings +1",priority=13}, --9
-	feet={ name="Eschite Greaves", augments={'HP+80','Enmity+7','Phys. dmg. taken -4',},priority=11},
-	--feet={name="Chevalier's Sabatons +2",priority=9} --11
+	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=80},
+	waist={name="Creed Baudrier",priority=40}, --5
+	legs={name="Souveran Diechlings +1",priority=162}, --9
+	feet={name="Chevalier's Sabatons +3",priority=52} --11
 	}
 	
 	sets.sird = set_combine(sets.enmity, {
 	ammo="Staunch Tathlum +1", --11
-	head={name="Souveran Schaller +1",priority=15}, --20
+	head={name="Souveran Schaller +1",priority=280}, --20
 	neck="Moonlight Necklace", --15
-	waist="Audumbla Sash", --10
-	legs={name="Carmine Cuisses +1",priority=14}, --20
-	feet="Odyssean Greaves" --20
+	waist={name="Platinum Moogle Belt",priority=300},
+	legs={name="Founder's Hose",priority=54}, --30
+	feet={name="Odyssean Greaves",priority=20} --20
 	})
 	
 	sets.th_sird = set_combine(sets.enmity, {
 	ammo="Perfect Lucky Egg",
-	head={name="Souveran Schaller +1",priority=15}, --20
+	head={name="Souveran Schaller +1",priority=280}, --20
 	neck="Moonlight Necklace", --15
 	right_ear="Knightly Earring", --9
 	left_ring="Gelatinous Ring +1",
 	waist="Chaac Belt",
-	legs={name="Founder's Hose",priority=14}, --30
-	feet={name="Odyssean Greaves",priority=13} --20
+	legs={name="Founder's Hose",priority=54}, --30
+	feet={name="Odyssean Greaves",priority=20} --20
 	})
 	
 	sets.ja["Provoke"] = sets.enmity
@@ -122,22 +122,22 @@ function get_sets()
 	sets.ja["Rampart"] = set_combine(sets.enmity, {head="Caballarius Coronet",})
 	sets.ja["Fealty"] = {body="Caballarius Surcoat",}
 	sets.ja["Chivalry"] = {hands="Caballarius Gauntlets +3"}
-	sets.ja["Divine Emblem"] = {feet="Chevalier's Sabatons +2"}
+	sets.ja["Divine Emblem"] = {feet="Chevalier's Sabatons +3"}
 	
 	sets.dt = {
-	ammo={name="Staunch Tathlum +1",priority=1},
-	head={name="Sakpata's Helm",priority=8},
-	neck={name="Unmoving Collar +1",priority=15},
-	left_ear={name="Tuisto Earring",priority=14},
-	right_ear={name="Odnowa Earring +1",priority=9},
-	body={name="Sakpata's Breastplate",priority=13},
-	hands={name="Sakpata's Gauntlets",priority=7},
-	left_ring={name="Gelatinous Ring +1",priority=11},
-	right_ring={name="Moonlight Ring",priority=10},
-	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=6},
+	ammo="Staunch Tathlum +1",
+	head={name="Sakpata's Helm",priority=160},
+	neck={name="Unmoving Collar +1",priority=200},
+	left_ear={name="Tuisto Earring",priority=150},
+	right_ear={name="Odnowa Earring +1",priority=110},
+	body={name="Sakpata's Breastplate",priority=136},
+	hands={name="Sakpata's Gauntlets",priority=91},
+	left_ring={name="Gelatinous Ring +1",priority=110},
+	right_ring={name="Moonlight Ring",priority=110},
+	back={ name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Chance of successful block +5',},priority=80},
 	waist="Asklepian Belt",
-	legs={name="Sakpata's Cuisses",priority=12},
-	feet={name="Sakpata's Leggings",priority=5}
+	legs={name="Sakpata's Cuisses",priority=114},
+	feet={name="Sakpata's Leggings",priority=68}
 	}
 	
 	sets.EnhancingDuration = {
@@ -149,6 +149,7 @@ function get_sets()
 	sets.protect = set_combine(sets.EnhancingDuration, {
 	main="Colada",
 	sub="Srivatsa",
+	left_ring="Sheltered Ring",
 	})
 	
 	sets.divine = {
@@ -159,20 +160,20 @@ function get_sets()
 	}
 	
 	sets.divinedmg = {
-	main={name="Sakpata's Sword",priority=13}, --100
-	sub={name="Forfend +1",priority=9}, --22
+	main={name="Sakpata's Sword",priority=100}, --100
+	sub={name="Forfend +1",priority=22}, --22
 	ammo="Ghastly Tathlum +1",
 	neck="Baetyl Pendant",
 	left_ear="Dignitary's Earring",
 	right_ear="Friomisi Earring",
-	body={name="Cohort Cloak +1",priority=11}, --91
-	hands={name="Nyame Gauntlets",priority=12}, --91
+	body={name="Cohort Cloak +1",priority=91}, --91
+	hands={name="Nyame Gauntlets",priority=91}, --91
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
-	back={name="Reiki Cloak",priority=15}, --130
-	waist={name="Eschan Stone",priority=8}, --20
-	legs={name="Nyame Flanchard",priority=14}, --114
-	feet={name="Nyame Sollerets",priority=10}, --68
+	back={name="Reiki Cloak",priority=130}, --130
+	waist={name="Eschan Stone",priority=20}, --20
+	legs={name="Nyame Flanchard",priority=114}, --114
+	feet={name="Nyame Sollerets",priority=68}, --68
 	}
 	
 	sets.refresh = {
@@ -238,16 +239,16 @@ function get_sets()
 	
 	sets.ws.common = {
 	ammo="Coiste Bodhar",
-	head={ name="Nyame Helm",priority=13}, --91
+	head={ name="Nyame Helm",priority=91}, --91
 	neck="Fotia Gorget",
 	right_ear="Thrud Earring",
-	body={name="Nyame Mail",priority=15}, --136
-	hands={name="Nyame Gauntlets",priority=12}, --91
+	body={name="Nyame Mail",priority=136}, --136
+	hands={name="Nyame Gauntlets",priority=91}, --91
 	left_ring="Regal Ring",
 	right_ring="Epaminondas's Ring",
 	waist="Fotia Belt",
-	legs={name="Nyame Flanchard",priority=14}, --114
-	feet={name="Nyame Sollerets",priority=11} --68
+	legs={name="Nyame Flanchard",priority=114}, --114
+	feet={name="Nyame Sollerets",priority=68} --68
 	}
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {})
@@ -345,9 +346,6 @@ function precast(spell)
 		else
 			equip(sets.fc.base)
 		end
-	end
-	if spell.english:contains('Circle') then
-		equip({body="Founder's Breastplate"})
 	end
 end
 

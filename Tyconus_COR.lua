@@ -40,7 +40,7 @@ function get_sets()
 	right_ear="Loquacious Earring",
 	body="Taeon Tabard",
 	hands="Leyline Gloves",
-	left_ring="Kishar Ring",
+	left_ring="Medada's Ring",
 	right_ring="Lebeche Ring",
 	feet="Carmine Greaves +1"
 	}
@@ -52,8 +52,7 @@ function get_sets()
 	sets.movement = {legs="Carmine Cuisses +1"}
 	
 	bullet.shooty = {ammo="Chrono Bullet"}
-	bullet.MA = {ammo="Chrono Bullet"}
-	--bullet.MA = {ammo="Living Bullet"}
+	bullet.MA = {ammo="Living Bullet"}
 	bullet.PA = {ammo="Chrono Bullet"}
 	
 	sets.roll = {
@@ -61,10 +60,10 @@ function get_sets()
     range={ name="Compensator", augments={'DMG:+15','Rng.Atk.+15','"Mag.Atk.Bns."+15',}, priority=1,},
 	}
 
-    --sets.sdp = {
-	--main={ name="Naegling", priority=2,},
-    --range={ name="Death Penalty", priority=1,},
-	--}
+    sets.sdp = {
+	main={ name="Naegling", priority=2,},
+    range={ name="Death Penalty", priority=1,},
+	}
 	
 	sets.sf = {
 	main={ name="Naegling", priority=2,},
@@ -77,9 +76,9 @@ function get_sets()
 	}
 	
 	sets.sortie = {
-	main={ name="Tauret", priority=2},
-    sub={ name="Gleti's Knife", priority=1},
-	range="Fomalhaut",
+	main={ name="Rostam", augments={'Path: B',}, priority=2},
+    sub={ name="Tauret", priority=1},
+	range="Death Penalty",
 	}
 	
 	sets.hotshot = {
@@ -92,7 +91,7 @@ function get_sets()
 	TP_ind = 1 --Standard set is the Default
 	
 	sets.TP['Standard'] = {
-	head={ name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+	head="Malignance Chapeau",
 	neck="Iskur gorget",
 	left_ear="Telos Earring",
 	right_ear="Dedition Earring",
@@ -103,7 +102,7 @@ function get_sets()
 	back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
 	--legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
 	legs={ name="Samnuha Tights", augments={'STR+9','DEX+8','"Dbl.Atk."+2','"Triple Atk."+2',}},
-	feet="Chasseur's Bottes +3"
+	feet="Malignance Boots"
 	}
 	
 	sets.TP['HighAcc'] = set_combine(sets.TP['Standard'], {
@@ -134,8 +133,8 @@ function get_sets()
 	})
 	
 	--Snapshot > Rapid Shot
-	sets.precast.RA = { --60+10JP Snapshot | 30+40 Rapid Shot
-	head="Chasseur's Tricorne +3", --16R
+	sets.precast.RA = { --60+10JP Snapshot | 30+42 Rapid Shot
+	head="Chasseur's Tricorne +3", --18R
 	neck="Commodore Charm +2", --4S
 	body="Oshosi Vest", --12S
 	hands={ name="Carmine Finger Gauntlets +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}}, --8S 11R
@@ -146,10 +145,10 @@ function get_sets()
 	feet="Meghanada Jambeaux +2" --10S
 	}
 	
-	sets.precast.RA.Flurry = set_combine(sets.precast.RA, { --45+10JP+15% Snapshot | 30+75 Rapid Shot
+	sets.precast.RA.Flurry = set_combine(sets.precast.RA, { --45+10JP+15% Snapshot | 30+77 Rapid Shot
 	body="Laksamana's Frac +3", --20R
 	waist="Yemaya Belt", --5R
-	feet="Pursuer's Gaiters"
+	feet="Pursuer's Gaiters" --10R
 	})
 	
 	--r.acc/stp/crit/agi/recycle
@@ -167,16 +166,31 @@ function get_sets()
 	feet="Ikenga's Clogs"
 	}
 	
-	sets.midcast['Triple Shot'] = set_combine(sets.midcast.RA, {
+	sets.midcast.RAcc = {
+	head="Chasseur's Tricorne +3",
+	neck="Iskur Gorget",
+	left_ear="Telos Earring",
+	right_ear="Crepuscular Earring",
+	body="Chasseur's Frac +3",
+	hands="Chasseur's Gants +3",
+	left_ring="Ilabrat Ring",
+	right_ring="Crepuscular Ring",
+	back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',}},
+	waist="Kwahu Kachina Belt +1",
+	legs="Chasseur's Culottes +3",
+	feet="Chasseur's Bottes +3"
+	}
+	
+	sets.midcast['Triple Shot'] = {
 	--head="Oshosi Mask",
 	body="Chasseur's Frac +3",
 	hands="Lanun Gants +3",
 	--legs="Oshosi Trousers",
 	--feet="Oshosi Leggings"
-	})
+	}
 	
 	sets.ja.CorsairRoll = {
-	main="Rostam",
+	main={ name="Rostam", augments={'Path: C',}},
 	range="Compensator",
 	head="Lanun Tricorne +1",
 	neck="Regal necklace",
@@ -197,11 +211,11 @@ function get_sets()
 	sets.ja["Snake Eye"] = {legs="Lanun Trews +3"}
 	sets.ja.waltz = {body="Passion Jacket",}
 	
-	sets.QD.index = {'Empy','MAB','STP'}
+	--sets.QD.index = {'Empy','MAB','STP'}
+	sets.QD.index = {'OneSet'}
 	QD_ind = 1 --Standard set is the Default
 	
 	sets.QD['STP'] = {
-	--head="Malignance Chapeau",
 	head="Ikenga's Hat",
 	neck="Iskur Gorget",
 	left_ear="Crepuscular Earring",
@@ -214,8 +228,7 @@ function get_sets()
 	--waist="Tellen belt",
 	waist="Yemaya Belt",
 	legs="Malignance Tights",
-	--feet="Malignance Boots"
-	feet="Ikenga's Clogs"
+	feet="Malignance Boots"
 	}
 	
 	sets.QD['MAB'] = {
@@ -225,7 +238,6 @@ function get_sets()
 	left_ear="Hecate's Earring",
 	right_ear="Friomisi Earring",
 	body="Lanun Frac +3",
-	hands={ name="Carmine Finger Gauntlets +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
 	hands="Nyame Gauntlets",
 	left_ring="Regal Ring",
 	right_ring="Dingir Ring",
@@ -239,6 +251,21 @@ function get_sets()
 	sets.QD['Empy'] = set_combine(sets.QD['MAB'], {
 	feet="Chasseur's Bottes +3"
 	})
+	
+	sets.QD['OneSet'] = {
+	ammo="Hauksbok Bullet",
+	head="Ikenga's Hat",
+	neck="Commodore Charm +2",
+	left_ear="Hecate's Earring",
+	right_ear="Friomisi Earring",
+	body="Lanun Frac +3",
+	hands="Carmine Finger Gauntlets +1",
+	right_ring="Dingir Ring",
+	back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
+	waist="Orpheus's Sash",
+	legs="Nyame Flanchard",
+	feet="Chasseur's Bottes +3"
+	}
 	
 	sets.midcast.quickmacc = {
 	head="Lanun Tricorne +1",
@@ -270,8 +297,10 @@ function get_sets()
 	}
 	
 	sets.ws["Last Stand"] = set_combine(sets.ws.common, {
+	body="Ikenga's Vest",
 	hands="Chasseur's Gants +3",
 	back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
+	legs="Ikenga's Trousers",
 	})
 	
 	sets.ws["Leaden Salute"] = set_combine(sets.ws.common, {
@@ -279,7 +308,8 @@ function get_sets()
 	neck="Commodore Charm +2",
 	right_ear="Friomisi Earring",
 	body="Lanun Frac +3",
-	left_ring="Dingir Ring",
+	--left_ring="Dingir Ring",
+	left_ring="Medada's Ring",
 	right_ring="Archon ring",
 	back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
 	waist="Orpheus's Sash",
@@ -293,8 +323,9 @@ function get_sets()
 	})
 	
 	sets.ws["Hot Shot"] = set_combine(sets.ws["Wildfire"], {
-	body="Nyame Mail",
 	neck="Fotia Gorget",
+	body="Nyame Mail",
+	hands="Chasseur's Gants +3",
 	})
 	
 	sets.ws["Sniper Shot"] = {
@@ -323,7 +354,7 @@ function get_sets()
 	head="Adhemar Bonnet +1",
 	neck="Fotia Gorget",
 	right_ear="Odr Earring",
-	body="Meghanada Cuirie +2",
+	body="Adhemar Jacket +1",
 	hands="Chasseur's Gants +3",
 	left_ring="Regal Ring",
 	right_ring="Begrudging Ring",
@@ -355,7 +386,7 @@ function get_sets()
 	left_ring="Gelatinous Ring +1",
 	right_ring="Ilabrat Ring",
 	back="Reiki Cloak",
-	waist="Gold Moogle Belt",
+	waist="Platinum Moogle Belt",
 	legs="Carmine Cuisses +1",
 	feet="Carmine Greaves +1"
 	}
@@ -478,10 +509,10 @@ function precast(spell)
 			end
 		end
 	elseif spell.action_type == 'Ranged Attack' then
-		if player.equipment.ammo == 'empty' then
-			equip(bullet.shooty)
-		end
 		equip(bullet.shooty)
+		if player.equipment.ammo == 'empty' then
+			add_to_chat(123, 'No '..(bullet.shooty))
+		end
 		if no_shoot_ammo:contains(player.equipment.ammo) then
 			cancel_spell()
 		end
@@ -508,7 +539,7 @@ function midcast(spell)
 		end
 	elseif spell.action_type == 'Ranged Attack' then
 		if buffactive['Triple Shot'] then
-			equip(sets.midcast['Triple Shot'])
+			equip(sets.midcast.RAacc,sets.midcast['Triple Shot'])
 		else
 			equip(sets.midcast.RA)
 		end

@@ -1,5 +1,6 @@
 res = require 'resources'
 require('vectors')
+send_command('lua l Skillchains')
 
 --Fudo > Kasha > Rana > Shoha
 
@@ -31,6 +32,7 @@ function get_sets()
 	sets.fc.base = {
 	left_ear="Etiolation Earring",
 	hands="Leyline Gloves",
+	right_ring="Medada's Ring",
 	legs="Arjuna Breeches",
 	}
 	
@@ -71,7 +73,7 @@ function get_sets()
 	left_ring="Niqmaddu Ring",
 	right_ring="Chirich Ring +1",
 	back={ name="Takaha Mantle", augments={'STR+1','"Zanshin"+5','"Store TP"+3',}},
-	waist="Sailfi Belt +1",
+	waist="Sweordfaetels +1",
 	legs="Tatenashi Haidate +1",
 	--feet="Tatenashi Sune-Ate +1"
 	feet="Ryuo Sune-Ate +1"
@@ -87,7 +89,9 @@ function get_sets()
 	sets.TP['Hybrid'] = set_combine(sets.TP['Standard'], {
 	head="Kasuga Kabuto +3",
 	body="Kasuga Domaru +3",
-	back={ name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
+	--right_ring="Defending Ring",
+	--back={ name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
+	back={ name="Takaha Mantle", augments={'STR+1','"Zanshin"+5','"Store TP"+3',}},
 	legs="Kasuga Haidate +3",
 	})
 	
@@ -138,13 +142,13 @@ function get_sets()
 	right_ear="Infused Earring",
 	body="Hizamaru Haramaki +2",
 	--hands="Rao Kote +1",
-	left_ring="Chirich Ring +1",
-	right_ring="Paguroidea Ring",
+	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
+    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
 	--legs="Rao Haidate +1",
 	--feet="Rao Sune-Ate +1",
 	}
 	
-	sets.terror = {feet="Founder's Greaves"}
+	--sets.terror = {feet="Founder's Greaves"}
 	
 	sets.mode.index = {'Uncapped','Capped'}
 	mode_ind = 1 --Uncapped set is the Default
@@ -192,7 +196,7 @@ function get_sets()
 	sets.ws['Tachi: Jinpu'] = set_combine(sets.ws['Empyreal Arrow'], {
 	right_ear="Friomisi Earring",
 	hands="Nyame Gauntlets",
-	left_ring="Metamorph Ring +1",
+	left_ring="Medada's Ring",
 	waist="Orpheus's Sash",
 	legs="Nyame Flanchard",
 	})
@@ -262,7 +266,7 @@ function get_sets()
 	left_ring="Gelatinous Ring +1",
 	right_ring="Ilabrat Ring",
 	back="Reiki Cloak",
-	waist="Gold Moogle Belt",
+	waist="Platinum Moogle Belt",
 	legs="Kendatsuba Hakama +1",
 	feet="Nyame Sollerets"
 	}
@@ -325,12 +329,12 @@ function get_sets()
 	neck="Samurai's Nodowa +2",
 	left_ear="Telos Earring",
 	right_ear="Enervating Earring",
-	body="Wakido Domaru +3",
+	--body="Wakido Domaru +3",
 	hands="Kasuga Kote +3",
 	left_ring="Regal Ring",
 	right_ring="Cacoethic Ring +1",
 	waist="Yemaya Belt",
-	legs="Wakido Haidate +3",
+	--legs="Wakido Haidate +3",
 	feet="Nyame Sollerets",
 	}
 end
@@ -453,9 +457,6 @@ function precast(spell)
 		end
 		equip(ammo.shooty)
 		equip(sets.precast.RA)
-	end
-	if spell.english:contains('Circle') then
-		equip({body="Founder's Breastplate"})
 	end
 end
 
