@@ -32,6 +32,16 @@ function get_sets()
 	sets.TP = {}
 	sets.fc = {}
 	sets.QD = {}
+	armor = {}
+	
+	armor.adhemarbody = "Adhemar Jacket +1"
+	armor.adhemarhands = "Adhemar Wristbands +1"
+	armor.carminedw = "Carmine Cuisses +1"
+	armor.tpbonusear = "Moonshade Earring"
+	armor.mabear = "Hecate's Earring"
+	armor.suppanomimi = "Suppanomimi"
+	armor.dwbelt = "Reiki Yotai"
+	armor.onehandbelt = "Sailfi Belt +1"
 	
 	sets.fc.base = {
 	head="Carmine Mask +1",
@@ -96,7 +106,7 @@ function get_sets()
 	left_ear="Telos Earring",
 	right_ear="Dedition Earring",
 	body="Malignance Tabard",
-	hands="Adhemar Wristbands +1",
+	hands=armor.adhemarhands,
 	left_ring="Epona's Ring",
 	right_ring="Petrov Ring",
 	back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
@@ -282,6 +292,21 @@ function get_sets()
 	feet="Nyame Sollerets",
 	}
 	
+	sets.midcast.macc = {
+	head="Chasseur's Tricorne +3",
+	neck="Commodore Charm +2",
+	left_ear="Crepuscular Earring",
+	right_ear="Chasseur's earring +1",
+	body="Chasseur's Frac +3",
+	hands="Chasseur's Gants +3",
+	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
+    right_ring={name="Stikini Ring +1", bag="wardrobe2"},
+	back={ name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}},
+	waist="Kwahu Kachina Belt +1",
+	legs="Chasseur's Culottes +3",
+	feet="Chasseur's Bottes +3"
+	}
+	
 	sets.ws.common = {
 	head="Nyame Helm",
 	neck="Fotia Gorget",
@@ -360,7 +385,7 @@ function get_sets()
 	right_ring="Begrudging Ring",
 	waist="Fotia Belt",
 	legs="Samnuha Tights",
-	feet="Mummu Gamashes +2"
+	feet="Ikenga's Clogs"
 	}
 	
 	sets.ws["Circle Blade"] = sets.ws["Savage Blade"]
@@ -391,8 +416,8 @@ function get_sets()
 	feet="Carmine Greaves +1"
 	}
 	
-	sets.subjobnin = {left_ear="Eabani Earring",waist="Reiki Yotai"}
-	sets.subjobdnc = set_combine(sets.subjobnin, {back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+18 Attack+18','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},})
+	sets.subjobnin = {left_ear="Eabani Earring",waist=armor.dwbelt}
+	sets.subjobdnc = set_combine(sets.subjobnin, {back={ name="Camulus's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},})
 end
 
 function check_height() 
@@ -454,17 +479,17 @@ function precast(spell)
 				if spell.name ~= "Wildfire" then
 					if player.equipment.range == "Fomalhaut" then
 						if player.tp >= 1000 and player.tp < 2500 then
-							equip({left_ear="Moonshade Earring",})
+							equip({left_ear=armor.tpbonusear,})
 						else
 							if spell.name == "Leaden Salute" then
-								equip({left_ear="Hecate's Earring",})
+								equip({left_ear=armor.mabear,})
 							else
 								equip({left_ear="",})
 							end
 						end
 					elseif (player.equipment.range == "Anarchy +2" or player.equipment.range == "Anarchy +3" or player.equipment.range == "Ataktos") then
 						if player.tp >= 1000 and player.tp < 2000 then
-							equip({left_ear="Moonshade Earring",})
+							equip({left_ear=armor.tpbonusear,})
 						else
 							if spell.name == "Leaden Salute" then
 								equip({left_ear="Hecate's Earring",})
@@ -474,10 +499,10 @@ function precast(spell)
 						end
 					else
 						if player.tp >= 1000 and player.tp < 3000 then
-							equip({left_ear="Moonshade Earring",})
+							equip({left_ear=armor.tpbonusear,})
 						else
 							if spell.name == "Leaden Salute" then
-								equip({left_ear="Hecate's Earring",})
+								equip({left_ear=armor.mabear,})
 							else
 								equip({left_ear="",})
 							end
@@ -487,20 +512,20 @@ function precast(spell)
 			else
 				if (player.equipment.range == "Anarchy +2" or player.equipment.range == "Anarchy +3" or player.equipment.range == "Ataktos") then
 					if player.tp >= 1000 and player.tp < 2000 then
-						equip({left_ear="Moonshade Earring",})
+						equip({left_ear=armor.tpbonusear,})
 					else
 						if spell.name == "Leaden Salute" then
-							equip({left_ear="Hecate's Earring",})
+							equip({left_ear=armor.mabear,})
 						else
 							equip({left_ear="Telos Earring",})
 						end
 					end
 				else
 					if player.tp >= 1000 and player.tp < 3000 then
-						equip({left_ear="Moonshade Earring",})
+						equip({left_ear=armor.tpbonusear,})
 					else
 						if spell.name == "Leaden Salute" then
-							equip({left_ear="Hecate's Earring",})
+							equip({left_ear=armor.mabear,})
 						else
 							equip({left_ear="Telos Earring",})
 						end
@@ -558,33 +583,7 @@ end
 function aftercast(spell)
 	if player.status == 'Engaged' then
 		equip(sets.TP[sets.TP.index[TP_ind]])
-		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
-			equip({left_ear="Telos Earring",waist="Sailfi Belt +1"})
-		else
-			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
-					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
-					equip(sets.subjobdnc)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			elseif S{player.sub_job}:contains('NIN') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
-					equip(sets.subjobnin)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			end
-		end
+		determine_dual_wield()
 	elseif player.status == 'Idle' then
 		equip(sets.TP[sets.TP.index[TP_ind]],sets.movement)
 		equip({neck="Republican Platinum Medal",waist="Flume Belt +1",})
@@ -600,33 +599,7 @@ function status_change(new,old)
 		equip({neck="Republican Platinum Medal",waist="Flume Belt +1",})
 	elseif new == 'Engaged' then
 		equip(sets.TP[sets.TP.index[TP_ind]])
-		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
-			equip({left_ear="Telos Earring",waist="Sailfi Belt +1"})
-		else
-			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
-					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
-					equip(sets.subjobdnc)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			elseif S{player.sub_job}:contains('NIN') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
-					equip(sets.subjobnin)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			end
-		end
+		determine_dual_wield()
 	end
 end
 
@@ -641,53 +614,7 @@ function buff_change(n, gain, buff_table)
 		end
 	elseif S{"Haste Samba"}:contains(name) then
 		if gain then
-			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
-					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
-					equip(sets.subjobdnc)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			elseif S{player.sub_job}:contains('NIN') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
-					equip(sets.subjobnin)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			end
-		else
-			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
-					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
-					equip(sets.subjobdnc)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			elseif S{player.sub_job}:contains('NIN') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
-					equip(sets.subjobnin)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			end
+			determine_dual_wield()
 		end
 	end
 end
@@ -720,38 +647,42 @@ function self_command(command)
 		if TP_ind > #sets.TP.index then TP_ind = 1 end
 		windower.add_to_chat(1,'<----- TP Set changed to '..sets.TP.index[TP_ind]..' ----->')
 		equip(sets.TP[sets.TP.index[TP_ind]])
-		if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
-			equip({left_ear="Telos Earring",waist="Grunfeld Rope"})
-		else
-			if S{player.sub_job}:contains('DNC') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
-					equip({waist="Reiki Yotai"})
-				elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
-					equip(sets.subjobdnc)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			elseif S{player.sub_job}:contains('NIN') then
-				if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
-					equip(sets.subjobnin)
-				else
-					if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
-						equip(sets.subjobdnc,{right_ear="Suppanomimi",body="Adhemar Jacket +1",legs="Carmine Cuisses +1"})
-					else
-						equip(sets.subjobdnc)
-					end
-				end
-			end
-		end
+		determine_dual_wield()
 	end
 	if command == 'toggle QD set' then
 		QD_ind = QD_ind +1
 		if QD_ind > #sets.QD.index then QD_ind = 1 end
 		windower.add_to_chat(1,'<----- Quick Draw mode changed to '..sets.QD.index[QD_ind]..' ----->')
+	end
+end
+
+function determine_dual_wield()
+	if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub:contains('Forfend') then
+		equip({left_ear="Telos Earring",waist=armor.onehandbelt})
+	else
+		if S{player.sub_job}:contains('DNC') then
+			if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) and buffactive["Haste Samba"] then
+				equip({waist=armor.dwbelt})
+			elseif (buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580]) then
+				equip(sets.subjobdnc)
+			else
+				if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then 
+					equip(sets.subjobdnc,{right_ear=armor.suppanomimi,body=armor.adhemarbody,legs=armor.carminedw})
+				else
+					equip(sets.subjobdnc)
+				end
+			end
+		elseif S{player.sub_job}:contains('NIN') then
+			if ((buffactive["Haste"] and buffactive["Embrava"]) or buffactive["March"] or (buffactive["Haste"] and buffactive[580])) then
+				equip(sets.subjobnin)
+			else
+				if sets.TP[sets.TP.index[TP_ind]] ~= sets.TP['DT'] then
+					equip(sets.subjobdnc,{right_ear=armor.suppanomimi,body=armor.adhemarbody,legs=armor.carminedw})
+				else
+					equip(sets.subjobdnc)
+				end
+			end
+		end
 	end
 end
 
