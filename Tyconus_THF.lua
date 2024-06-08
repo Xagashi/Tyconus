@@ -48,7 +48,7 @@ function get_sets()
 	}
 	
 	sets.regen = {
-	head="Gleti's Mask",
+	head="Turms Cap +1",
 	neck="Sanctity Necklace",
 	left_ear="Infused Earring",
 	body="Turms Harness",
@@ -73,10 +73,10 @@ function get_sets()
 	sets.TP['Standard'] = {
 	head="Skulker's Bonnet +3",
 	neck="Assassin's Gorget +2",
-	left_ear="Dedition Earring",
+	left_ear="Sherida Earring",
 	right_ear="Skulker's Earring +1",
 	body="Pillager's Vest +3",
-	hands="Gleti's Gauntlets",
+	hands="Adhemar Wristbands +1",
 	left_ring="Gere Ring",
 	right_ring="Hetairoi Ring",
 	back={ name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}},
@@ -86,12 +86,12 @@ function get_sets()
 	}
 	
 	sets.TP['Acc'] = set_combine(sets.TP['Standard'], {
-	head="Pillager's Bonnet +3",
-	left_ear="Telos Earring",
-	hands="Malignance Gloves",
-	right_ring="Regal Ring",
-	legs="Pillager's Culottes +3",
-	feet="Plunderer's Poulaines +3"
+	left_ear="Odr Earring",
+	body="Skulker's Vest +3",
+	hands="Skulker's Armlets +3",
+	right_ring="Moonlight Ring",
+	legs="Skulker's Culottes +3",
+	feet="Skulker's Poulaines +3"
 	})
 	
 	sets.TP['Hybrid'] = set_combine(sets.TP['Standard'], { --30%
@@ -114,7 +114,7 @@ function get_sets()
 	})
 	
 	sets.TP['Evasion'] = {
-	head="Nyame Helm",
+	head="Turms Cap +1",
 	neck="Assassin's Gorget +2",
 	left_ear="Sherida Earring",
 	right_ear="Infused Earring",
@@ -287,7 +287,7 @@ function get_sets()
 	sets.ja['Perfect Dodge'] = {hands="Plunderer's Armlets +3"}
 	sets.ja['Hide'] = {body="Pillager's Vest +3"}
 	sets.ja['Steal'] = set_combine(sets.THwhore, {neck="Pentalagus Charm",hands="Pillager's Armlets +1",legs="Assassin's Culottes",feet="Pillager's Poulaines +3"})
-	sets.ja['Mug'] = set_combine(sets.THwhore, {head="Assassin's Bonnet"})
+	sets.ja['Mug'] = set_combine(sets.THwhore, {head="Plunderer's bonnet +3"})
 	sets.ja['Flee'] = {feet="Pillager's Poulaines +3"}
 	sets.ja['Despoil'] = set_combine(sets.THwhore, {legs="Skulker's Culottes +3",feet="Skulker's Poulaines +3",})
 	sets.ja['Feint'] = {legs="Plunderer's Culottes +3"}
@@ -401,6 +401,7 @@ function precast(spell)
 			[12] = 1.666666666666667,
 		}
 		ability_distance = res.weapon_skills[spell.id].range
+		busy = true
 		if player.tp < 1000 then
 			cancel_spell()
 		elseif spell.target.distance > (ability_distance * range_mult[ability_distance] + spell.target.model_size + player.model_size) then
@@ -515,6 +516,7 @@ function midcast(spell)
 end
 
 function aftercast(spell)
+	busy = false
 	if player.status == 'Engaged' then
 		equip(sets.TP[sets.TP.index[TP_ind]],sets.TH[sets.TH.index[TH_ind]])
 		if sets.TH[sets.TH.index[TH_ind]] ~= sets.TH['None'] then
@@ -687,19 +689,19 @@ function self_command(command)
 	end
 end
 
---windower.register_event('prerender', function()
---	if player then
---		if player.status == 'Engaged' then
---			if check_facing() == true then
---				equip({body="Plunderer's Vest +3"})
---			else
---				equip({body="Pillager's Vest +3",})
---			end
---		end
---	else
---		stratBox:hide()
---	end
---end)
+windower.register_event('prerender', function()
+	if player then
+		if player.status == 'Engaged' and not busy then
+			if check_facing() == true then
+				equip({body="Plunderer's Vest +3"})
+			else
+				equip({body="Pillager's Vest +3",})
+			end
+		end
+	else
+		stratBox:hide()
+	end
+end)
 
 function set_macros(sheet,book)
     if book then
