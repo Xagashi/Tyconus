@@ -9,8 +9,9 @@ GainSpells = S{'Gain-STR','Gain-INT','Gain-AGI','Gain-VIT','Gain-DEX','Gain-MND'
 EnSpells = S{"Enfire","Enfire II","Enblizzard","Enblizzard II","Enaero","Enaero II","Enstone","Enstone II","Enthunder","Enthunder II","Enwater","Enwater II"}
 NaSpells = S{"Blindna","Erase","Paralyna","Poisona","Silena","Stona","Viruna"}
 Spikes = S{"Blaze Spikes","Ice Spikes","Shock Spikes"}
-SubWeapon = S{"Gleti's Knife","Daybreak","Bunzi's Rod"}
+SubWeapon = S{"Gleti's Knife","Daybreak","Bunzi's Rod","Thibron"}
 res = require 'resources'
+weaponlock = false
 
 function get_sets()
 	sets.fc = {}
@@ -376,32 +377,22 @@ function get_sets()
 	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
     right_ring={name="Chirich Ring +1", bag="wardrobe6"},
 	back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},
-	waist="Reiki Yotai",
+	waist="Windbuffet Belt +1",
 	legs="Malignance Tights",
 	feet="Malignance Boots"
 	}
 	
-	sets.TP['EnSpell'] = {
+	sets.TP['EnSpell'] = set_combine(sets.TP['Standard'], {
 	ammo="Sroda Tathlum",
-	head="Malignance Chapeau",
-	--head="Bunzi's Hat",
-	neck="Anu Torque",
-	left_ear="Eabani Earring",
-	right_ear="Sherida Earring",
-	body="Malignance Tabard",
 	hands="Aya. Manopolas +2",
-	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
-    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
-	back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},
 	waist="Orpheus's Sash",
-	legs="Malignance Tights",
-	feet="Malignance Boots"
-	}
+	})
 	
 	sets.subjobnin = {left_ear="Eabani Earring",}
 	sets.subjobdnc = {back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}},}
 	
 	sets.ws.common = {
+	ammo="Coiste Bodhar",
 	head="Nyame Helm",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
@@ -412,11 +403,10 @@ function get_sets()
 	feet="Lethargy Houseaux +3"
 	}
 	
-	sets.ws["Savage Blade"] = set_combine(sets.ws.common, {
-	ammo="Coiste Bodhar",
+	sets.ws["Savage Blade"] = set_combine(sets.ws.common, { --Naegling/Thibron
 	neck="Republican Platinum Medal",
-	right_ear="Lethargy Earring +1",
-	left_ring="Metamorph Ring +1",
+	right_ear="Sherida Earring",
+	left_ring="Sroda Ring",
 	waist="Sailfi Belt +1",
 	})
 	
@@ -434,7 +424,7 @@ function get_sets()
 	neck="Duelist's Torque +2",
 	left_ear="Regal Earring",
 	hands="Jhakri Cuffs +2",
-	right_ring="Archon Ring",
+	left_ring="Archon Ring",
 	legs="Lethargy Fuseau +3",
 	})
 	
@@ -444,6 +434,16 @@ function get_sets()
 	left_ring="Freke Ring",
 	waist="Orpheus's Sash",
 	legs="Lethargy Fuseau +3",
+	})
+	
+	sets.ws["Black Halo"] = set_combine(sets.ws.common, { --Maxentius/Thibron
+	neck="Republican Platinum Medal",
+	right_ear="Regal Earring",
+	waist="Sailfi Belt +1",
+	})
+	
+	sets.ws["Red Lotus Blade"] = set_combine(sets.ws["Aeolian Edge"], { --Crocea/Thibron
+	legs="Nyame Flanchard",
 	})
 	
 	sets.idle.index = {'Idle','DW'}
@@ -472,7 +472,7 @@ function get_sets()
 	
 	sets.resting = {}
 	
-	sets.main.index = {'Crocea Mors','Naegling','Tauret','Maxentius'}
+	sets.main.index = {'Crocea Mors',--[['Naegling','Tauret',]]'Maxentius'}
 	main_ind = 1 --Crocea Mors is the Default
 	
 	sets.main['Crocea Mors'] = {main="Crocea Mors"}
@@ -480,12 +480,13 @@ function get_sets()
 	sets.main['Tauret'] = {main="Tauret"}
 	sets.main['Maxentius'] = {main="Maxentius"}
 	
-	sets.sub.index = {'Gleti\'s Knife','Daybreak','Bunzi\'s Rod'}
-	sub_ind = 1 --Gleti's Knife is the Default
+	sets.sub.index = {--[['Gleti\'s Knife','Daybreak',]]'Bunzi\'s Rod','Thibron'}
+	sub_ind = 4 --Thibron is the Default
 	
 	sets.sub['Gleti\'s Knife'] = {sub="Gleti's Knife"}
 	sets.sub['Daybreak'] = {sub="Daybreak"}
 	sets.sub['Bunzi\'s Rod'] = {sub="Bunzi's Rod"}
+	sets.sub['Thibron'] = {sub="Thibron"}
 	
 	sets.enmity = {}
 	
@@ -499,17 +500,15 @@ function check_height()
 end
 
 function precast(spell)
+	if weaponlock then
+		disable('main','sub','range')
+	else
+		enable('main','sub','range')
+	end
 	if player.equipment.main ~= "Daybreak" and spell.name == 'Dispelga' then
 		equip({main="Daybreak"})
 	elseif player.equipment.body ~= "Crepuscular Cloak" and spell.name == 'Impact' then
 		equip({body="Crepuscular Cloak"})
-	end
-	if player.equipment.sub:contains('Shield') or player.equipment.sub:contains('Bulwark') or player.equipment.sub:contains('Buckler') or player.equipment.sub:contains('Grip') or player.equipment.sub == 'empty' or player.equipment.sub == 'Forfend +1' or SubWeapon:contains(player.equipment.sub) then
-		if player.status == "Engaged" then
-			disable('main','sub','range')
-		else
-			enable('main','sub','range')
-		end
 	end
 	if buffactive['Stun'] or buffactive['Petrify'] or buffactive['Terror'] or ((spell.action_type == "WeaponSkill" or spell.action_type == "JobAbility") and buffactive['Amnesia']) or (spell.action_type == 'Magic' and buffactive['Silence']) then
 		cancel_spell()
@@ -613,8 +612,12 @@ function midcast(spell)
 			if spell.name == "Impact" then
 				equip(sets.midcast.impact)
 			else
-				weathercheck(spell.element,sets.nuke[sets.nuke.index[nuke_ind]])
-				zodiaccheck(spell.element)
+				if spell.english == "Fire" or spell.english == "Stone" or spell.english == "Blizzard" or spell.english == "Thunder" or spell.english == "Water" or spell.english == "Aero" then
+					equip(sets.TP['DT'])
+				else
+					weathercheck(spell.element,sets.nuke[sets.nuke.index[nuke_ind]])
+					zodiaccheck(spell.element)
+				end
 			end
 		elseif spell.skill == "Enhancing Magic" and not S{'Warp','Warp II','Retrace','Teleport-Holla','Teleport-Mea','Teleport-Dem','Teleport-Altep','Teleport-Vahzl','Teleport-Yhoat','Recall-Jugner','Recall-Pashh','Recall-Meriph'}:contains(spell.english) then
 			if spell.english == "Sneak" or spell.english == "Invisible" then
@@ -808,7 +811,7 @@ function self_command(command)
 		main_ind = main_ind +1
 		if main_ind > #sets.main.index then main_ind = 1 end
 		windower.add_to_chat(1,'<----- main Set changed to '..sets.main.index[main_ind]..' ----->')
-		enable('main','sub','range')
+		enable('main')
 		equip(sets.main[sets.main.index[main_ind]])
 	end
 	if command == 'toggle sub set' then
@@ -816,37 +819,31 @@ function self_command(command)
 			sub_ind = sub_ind +1
 			if sub_ind > #sets.sub.index then sub_ind = 1 end
 			windower.add_to_chat(1,'<----- sub Set changed to '..sets.sub.index[sub_ind]..' ----->')
-			enable('main','sub','range')
+			enable('sub')
 			equip(sets.sub[sets.sub.index[sub_ind]])
 		end
+	end
+	if command == 'toggle weaponlock' then
+		weaponlock = not weaponlock
+		windower.add_to_chat(1,'<----- Weapon Locked: '..tostring(weaponlock)..' ----->')
 	end
 end
 
 send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
 send_command('bind !e gs c toggle idle set') -- Hit alt+e, toggles the sets
 send_command('bind !n gs c toggle nuke set') -- Hit alt+e, toggles the sets
---send_command('wait 5;gs equip fashion;wait 1;input /lockstyle on;wait 1;gs equip refresh')
 send_command('bind ^` gs c toggle main set') -- Hit ctrl+`, toggles the sets
 send_command('bind !` gs c toggle sub set') -- Hit alt+`, toggles the sets
+send_command('bind !a gs c toggle weaponlock') -- Hit alt+a, toggles the sets
 
 function file_unload()
-    send_command('unbind !q')
+    send_command('unbind !a')
+	send_command('unbind !q')
 	send_command('unbind !e')
 	send_command('unbind !n')
 	send_command('unbind !`')
 	send_command('unbind ^`')
 end
-
---function zone_change(new,old)
---	if areas.Cities:contains(world.area) then
---		equip(sets.idle[sets.idle.index[idle_ind]])
---		if world.area:contains("Bastok") or world.area:contains("Metalworks") then
---		elseif world.area:contains("Adoulin") then
---			equip({body="Councilor's Garb"})
---		elseif world.area:contains("Windurst") or world.area:contains("Heaven's") then
-		--end
-	--end
---end
 
 ------------------------------------ Alias -------------------------------------
 
