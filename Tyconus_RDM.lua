@@ -11,9 +11,23 @@ NaSpells = S{"Blindna","Erase","Paralyna","Poisona","Silena","Stona","Viruna"}
 Spikes = S{"Blaze Spikes","Ice Spikes","Shock Spikes"}
 SubWeapon = S{"Gleti's Knife","Daybreak","Bunzi's Rod","Thibron"}
 ZeroDMG = S{"Aern Dagger","Aern Dagger II","Ceremonial Dagger","Chicken Knife II","Esikuva","Esoteric Athame","Ethereal Dagger","Hedron Dagger","Infiltrator","Norgish Dagger","Qutrub Knife","Rusty Dagger","Trainee Knife","Trainee's Needle","Wind Knife"}
+WSAccuracyNM = S{"Aminon","Blanched Mandragora"}
+send_command('alias physical @input /ws "Savage Blade" <t>')
+send_command('alias magical @input /ws "Sanguine Blade" <t>')
 res = require 'resources'
 weaponlock = false
 Ullr = true
+
+send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
+send_command('bind !e gs c toggle idle set') -- Hit alt+e, toggles the sets
+send_command('bind !n gs c toggle nuke set') -- Hit alt+e, toggles the sets
+send_command('bind ^` gs c toggle main set') -- Hit ctrl+`, toggles the sets
+send_command('bind !` gs c toggle sub set') -- Hit alt+`, toggles the sets
+send_command('bind !a gs c toggle weaponlock') -- Hit alt+a, toggles the sets
+send_command('bind !w gs equip sets.idle.movment')
+
+send_command('lua l Skillchains')
+send_command('lua l partybuffs')
 
 function get_sets()
 	sets.fc = {}
@@ -26,11 +40,15 @@ function get_sets()
 	sets.ws = {}
 	sets.main = {}
 	sets.sub = {}
+	sets.shield = {}
 	cape = {}
 	
 	cape.AmbuBackDW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
 	--cape.AmbuBackOH = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
 	--cape.AmbuBackOH = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
+	cape.AmbuBackOH = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
+	
+	sets.idle.movment = {legs="Carmine Cuisses +1"}
 	
 	sets.fc.crocea = {
 	--[[main="Crocea Mors",]]
@@ -38,11 +56,11 @@ function get_sets()
 	
 	sets.fc.base = { --30(base)(8JP)=38 +44
 	--ammo="Impatiens", --2 qm
-	head="Carmine Mask +1", --14
+	head="Atrophy Chapeau +3", --16
 	--neck="Baetyl Pendant", --4
 	--left_ear="Malignance Earring", --4
 	--right_ear="Loquacious Earring", --2
-	body="Vitiation Tabard +3", --15
+	body="Vitiation Tabard +4", --15
 	--hands="Leyline Gloves", --5
 	left_ring="Medada's Ring", --10
 	right_ring="Lebeche Ring", --2 qm
@@ -73,7 +91,7 @@ function get_sets()
 	neck="Baetyl Pendant", --4
 	left_ear="Malignance Earring", --4
 	right_ear="Loquacious Earring", --2
-	--body="Crepuscular Cloak",
+	body="Crepuscular Cloak",
 	hands="Leyline Gloves", --5
 	left_ring="Medada's Ring", --10
 	right_ring="Lebeche Ring", --2 qm
@@ -111,7 +129,7 @@ function get_sets()
 	neck="Debilis Medallion",
 	left_ear="Beatific Earring",
 	right_ear="Meili Earring",
-	body="Vitiation Tabard +3",
+	body="Vitiation Tabard +4",
 	left_ring="Haoma's Ring",
 	right_ring="Menelaus's Ring",
 	waist="Bishop's Sash",
@@ -132,19 +150,19 @@ function get_sets()
 	right_ear="Malignance Earring",
 	body="Lethargy Sayon +3",
 	hands="Lethargy Gantherots +3",
-	--left_ring="Stikini Ring +1",
-	left_ring="Metamorph Ring +1",
+	left_ring="Medada's Ring",
 	right_ring="Freke Ring",
 	back="Aurist's Cape +1",
 	waist="Acuity Belt +1",
 	legs="Lethargy Fuseau +3",
-	feet="Lethargy Houseaux +3"
+	feet="Vitiation Boots +4"
 	}
 	
 	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {
 	head="Ea Hat +1",
 	body="Ea Houppelande +1",
 	hands="Bunzi's Gloves",
+	legs="Ea Slops +1",
 	})
 	
 	sets.midcast.raise = set_combine(sets.midcast.conservemp, { --30(base)(8JP) +51  +21 haste
@@ -161,14 +179,18 @@ function get_sets()
 	sets.midcast.Enfeebling = {
 	main="Daybreak",
 	sub="Ammurapi Shield",
-	head="Vitiation Chapeau +3",
+	head="Vitiation Chapeau +4",
 	neck="Duelist's Torque +2",
+	left_ear="Regal Earring",
 	right_ear="Snotra Earring",
+	body="Lethargy Sayon +3",
 	hands="Lethargy Gantherots +3",
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
-	waist="Luminary Sash",
-	feet="Vitiation Boots +3",
+	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
+	waist="Obstinate Sash",
+	legs="Lethargy Fuseau +3",
+	feet="Vitiation Boots +4",
 	}
 	
 	sets.midcast.maxenfacc = set_combine(sets.midcast.Enfeebling, {
@@ -176,25 +198,17 @@ function get_sets()
 	sub="Ammurapi Shield",
 	range="Ullr",
 	head="Atrophy Chapeau +3",
-	left_ear="Regal Earring",
 	body="Atrophy Tabard +3",
 	back="Aurist's Cape +1",
 	waist="Acuity Belt +1",
 	legs="Lethargy Fuseau +3",
-	feet="Lethargy Houseaux +3"
+	feet="Atrophy Boots +4"
 	})
 	
 	sets.midcast.SkillEnfeebles = set_combine(sets.midcast.Enfeebling, {
-	--main={ name="Contemplator +1", priority=2,},
-	--sub={ name="Enki Strap", priority=1,},
 	ammo="Regal Gem",
-	neck="Incanter's Torque",
-	left_ear="Vor Earring",
 	body="Atrophy Tabard +3",
-	back="Ghostfyre Cape",
-	waist="Rumination Sash",
-	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}},
-	legs={ name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}},
+	feet="Atrophy Boots +4",
 	})
 	
 	sets.midcast.enfeebleMND = set_combine(sets.midcast.Enfeebling, {
@@ -202,11 +216,7 @@ function get_sets()
 	sub="Ammurapi Shield",
 	ammo="Regal Gem",
 	left_ear="Regal Earring",
-	body="Lethargy Sayon +3",
 	right_ring="Metamorph Ring +1",
-	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}},
-	waist="Obstinate Sash",
-	legs="Lethargy Fuseau +3",
 	})
 	
 	sets.midcast.enfeebleINT = set_combine(sets.midcast.enfeebleMND, {})
@@ -214,10 +224,9 @@ function get_sets()
 	sets.midcast.enfduration = set_combine(sets.midcast.Enfeebling, {
 	ammo="Regal Gem",
 	left_ear="Regal Earring",
-	body="Atrophy Tabard +3",
 	--hands="Regal Cuffs",
+	left_ring="Metamorph Ring +1",
 	right_ring="Kishar Ring",
-	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}},
 	waist="Obstinate Sash",
 	legs={ name="Chironic Hose", augments={'Mag. Acc.+13','MND+15','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 	})
@@ -225,10 +234,9 @@ function get_sets()
 	sets.midcast.dia = set_combine(sets.midcast.Enfeebling, {
 	ammo="Regal Gem",
 	head="Lethargy Chappel +3",
-	body="Lethargy Sayon +3",
 	--hands="Regal Cuffs",
 	right_ring="Kishar Ring",
-	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}},
+	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
 	waist="Obstinate Sash",
 	legs="Lethargy Fuseau +3",
 	feet="Lethargy Houseaux +3"
@@ -239,7 +247,7 @@ function get_sets()
 	sub="Ammurapi Shield",
 	head="Befouled Crown",
 	neck="Incanter's Torque",
-	right_ear="Mimir Earring",
+	left_ear="Mimir Earring",
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	legs="Atrophy Tights +3",
@@ -250,8 +258,8 @@ function get_sets()
 	head={ name="Telchine Cap", augments={'"Conserve MP"+3','Enh. Mag. eff. dur. +10',}},
 	neck="Duelist's Torque +2",
 	right_ear="Lethargy Earring +1",
-	body="Vitiation Tabard +3",
-	hands="Atrophy Gloves +3",
+	body="Vitiation Tabard +4",
+	hands="Atrophy Gloves +4",
 	back="Ghostfyre Cape",
 	waist="Embla Sash",
 	legs={ name="Telchine Braconi", augments={'Pet: Evasion+16','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}},
@@ -262,17 +270,21 @@ function get_sets()
 	--main="Rubicundity",
 	sub="Ammurapi Shield",
 	range="Ullr",
-	head="Vitiation Chapeau +3",
+	head="Lethargy Chappel +3",
 	neck="Erra Pendant",
-	left_ear="Regal Earring",
+	left_ear="Malignance Earring",
+	right_ear="Leth. Earring +1",
 	--right_ear="Mani Earring",
 	--body="Shango Robe",
 	--hands="Regal Cuffs",
+	body="Lethargy Sayon +3",
+	hands="Lethargy Gantherots +3",
 	left_ring="Stikini Ring +1",
 	right_ring="Evanescence Ring",
+	back="Perimede Cape",
 	waist="Acuity Belt +1",
-	legs={ name="Chironic Hose", augments={'Mag. Acc.+13','MND+15','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
-	feet="Vitiation Boots +3",
+	legs="Lethargy Fuseau +3",
+	feet="Lethargy Houseaux +3",
 	}
 	
 	sets.midcast.drain = set_combine(sets.midcast['Dark Magic'], {
@@ -288,6 +300,11 @@ function get_sets()
 	--feet="Merlinic Crackows"
 	})
 	
+	sets.midcast.absorb = set_combine(sets.midcast['Dark Magic'], {
+	main="Crocea Mors",
+	back="Aurist's Cape +1",
+	})
+	
 	sets.midcast.bar_element = {}
 	
 	sets.midcast.regen = {}
@@ -299,7 +316,7 @@ function get_sets()
 	neck="Duelist's Torque +2",
 	left_ear="Malignance Earring",
 	right_ear="Snotra Earring",
-	--body="Crepuscular Cloak",
+	body="Crepuscular Cloak",
 	--hands="Regal Cuffs",
 	hands="Lethargy Gantherots +3",
 	left_ring="Stikini Ring +1",
@@ -307,7 +324,23 @@ function get_sets()
 	back="Aurist's Cape +1",
 	waist="Acuity Belt +1",
 	legs={ name="Chironic Hose", augments={'Mag. Acc.+13','MND+15','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
-	feet="Vitiation Boots +3",
+	feet="Vitiation Boots +4",
+	}
+	
+	sets.midcast.impact.aminon = {
+	ammo="Aurgelmir Orb +1",
+    head=empty,
+	neck="Anu Torque",
+    left_ear="Crep. Earring",
+    right_ear="Dedition Earring",
+	body="Crepuscular Cloak",
+	hands="Malignance Gloves",
+    left_ring="Chirich Ring +1",
+    right_ring="Crepuscular Ring",
+    back="Null Shawl",
+	waist="Oneiros Rope",
+	legs="Perdition Slops",
+    feet="Malignance Boots",
 	}
 	
 	sets.buff.skulk = set_combine(sets.midcast.EnhancingDuration, {back = "Skulker's Cape"})
@@ -317,7 +350,7 @@ function get_sets()
 	sets.buff.selfphalanx = set_combine(sets.buff['Phalanx'], {
 	main="Sakpata's Sword",
 	hands={ name="Chironic Gloves", augments={'Phys. dmg. taken -2%','Pet: "Store TP"+7','Phalanx +5','Mag. Acc.+20 "Mag.Atk.Bns."+20',}},
-	feet="Chironic Slippers"
+	feet={ name="Chironic Slippers", augments={'Pet: "Mag.Atk.Bns."+13','Accuracy+16','Phalanx +4','Accuracy+8 Attack+8',}},
 	})
 	
 	sets.buff['Refresh III'] = set_combine(sets.midcast.EnhancingDuration, {
@@ -353,8 +386,8 @@ function get_sets()
 	neck="Incanter's Torque",
 	left_ear="Andoaa Earring",
 	right_ear="Mimir Earring",
-	body="Vitiation Tabard +3",
-	hands="Vitiation Gloves +3",
+	body="Vitiation Tabard +4",
+	hands="Vitiation Gloves +4",
 	left_ring={name="Stikini Ring +1", bag="wardrobe1"},
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Ghostfyre Cape",
@@ -363,31 +396,30 @@ function get_sets()
 	feet="Lethargy Houseaux +3"
 	}
 	
-	sets.ja['Chainspell'] = {body="Vitiation Tabard +3",}
+	sets.ja['Chainspell'] = {body="Vitiation Tabard +4",}
 	sets.ja['Vallation'] = sets.enmity
 	sets.ja['Swordplay'] = sets.enmity
 	sets.ja['Pflug'] = sets.enmity
 	sets.ja['Valiance'] = sets.enmity
 	sets.ja['Animated Flourish'] = sets.enmity
 	
-	sets.TP.index = {'Standard','EnSpell'}
+	sets.TP.index = {'Standard','EnSpell','DT'}
 	TP_ind = 1 --Standard set is the Default
 	
 	sets.TP['Standard'] = {
-	ammo="Aurgelmir Orb +1",
-	head="Malignance Chapeau",
-	--head="Bunzi's Hat",
+	ammo="Coiste Bodhar",
+	head="Bunzi's Hat",
 	neck="Anu Torque",
-	left_ear="Dedition Earring",
+	left_ear="Eabani Earring",
 	right_ear="Sherida Earring",
 	body="Malignance Tabard",
 	hands="Malignance Gloves",
 	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
-    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
-	back=cape.AmbuBackDW
-	waist="Windbuffet Belt +1",
+    right_ring={name="Chirich Ring +1", bag="wardrobe3"},
+	back="Null Shawl",
+	waist="Reiki Yotai",
 	legs="Malignance Tights",
-	feet="Malignance Boots"
+	feet="Carmine Greaves +1",
 	}
 	
 	sets.TP['EnSpell'] = set_combine(sets.TP['Standard'], {
@@ -396,10 +428,23 @@ function get_sets()
 	waist="Orpheus's Sash",
 	})
 	
+	sets.TP['DT'] = set_combine(sets.TP['Standard'], {
+	left_ear="Dedition Earring",
+	left_ring="Petrov Ring",
+	right_ring="Murky Ring",
+	back=cape.AmbuBackDW,
+	waist="Windbuffet Belt +1",
+	feet="Malignance Boots"
+	})
+	
 	sets.TP.zerodamage = set_combine(sets.TP['EnSpell'], {
 	head="Umuthi Hat",
-	neck="Duelist's Torque +2",
-	--left_ear="Hollow Earring",
+	neck="Null Loop",
+	left_ear="Telos Earring",
+	right_ear="Suppanomimi",
+	body="Lethargy Sayon +3",
+	right_ring={name="Chirich Ring +1", bag="wardrobe3"},
+	legs="Carmine Cuisses +1",
 	})
 	
 	sets.subjobnin = {left_ear="Eabani Earring",legs="Carmine Cuisses +1"}
@@ -407,19 +452,24 @@ function get_sets()
 	
 	sets.ws.common = {
 	ammo="Coiste Bodhar",
-	head="Nyame Helm",
+	head="Vitiation Chapeau +4",
+	neck="Republican Platinum Medal",
+	left_ear={name="Sherida Earring",priority=1},
+	right_ear={name="Lethargy Earring +1",priority=2},
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
 	left_ring="Metamorph Ring +1",
 	right_ring="Epaminondas's Ring",
-	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
+	back={ name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
+	waist="Kentarch Belt +1",
 	legs="Nyame Flanchard",
 	feet="Lethargy Houseaux +3"
 	}
 	
 	sets.ws["Savage Blade"] = set_combine(sets.ws.common, { --Naegling/Thibron
 	neck="Republican Platinum Medal",
-	right_ear="Sherida Earring",
+	left_ear="Moonshade Earring",
+	right_ear="Ishvara Earring",
 	left_ring="Sroda Ring",
 	waist="Sailfi Belt +1",
 	})
@@ -430,6 +480,7 @@ function get_sets()
 	neck="Fotia Gorget",
 	right_ear="Malignance Earring",
 	hands="Lethargy Gantherots +3",
+	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
 	waist="Orpheus's Sash",
 	})
 	
@@ -439,6 +490,7 @@ function get_sets()
 	left_ear="Regal Earring",
 	hands="Jhakri Cuffs +2",
 	left_ring="Archon Ring",
+	back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
 	legs="Lethargy Fuseau +3",
 	})
 	
@@ -453,47 +505,52 @@ function get_sets()
 	sets.ws["Black Halo"] = set_combine(sets.ws.common, { --Maxentius/Thibron
 	neck="Republican Platinum Medal",
 	right_ear="Regal Earring",
+	left_ring="Sroda Ring",
 	waist="Sailfi Belt +1",
+	})
+	
+	sets.ws["Black Halo"].acc = set_combine(sets.ws["Black Halo"], { --Maxentius/Gleti's
+	hands="Atrophy Gloves +4",
 	})
 	
 	sets.ws["Red Lotus Blade"] = set_combine(sets.ws["Aeolian Edge"], { --Crocea/Thibron
 	legs="Nyame Flanchard",
 	})
 	
-	sets.idle.index = {'Idle','DW'--[[,'Flan']]}
-	idle_ind = 1
-	
-	--sets.idle.pants = "Carmine Cuisses +1"
-	sets.idle.pants = "Nyame Flanchard"
-	
-	sets.idle['Idle'] = {
+	sets.idle.weapon = {
 	main="Daybreak",
 	sub="Genmei Shield",
+	}
+	
+	sets.idle.index = {'Idle','DW','Flan','Aminon'}
+	idle_ind = 1
+	
+	sets.idle['Idle'] = {
 	ammo="Homiliary",
-	head="Vitiation Chapeau +3",
+	head="Vitiation Chapeau +4",
 	neck="Loricate Torque +1",
 	left_ear="Etiolation Earring",
 	right_ear="Dominance Earring +1",
 	body="Lethargy Sayon +3",
 	hands="Volte Gloves",
 	left_ring="Stikini Ring +1",
-	right_ring="Defending Ring",
+	right_ring="Murky Ring",
 	back="Solemnity Cape",
-	waist="Shinjutsu-no-obi +1",
-	legs=sets.idle.pants,
+	waist="Flume Belt +1",
+	legs="Nyame Flanchard",
 	feet="Volte Gaiters"
 	}
 	
 	sets.idle['DW'] = {
 	ammo="Homiliary",
-	head="Vitiation Chapeau +3",
+	head="Vitiation Chapeau +4",
 	neck="Loricate Torque +1",
 	left_ear="Etiolation Earring",
 	right_ear="Dominance Earring +1",
 	body="Lethargy Sayon +3",
 	hands="Volte Gloves",
 	left_ring="Stikini Ring +1",
-	right_ring="Defending Ring",
+	right_ring="Murky Ring",
 	back="Solemnity Cape",
 	waist="Shinjutsu-no-obi +1",
 	legs="Carmine Cuisses +1",
@@ -502,9 +559,25 @@ function get_sets()
 	
 	sets.idle['Flan'] = sets.TP['EnSpell']
 	
+	sets.idle['Aminon'] = {
+	ammo="Aurgelmir Orb +1",
+	head="Null Masque",
+	neck="Anu Torque",
+	left_ear="Dedition Earring",
+	right_ear="Crepuscular Earring",
+	body="Malignance Tabard",
+	hands="Malignance Gloves",
+	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
+    right_ring={name="Chirich Ring +1", bag="wardrobe3"},
+	back="Null Shawl",
+	waist="Sweordfaetels +1",
+	legs="Malignance Tights",
+	feet="Malignance Boots"
+	}
+	
 	sets.resting = {}
 	
-	sets.main.index = {'Crocea Mors',--[['Naegling','Tauret',]]'Maxentius'}
+	sets.main.index = {'Crocea Mors','Naegling',--[['Tauret',]]'Maxentius'}
 	main_ind = 1 --Crocea Mors is the Default
 	
 	sets.main['Crocea Mors'] = {main="Crocea Mors"}
@@ -512,24 +585,23 @@ function get_sets()
 	sets.main['Tauret'] = {main="Tauret"}
 	sets.main['Maxentius'] = {main="Maxentius"}
 	
-	sets.sub.index = {--[['Gleti\'s Knife','Daybreak',]]'Bunzi\'s Rod','Thibron'}
-	sub_ind = 4 --Thibron is the Default
+	sets.sub.index = {'Gleti\'s Knife'--[[,'Daybreak','Bunzi\'s Rod']],'Thibron'}
+	sub_ind = 2 --Thibron is the Default
 	
 	sets.sub['Gleti\'s Knife'] = {sub="Gleti's Knife"}
 	sets.sub['Daybreak'] = {sub="Daybreak"}
 	sets.sub['Bunzi\'s Rod'] = {sub="Bunzi's Rod"}
 	sets.sub['Thibron'] = {sub="Thibron"}
-	sets.sub['Shield'] = {sub="Genmei Shield"}
+	
+	sets.shield.index = {'Genmei','Ammurapi','Forfend'}
+	shield_ind = 1 --Genmei is the Default
+	
+	sets.shield['Genmei'] = {sub="Genmei Shield"}
+	sets.shield['Ammurapi'] = {sub="Ammurapi Shield"}
+	sets.shield['Forfend'] = {sub="Forfend +1"}
 	
 	sets.enmity = {}
-	
-end
-
-function check_height() 
-	selfz = math.floor(windower.ffxi.get_mob_by_index(player.index).z * 10)/10
-	targetz = math.floor(windower.ffxi.get_mob_by_index(player.target.index).z * 10)/10
-	heightdiff = selfz - targetz
-	targdistance = math.floor(windower.ffxi.get_mob_by_index(player.target.index).distance:sqrt() * 10+0.5)/10
+	sets.movement = {legs=sets.idle.movment}
 end
 
 function precast(spell)
@@ -546,6 +618,7 @@ function precast(spell)
 		equip({main="Daybreak"})
 	elseif player.equipment.body ~= "Crepuscular Cloak" and spell.name == 'Impact' then
 		equip({body="Crepuscular Cloak"})
+		disable('head','body')
 	end
 	if buffactive['Stun'] or buffactive['Petrify'] or buffactive['Terror'] or ((spell.action_type == "WeaponSkill" or spell.action_type == "JobAbility") and buffactive['Amnesia']) or (spell.action_type == 'Magic' and buffactive['Silence']) then
 		cancel_spell()
@@ -617,15 +690,19 @@ function precast(spell)
 			cancel_spell()
 			add_to_chat(123, spell.name..' Canceled: [Out of Range]')
 		elseif player.tp >= 1000 then
+			if WSAccuracyNM:contains(spell.target.name) then
+				equip(sets.ws[spell.name].acc)
+			else
+				if sets.ws[spell.name] then
+					equip(sets.ws[spell.name])
+				else
+					equip(sets.ws.common)
+				end
+			end
 			if (player.tp >= 1000 and player.tp < 3000) and spell.name ~= "Sanguine Blade" then
-				equip({left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}}})
+				equip({left_ear="Moonshade Earring",})
 			else
 				equip({left_ear="Ishvara Earring"})
-			end
-			if sets.ws[spell.name] then
-				equip(sets.ws[spell.name])
-			else
-				equip(sets.ws.common)
 			end
 		end
 	end
@@ -647,7 +724,11 @@ function midcast(spell)
 			end
 		elseif spell.skill == 'Elemental Magic' then
 			if spell.name == "Impact" then
-				equip(sets.midcast.impact)
+				if spell.target.name == "Aminon" then
+					equip(sets.midcast.impact.aminon)
+				else
+					equip(sets.midcast.impact)
+				end
 			else
 				if spell.english == "Fire" or spell.english == "Stone" or spell.english == "Blizzard" or spell.english == "Thunder" or spell.english == "Water" or spell.english == "Aero" then
 					equip(sets.TP['DT'])
@@ -682,9 +763,9 @@ function midcast(spell)
 					equip({head="Lethargy Chappel +3",body="Lethargy Sayon +3",legs="Lethargy Fuseau +3",})
 				end
 				if GainSpells:contains(spell.name) then
-					equip({hands="Vitiation Gloves +3",})
+					equip({hands="Vitiation Gloves +4",})
 				elseif Spikes:contains(spell.name) then
-					equip({legs="Vitiation Tights +2",})
+					equip({legs="Vitiation Tights +3",})
 				end
 				if string.find(spell.english,'Protect') or string.find(spell.english,'Shell') and spell.target.type == 'SELF' then
 					equip({right_ring="Sheltered Ring"})
@@ -694,7 +775,7 @@ function midcast(spell)
 			if spell.name == "Dispelga" then
 				equip({main="Daybreak"})
 			elseif EnfeeblingMax:contains(spell.name) then
-				equip(sets.midcast.maxenfacc)
+				equip(sets.midcast.maxenfacc,{main="Daybreak"})
 			elseif EnfeeblingPot:contains(spell.name) then
 				equip(sets.midcast.SkillEnfeebles)
 			elseif EnfeeblingMND:contains(spell.name) then
@@ -706,11 +787,13 @@ function midcast(spell)
 			else
 				equip(sets.midcast.dia)
 			end
-		elseif spell.skill == 'Dark Magic' then
-			if string.find(spell.english,'Bio') then
-				equip(sets.midcast['Dark Magic'])
-			elseif spell.english:startswith('Drain') or spell.english:startswith('Aspir') then
+		elseif spell.skill == 'Dark Magic' and not spell.english:contains("Tractor") then
+			if spell.english:startswith('Drain') or spell.english:startswith('Aspir') then
 				weathercheck(spell.element,sets.midcast.drain)
+			elseif spell.english:startswith('Absorb') then
+				equip(sets.midcast.absorb)
+			else
+				equip(sets.midcast['Dark Magic'])
 			end
 		elseif spell.skill == 'Divine Magic' then
 			if spell.name == "Flash" then
@@ -740,7 +823,14 @@ function aftercast(spell)
 	elseif player.status == "Idle" then
 		equip(sets.idle[sets.idle.index[idle_ind]])
 	end
+	if spell.name == "Impact" then
+		enable('head','body')
+	end
+	if sets.idle[sets.idle.index[idle_ind]] == sets.idle['Idle'] then
+		equip(sets.idle.weapon)
+	end
 	busy = false
+	send_command('wait 0.5;gs c reequip_runspeed')
 end
 
 function status_change(new,old)
@@ -772,14 +862,18 @@ function buff_change(n, gain, buff_table)
 	name = string.lower(n)
 	if S{"silence"}:contains(name) then
         if gain then
-			send_command('@input /item "Echo Drops" <me>')
+			EchoDropsCheck = player.inventory['Echo Drops']
+			RemedyCheck = player.inventory['Remedy']
+			
+			if EchoDropsCheck then
+				send_command('@input /item "Echo Drops" <me>')
+			elseif RemedyCheck then
+				send_command('@input /item "Remedy" <me>')
+			end
 		end
 	elseif S{"reraise"}:contains(name) then
-		if gain then
-		else
-			if player.hp ~= 0 then
-				add_to_chat(123, 'Reraise: [lost]')
-			end
+		if not gain and player.hp ~= 0 then
+			add_to_chat(123, 'Reraise: [lost]')
 		end
 	elseif S{"sleep"}:contains(name) then
 		if player.status == "Idle" then
@@ -883,11 +977,15 @@ end
 
 function updateRunspeedGear( value )
 
-    if not value and not busy then
-		equip({legs=sets.idle.pants})
+    if not value and not busy and player.status == "Idle" then
+		if sets.idle[sets.idle.index[idle_ind]] == sets.idle['Aminon'] then
+			equip({legs=sets.idle['Aminon'].legs})
+		else
+			equip({legs=sets.idle['Idle'].legs})
+		end
     else
 		if player.status == "Idle" and not busy then 
-			equip({legs="Carmine Cuisses +1",})
+			equip(sets.idle.movment)
 		end
     end
 end
@@ -898,51 +996,64 @@ function self_command(command)
 		if TP_ind > #sets.TP.index then TP_ind = 1 end
 		windower.add_to_chat(1,'<----- TP Set changed to '..sets.TP.index[TP_ind]..' ----->')
 		equip(sets.TP[sets.TP.index[TP_ind]])
-    end
-	if command == 'toggle idle set' then
+    elseif command == 'toggle idle set' then
 		idle_ind = idle_ind +1
 		if idle_ind > #sets.idle.index then idle_ind = 1 end
 		windower.add_to_chat(1,'<----- idle Set changed to '..sets.idle.index[idle_ind]..' ----->')
 		enable('main','sub','range','ammo')
 		equip(sets.idle[sets.idle.index[idle_ind]])
-	end
-	if command == 'toggle nuke set' then
+	elseif command == 'toggle nuke set' then
 		nuke_ind = nuke_ind +1
 		if nuke_ind > #sets.nuke.index then nuke_ind = 1 end
 		windower.add_to_chat(1,'<----- nuke Set changed to '..sets.nuke.index[nuke_ind]..' ----->')
-	end
-	if command == 'toggle main set' then
+	elseif command == 'toggle main set' then
 		main_ind = main_ind +1
 		if main_ind > #sets.main.index then main_ind = 1 end
 		windower.add_to_chat(1,'<----- main Set changed to '..sets.main.index[main_ind]..' ----->')
 		enable('main')
 		equip(sets.main[sets.main.index[main_ind]])
-	end
-	if command == 'toggle sub set' then
+		if main_ind == 1 or main_ind == 2 then
+			send_command('alias physical @input /ws "Savage Blade" <t>')
+			send_command('alias magical @input /ws "Sanguine Blade" <t>')
+		elseif main_ind == 3 then
+			send_command('alias physical @input /ws "Black Halo" <t>')
+			send_command('alias magical @input /ws "Brainshaker" <t>')
+		elseif main_ind == 4 then
+			send_command('alias physical @input /ws "Ruthless Stroke" <t>')
+			send_command('alias magical @input /ws "Aeolian Edge" <t>')
+		end
+	elseif command == 'toggle sub set' then
 		if sets.idle[sets.idle.index[idle_ind]] == sets.idle['DW'] then
 			sub_ind = sub_ind +1
 			if sub_ind > #sets.sub.index then sub_ind = 1 end
 			windower.add_to_chat(1,'<----- sub Set changed to '..sets.sub.index[sub_ind]..' ----->')
 			enable('sub')
 			equip(sets.sub[sets.sub.index[sub_ind]])
+		elseif sets.idle[sets.idle.index[idle_ind]] == sets.idle['Idle'] then
+			shield_ind = shield_ind +1
+			if shield_ind > #sets.shield.index then shield_ind = 1 end
+			windower.add_to_chat(1,'<----- shield Set changed to '..sets.shield.index[shield_ind]..' ----->')
+			enable('sub')
+			equip(sets.shield[sets.shield.index[shield_ind]])
 		end
-	end
-	if command == 'toggle weaponlock' then
+	elseif command == 'toggle weaponlock' then
 		weaponlock = not weaponlock
 		windower.add_to_chat(1,'<----- Weapon Locked: '..tostring(weaponlock)..' ----->')
-	end
-	if command == 'toggle runspeed' then
+		if weaponlock then
+			disable('main','sub','range')
+			if player.equipment.range ~= "empty" then
+				disable('ammo')
+			end
+		else
+			enable('main','sub','range','ammo')
+		end
+	elseif command == 'toggle runspeed' then
 		runspeed = not runspeed
+		updateRunspeedGear(runspeed)
+	elseif command == 'reequip_runspeed' then
 		updateRunspeedGear(runspeed)
 	end
 end
-
-send_command('bind !q gs c toggle TP set') -- Hit alt+q, toggles the sets
-send_command('bind !e gs c toggle idle set') -- Hit alt+e, toggles the sets
-send_command('bind !n gs c toggle nuke set') -- Hit alt+e, toggles the sets
-send_command('bind ^` gs c toggle main set') -- Hit ctrl+`, toggles the sets
-send_command('bind !` gs c toggle sub set') -- Hit alt+`, toggles the sets
-send_command('bind !a gs c toggle weaponlock') -- Hit alt+a, toggles the sets
 
 function file_unload()
     send_command('unbind !a')
@@ -951,12 +1062,11 @@ function file_unload()
 	send_command('unbind !n')
 	send_command('unbind !`')
 	send_command('unbind ^`')
+	send_command('unbind !w')
+
+	send_command('lua u Skillchains')
+	send_command('lua u partybuffs')
 end
-
------------------------------------- Alias -------------------------------------
-
-send_command('alias cl enable(\'main\',\'sub\');gs equip sets.main[\'Crocea Mors\'];gs equip sets.sub[\'Daybreak\']')
-send_command('alias nuke enable(\'main\',\'sub\');gs equip sets.main[\'Daybreak\'];gs equip sets.sub[\'Bunzi Rod\']')
 
 ---------------------------------- Stratagems ----------------------------------
 
@@ -1013,14 +1123,19 @@ function set_macros(sheet,book)
         return
     end
     send_command('@input /macro set '..tostring(sheet))
-	add_to_chat (55, 'You are on '..('Red Mage'):color(5)..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 function set_style(sheet)
     send_command('@input ;wait 5.0;input /lockstyleset '..sheet)
+	add_to_chat (55, 'You are on '..tostring(player.main_job_full):color(5)..''..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 --Page, Book--
 set_macros(1,6)
 --Use the Lockstyle Number--
-set_style(004)  
+set_style(004)
+
+RelicWeapons = S{"Spharai","Mandau","Excalibur","Ragnarok","Guttler","Bravura","Apocalypse","Gungnir","Kikoku","Amanomurakumo","Mjollnir","Claustrum"}
+MythicWeapons = S{"Conqueror","Glanzfaust","Yagrush","Laevateinn","Murgleis","Vajra","Burtgang","Liberator","Aymur","Carnwenhan","Kogarasumaru","Nagi","Ryunohige","Nirvana","Tizona","Kenkonken","Terpsichore","Tupsimati"}
+EmpyreanWeapons =S{"Verethragna","Twashtar","Almace","Caladbolg","Farsha","Ukonvasara","Redemption","Rhongomiant","Kannagi","Masamune","Gambanteinn","Hvergelmir"}
+PrimeWeapons = S{"Varga Purnikawa","Mpu Gandring","Caliburnus","Helheim","Spalirisos","Laphria","Foenaria","Gae Buide","Dokoku","Kusanagi","Lorg Mor","Opashoro"}

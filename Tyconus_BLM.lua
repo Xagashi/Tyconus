@@ -111,13 +111,11 @@ function get_sets()
 	})
 	
 	sets.midcast.enfeeble = set_combine(sets.midcast.conservemp, {
-	--main="Contemplator +1",
-	--sub="Khonsu",
-	head=empty,
-	neck="Incanter's Torque",
+	head="Spaekona's Petasos +4",
+	neck="Sorcerer's Stole +2",
 	left_ear="Regal Earring",
 	right_ear="Malignance Earring",
-	body="Cohort Cloak +1",
+	body="Spaekona's Coat +4",
 	hands="Agwu's Gages",
 	left_ring="Stikini Ring +1",
 	right_ring="Metamorph Ring +1",
@@ -137,7 +135,7 @@ function get_sets()
 	nuke_ind = 1 --Free set is the Default
 	
 	sets.nuke['Free'] = {
-	ammo="Ghastly Tathlum +1",
+	ammo="Sroda Tathlum",
 	head="Agwu's Cap",
 	neck="Sorcerer's Stole +2",
 	left_ear="Regal Earring",
@@ -145,7 +143,7 @@ function get_sets()
 	body="Wicce Coat +3",
 	hands="Wicce Gloves +3",
 	left_ring="Freke Ring",
-	right_ring="Metamorph Ring +1",
+	right_ring="Medada's Ring",
 	back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}},
 	waist="Acuity Belt +1",
 	legs="Wicce Chausses +3",
@@ -153,9 +151,12 @@ function get_sets()
 	}
 	
 	sets.nuke['MB'] = set_combine(sets.nuke['Free'], {
+	ammo="Ghastly Tathlum +1",
 	head="Ea Hat +1",
-	neck="Mizukage-no-Kubikazari",  --Remove
-	legs="Agwu's Slops",
+	hands="Agwu's Gages",
+	left_ring="Mujin Band",
+	legs="Archmage's Tonban +4",
+	feet="Wicce Sabots +3"
 	})
 	
 	sets.midcast['Dark Magic'] = set_combine(sets.midcast.conservemp, {
@@ -184,7 +185,7 @@ function get_sets()
 	})
 	
 	sets.ailment = {
-	ammo="Pemphredo Tathlum",
+	ammo="Ghastly Tathlum +1",
 	head="Ea Hat +1",
 	neck="Sorcerer's Stole +2",
 	left_ear="Malignance Earring",
@@ -195,8 +196,8 @@ function get_sets()
     right_ring={name="Stikini Ring +1", bag="wardrobe2"},
 	back="Aurist's Cape +1",
 	waist="Acuity Belt +1",
-	legs="Archmage's Tonbon +3",
-	feet="Archmage's Sabots +3"
+	legs="Archmage's Tonban +4",
+	feet="Archmage's Sabots +4"
 	}
 
 ---------------------------------------------------------------------------------------------------------------
@@ -205,7 +206,7 @@ function get_sets()
 
 	sets.movement = {feet="Herald's Gaiters"}
 	
-	--sets.ja['Manafont'] = {body="Archmage's Coat +1"}
+	sets.ja['Manafont'] = {body="Archmage's Coat +3"}
 
 	sets.buff.skulk = set_combine(sets.midcast.EnhancingDuration, {back = "Skulker's Cape"})
 	
@@ -236,7 +237,7 @@ function get_sets()
 	
 	sets.idle['Refresh'] = {
 	ammo="Staunch Tathlum +1",
-	head="Volte Beret",
+	head="Null Masque",
 	neck="Loricate Torque +1",
 	left_ear="Etiolation Earring",
 	right_ear="Lugalbanda Earring",
@@ -251,12 +252,11 @@ function get_sets()
 	}
 	
 	sets.idle['DT'] = {
-	head="Nyame Helm",
 	body="Nyame Mail",
 	hands="Nyame Gauntlets",
 	back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}},
 	left_ring="Gelatinous Ring +1",
-	right_ring="Defending Ring",
+	right_ring="Murky Ring",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
 	}
@@ -267,14 +267,14 @@ function get_sets()
 	sets.TP['Melee'] = {
 	ammo="Oshasha's Treatise",
 	head="Nyame Helm",
-	neck="Combatant's Torque",
+	neck="Null Loop",
 	left_ear="Telos Earring",
 	right_ear="Mache Earring +1",
 	body="Nyame Mail",
-	hands="Nyame Gauntlets",
+	hands="Gazu Bracelets +1",
 	left_ring={name="Chirich Ring +1", bag="wardrobe2"},
-    right_ring={name="Chirich Ring +1", bag="wardrobe6"},
-	back="Aurist's Cape +1",
+    right_ring={name="Chirich Ring +1", bag="wardrobe3"},
+	back="Null Shawl",
 	waist="Olseni Belt",
 	legs="Nyame Flanchard",
 	feet="Nyame Sollerets"
@@ -369,16 +369,55 @@ function get_sets()
 
 end
 
-function check_height() 
-	selfz = math.floor(windower.ffxi.get_mob_by_index(player.index).z * 10)/10
-	targetz = math.floor(windower.ffxi.get_mob_by_index(player.target.index).z * 10)/10
-	heightdiff = selfz - targetz
-	targdistance = math.floor(windower.ffxi.get_mob_by_index(player.target.index).distance:sqrt() * 10+0.5)/10
+function handle_elemental_tier_fallback(spell, spell_recasts)
+	if spell.skill ~= 'Elemental Magic' then
+		return false
+	end
+	
+	local spell_tiers = {
+		['Stone'] = {'Stone VI','Stone V','Stone IV','Stone III','Stone II','Stone'},
+		['Fire']  = {'Fire VI','Fire V','Fire IV','Fire III','Fire II','Fire'},
+		['Water'] = {'Water VI','Water V','Water IV','Water III','Water II','Water'},
+		['Aero']  = {'Aero VI','Aero V','Aero IV','Aero III','Aero II','Aero'},
+		['Blizzard'] = {'Blizzard VI','Blizzard V','Blizzard IV','Blizzard III','Blizzard II','Blizzard'},
+		['Thunder']  = {'Thunder VI','Thunder V','Thunder IV','Thunder III','Thunder II','Thunder'},
+	}
+	
+	for base, tiers in pairs(spell_tiers) do
+		for i, name in ipairs(tiers) do
+			if spell.english == name then
+				local current_on_cd = spell.recast_id and spell_recasts[spell.recast_id] and spell_recasts[spell.recast_id] > 0
+				if current_on_cd then
+					for j = i + 1, #tiers do
+						local alt_spell = res.spells:with('en', tiers[j])
+						if alt_spell and spell_recasts[alt_spell.recast_id] == 0 then
+							add_to_chat(123, '⬇️ ['..spell.english..'] on cooldown, casting ['..alt_spell.en..'] instead.')
+							cancel_spell()
+							send_command('input /ma "'..alt_spell.en..'" <t>')
+							return true
+						end
+					end
+					cancel_spell()
+					return true
+				end
+				return false
+			end
+		end
+	end
+	
+	return false
 end
 
 function precast(spell)
-	if buffactive['Stun'] or buffactive['Petrify'] or ((spell.action_type == "WeaponSkill" or spell.action_type == "JobAbility") and buffactive['Amnesia']) or (spell.action_type == 'Magic' and buffactive['Silence']) then
+	local spell_recasts = windower.ffxi.get_spell_recasts()
+	local ja_recasts = windower.ffxi.get_ability_recasts()
+	busy = true
+	if handle_elemental_tier_fallback(spell, spell_recasts) then
+		return
+	end
+	if buffactive['Stun'] or buffactive['Petrify'] or buffactive['Terror'] or ((spell.action_type == "WeaponSkill" or spell.action_type == "JobAbility") and buffactive['Amnesia']) or (spell.action_type == 'Magic' and buffactive['Silence']) or (spell.recast_id and spell_recasts[spell.recast_id] and spell_recasts[spell.recast_id] > 0) or (spell.type == "JobAbility" and spell.recast_id and ja_recasts[spell.recast_id] and ja_recasts[spell.recast_id] > 0) then
 		cancel_spell()
+		return
 	elseif buffactive['Weakness'] and spell.name == "Sublimation" then
 		cancel_spell()
 		add_to_chat(123, spell.name..' Canceled: [Weakness]')
@@ -482,9 +521,9 @@ function midcast(spell)
 					equip({neck="Quanpur Necklace"})
 				end
 			end
-			--if player.mpp <= 35 then
-			--	equip({body="Spaekona's Coat +3"})
-			--end
+			if player.mpp <= 35 then
+				equip({body="Spaekona's Coat +4"})
+			end
 		elseif spell.skill == "Enhancing Magic" and not S{'Warp','Warp II','Retrace','Teleport-Holla','Teleport-Mea','Teleport-Dem','Teleport-Altep','Teleport-Vahzl','Teleport-Yhoat'}:contains(spell.english) then
 			if spell.english == "Sneak" or spell.english == "Invisible" then
 				equip(sets.buff.skulk)
@@ -711,11 +750,11 @@ function set_macros(sheet,book)
         return
     end
     send_command('@input /macro set '..tostring(sheet))
-	add_to_chat (55, 'You are on '..('White Mage'):color(5)..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 function set_style(sheet)
     send_command('@input ;wait 5.0;input /lockstyleset '..sheet)
+	add_to_chat (55, 'You are on '..tostring(player.main_job_full):color(5)..''..('. '):color(55)..''..('Macros set!'):color(121))
 end
  
 --Page, Book--
